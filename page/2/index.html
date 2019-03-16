@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="openstack">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="openstack">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="openstack">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/2/">
+
+
+
+
+
+  <title>openstack</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">openstack</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/seckill/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/13/seckill/" itemprop="url">seckill</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T21:37:29+08:00">
+                2018-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/爬虫/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="京东自动登录"><a href="#京东自动登录" class="headerlink" title="京东自动登录"></a>京东自动登录</h2><p>注：本文所做操作皆以京东web为例</p>
+<p>包含：xpath,splinter,ocr</p>
+<p>遇到的坑：  </p>
+<ol>
+<li><p>登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">browser.fill(&quot;loginname&quot;, name)  # 填写账户密码</span><br><span class="line">browser.fill(&quot;nloginpwd&quot;, passwd)</span><br></pre></td></tr></table></figure>
+<p>报错信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">selenium.common.exceptions.InvalidElementStateException: Message: invalid element state: Element is not currently interactable and may not be manipulated</span><br></pre></td></tr></table></figure>
+<p>实际原因如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">元素你看得到，但是代码要操作的元素是跟随鼠标变更样式的，或者其他条件实时变更的，导致代码不能“看见”。这种情况就需要通过js操作dom元素来适应场景。</span><br></pre></td></tr></table></figure>
+<p>经过分析，查看网页源代码可以看到，实际被js代码渲染，可能更改，所以一定要保持页面如真是用户操作一样，方可。所以添加如下代码,解决问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">browser.click_link_by_text(&quot;账户登录&quot;)#使login,passwd可见</span><br><span class="line">browser.fill(&quot;loginname&quot;, name)  </span><br><span class="line">browser.fill(&quot;nloginpwd&quot;, passwd)</span><br></pre></td></tr></table></figure>
+<p>2.京东验证吗</p>
+<p>注：京东验证码阻塞了俩天，通过搜索知道京东验证码由三部分组成；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acid，uid，yys三部分拼装而成，acid，uid为固定值，可以从页面直接抓取，yys为随机生成的13为字符串，拼装而成的验证码例如url=https://authcode.jd.com/verify/image?a=1&amp;acid=b6ff1eca-e3e5-4692-904b-be35da5f0752&amp;uid=b6ff1eca-e3e5-4692-904b-be35da5f0752&amp;yys=5436761901589</span><br></pre></td></tr></table></figure>
+<p> 过程1. requests 请求url获取一直ok,通过requests返回值result, 查看result.text发现返回的为京东首页的html网页内容，显然有误，查看返回302代码，重定向。定位问题，应该是访问url,ok.requests headers 有误。然后添加了cookie，返回200</p>
+<p> 过程2.  返回200，查看返回数据，发现一堆乱码，以为是编码问题，打印result.encoding,返回None,应该不是编码问题。经搜索，返回如果是图片，应该是二进制数据，所以乱码。尝试保存数据到硬盘，发现验证码图片保存成功。</p>
+<p> 过程3. 调用百度ocr接口，实现验证码识别，准确度不高，有待提高</p>
+</li>
+</ol>
+<p>代码地址:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/wanderingpuppy/seckill</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/Splinter环境配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/06/Splinter环境配置/" itemprop="url">Splinter环境配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T16:09:36+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/环境搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">环境搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="mac-Splinter环境配置"><a href="#mac-Splinter环境配置" class="headerlink" title="mac Splinter环境配置"></a>mac Splinter环境配置</h1><p>注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等  </p>
+<ol>
+<li>pip install Splinter<br>测试是否安装成功,python环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from splinter.browser import Browser</span><br><span class="line">&gt;&gt;&gt; b = Browser()</span><br><span class="line">&gt;&gt;&gt;b.visit(&quot;http://www.baidu.com/&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果正常打开浏览器页面则成功，如果报错如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;splinter/browser.py&quot;, line 63, in Browser</span><br><span class="line">    return driver(*args, **kwargs)</span><br><span class="line">  File &quot;splinter/driver/webdriver/firefox.py&quot;, line 39, in __init__</span><br><span class="line">self.driver = Firefox(firefox_profile)</span><br><span class="line">……</span><br></pre></td></tr></table></figure></p>
+<p>说明： splinter默认支持Firefox，如果没有安装相应版本则报错，如果是chrome，需要安装chrome的驱动。<br>2.安装chromedriver<br>mac 安装 brew install chromedriver 报错超时，只能手动下载安装  </p>
+<p>1&gt; 不能FQ，国内下载的网站<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://chromedriver.storage.googleapis.com/index.html</span><br></pre></td></tr></table></figure></p>
+<p>2&gt;查看浏览器版本，下载对应的chromedriver<br>3&gt;解压拷贝到usr/local/bin 下即可<br>测试是否成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from splinter.browser import Browser</span><br><span class="line">&gt;&gt;&gt; b = Browser(&quot;chrome&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>正常打开即ok</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/mac-python虚拟环境配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/29/mac-python虚拟环境配置/" itemprop="url">mac_python虚拟环境配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T22:42:47+08:00">
+                2018-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="mac-搭建Python-虚拟环境"><a href="#mac-搭建Python-虚拟环境" class="headerlink" title="mac 搭建Python 虚拟环境"></a>mac 搭建Python 虚拟环境</h2><p>原因：不想高混淆本的的mac运行环境<br>步骤:</p>
+<ol>
+<li><p>sudo pip install virtualenv </p>
+</li>
+<li><p>建立一个工作目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir work</span><br><span class="line">cd work</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个虚拟环境env1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装virtualenvwrapper<br>注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新增，删除，复制，切换虚拟环境。<br>命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo easy_install virtualenvwrapper</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个文件夹，存放所有的虚拟环境·</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/workspaces</span><br><span class="line">cd ~/workspaces</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置环境变量  </p>
+</li>
+</ol>
+<p>6.1 查看python 安装位置<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">whick virtualenvwrapper.sh</span><br><span class="line">which python</span><br><span class="line">```  </span><br><span class="line">6.2 编辑文件</span><br></pre></td></tr></table></figure></p>
+<p>  vi ~/.bash_profile  增加<br>  export WORKON_HOME=’~/.virtualenvs’</p>
+<p>export VIRTUALENVWRAPPER_PYTHON=’/Users/mac/anaconda/bin/python3’</p>
+<p>source /Users/mac/anaconda/bin/virtualenvwrapper.sh</p>
+<p>退出，执行 source ~/.bash_profile<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后就可以基于virtualenvwrapper创建多个虚拟环境了 evn1,2nv2</span><br></pre></td></tr></table></figure></p>
+<p> mkvirtualenv env1<br>成功后，当前路径前面就会有 (env1)<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基础操作命令：列出虚拟环境：</span><br></pre></td></tr></table></figure></p>
+<p>$ lsvirtualenv -b<br>env1<br>env2<br>切换虚拟环境：<br>$ workon env1<br>查看环境里安装了哪些包：<br>$ lssitepackages<br>进入当前环境：<br>$ cdvirtualenv<br>进入当前环境的site-packages：<br>$ cdsitepackages<br>$ cdsitepackages pip<br>复制虚拟环境：<br>$ cpvirtualenv env1 env3<br>Copying env1 as env3…<br>退出虚拟环境：<br>$ deactivate<br>删除虚拟环境：<br>$ rmvirtualenv env2<br>Removing env2…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安装 Numpy，Scipy，Matplotlib 等</span><br><span class="line">接下来安装Python的各种包，就比较顺畅了，比如安在env1上：</span><br></pre></td></tr></table></figure>
+<p>$ workon env1<br>安装numpy<br>pip install numpy</p>
+<p>安装scipy<br>$ pip install scipy</p>
+<p><code>`</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/blog备份还原/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/14/blog备份还原/" itemprop="url">blog备份还原</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-14T20:46:25+08:00">
+                2018-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="github-blog博客换台机器"><a href="#github-blog博客换台机器" class="headerlink" title="github blog博客换台机器"></a>github blog博客换台机器</h1><p>1.直接在另一台机器上重新生成ssh 公钥，重新在github官网替换即可<br>命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxx@xxx.com&quot;</span><br></pre></td></tr></table></figure></p>
+<p>2.把原来的blog文件夹整体拷贝即可,不用做任何修改  </p>
+<p>Done,愉快的玩耍！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/KVM搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/02/KVM搭建/" itemprop="url">CentOS 7.3 KVM的安装与配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T21:02:39+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/openstack/" itemprop="url" rel="index">
+                    <span itemprop="name">openstack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CentOS-7-3-KVM的安装与配置"><a href="#CentOS-7-3-KVM的安装与配置" class="headerlink" title="CentOS 7.3 KVM的安装与配置"></a>CentOS 7.3 KVM的安装与配置</h1><ul>
+<li>vm 版本：12.5.7.20721（virbox 不支持）</li>
+<li>centos 7.3 X64<h2 id="1-查看服务器是否支持虚拟化"><a href="#1-查看服务器是否支持虚拟化" class="headerlink" title="1.查看服务器是否支持虚拟化"></a>1.查看服务器是否支持虚拟化</h2></li>
+<li>cat /proc/cpuinfo |grep vmx（出现信息说明支持）<h2 id="2-安装kvm以及需要的依赖包，使用如下命令"><a href="#2-安装kvm以及需要的依赖包，使用如下命令" class="headerlink" title="2.安装kvm以及需要的依赖包，使用如下命令"></a>2.安装kvm以及需要的依赖包，使用如下命令</h2></li>
+<li>yum install -y qemu-kvm qemu-key-tools virt-manager libvirt virt-install   python-virtinst bridge-utils<h2 id="3-证明kvm模块已安装成功"><a href="#3-证明kvm模块已安装成功" class="headerlink" title="3.证明kvm模块已安装成功"></a>3.证明kvm模块已安装成功</h2></li>
+<li>lsmod |grep kvm</li>
+</ul>
+<ol>
+<li>kvm_intel             148081  0 </li>
+<li>kvm                   461126  1 kvm_intel<h2 id="4-加载KVM模块"><a href="#4-加载KVM模块" class="headerlink" title="4.加载KVM模块"></a>4.加载KVM模块</h2></li>
+</ol>
+<ul>
+<li>#modprobe kvm</li>
+<li>#modprobe kvm_intel<h2 id="5-开启kvm服务，并且设置其开机自动启动"><a href="#5-开启kvm服务，并且设置其开机自动启动" class="headerlink" title="5.开启kvm服务，并且设置其开机自动启动"></a>5.开启kvm服务，并且设置其开机自动启动</h2></li>
+<li>systemctl start libvirtd<br>systemctl enable libvirtd<h2 id="6-配置桥接网卡"><a href="#6-配置桥接网卡" class="headerlink" title="6.配置桥接网卡"></a>6.配置桥接网卡</h2></li>
+<li>cp /etc/sysconfig/network-scripts/ifcfg-ens33 /etc/sysconfig/network-scripts/ifcfg-br0</li>
+<li>修改ifcfg-eth0，只需在最后加上“BRIDGE=br0”，将其桥接到br0,br0文件配置（TYPE=Birdge,BOOTPROTO=static,DEVICE=br0,ip,mask,gateway,dns）<h2 id="7-重启网卡使之生效"><a href="#7-重启网卡使之生效" class="headerlink" title="7.重启网卡使之生效"></a>7.重启网卡使之生效</h2></li>
+<li>systemctl restart network.service<h2 id="8-创建ISO镜像"><a href="#8-创建ISO镜像" class="headerlink" title="8.创建ISO镜像"></a>8.创建ISO镜像</h2></li>
+<li>dd if=/dev/cdrom of=/opt/Centos-7.1.iso(镜像地址)<h2 id="9-创建虚拟机硬盘"><a href="#9-创建虚拟机硬盘" class="headerlink" title="9.创建虚拟机硬盘"></a>9.创建虚拟机硬盘</h2></li>
+<li>qemu-img create -f qcow2 /kvmdir/centos7.1.img 4G(先创建目录与文件)（不能创建.raw格式,否则安装vnc安装镜像时磁盘不识别）<h2 id="10-创建虚拟机（出错概率大）"><a href="#10-创建虚拟机（出错概率大）" class="headerlink" title="10.创建虚拟机（出错概率大）"></a>10.创建虚拟机（出错概率大）</h2></li>
+<li>virt-install –name Centos –virt-type kvm –ram 1024 –cdrom=/opt/CentOS-7.1.iso –disk path=/kvmdir/centos7.1.img –graphics vnc,listen=0.0.0.0,port=5920</li>
+</ul>
+<ol>
+<li>错误1</li>
+</ol>
+<ul>
+<li><img src="e:kvm1.png" alt="image"></li>
+<li>解决： virsh list –all 查看虚拟机名字 2.virsh destroy vm_name;virsh undefine vm_name 3. 重新安装虚拟机</li>
+</ul>
+<ol start="2">
+<li>错误</li>
+</ol>
+<ul>
+<li><img src="e:kvm2.png" alt="image"></li>
+<li>解决：port=5920 重新换个端口号<h2 id="11-安装VNC-服务器"><a href="#11-安装VNC-服务器" class="headerlink" title="11.安装VNC 服务器"></a>11.安装VNC 服务器</h2></li>
+<li>yum install tigervnc-server -y<h3 id="配置-VNC"><a href="#配置-VNC" class="headerlink" title="配置 VNC"></a>配置 VNC</h3></li>
+</ul>
+<ol>
+<li>在 /etc/systemd/system/ 目录里创建一个配置文件。可以将 /lib/systemd/sytem/vncserver@.service 拷贝一份配置文件范例过来</li>
+<li>cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service</li>
+<li>打开 /etc/systemd/system/vncserver@:1.service ，找到下面这几行，用自己的用户名替换掉 </li>
+</ol>
+<ul>
+<li>ExecStart=/sbin/runuser -l <user>-c “/usr/bin/vncserver %i”</user></li>
+<li>PIDFile=/home/<user>/.vnc/%H%i.pid替换成</user></li>
+<li>ExecStart=/sbin/runuser -l linoxide -c “/usr/bin/vncserver %i”</li>
+<li>PIDFile=/home/linoxide/.vnc/%H%i.pid</li>
+<li>如果是 root 用户则</li>
+</ul>
+<ol>
+<li>ExecStart=/sbin/runuser -l root -c “/usr/bin/vncserver %i”</li>
+<li>PIDFile=/root/.vnc/%H%i.pid<br>###　重启 systemd </li>
+<li>systemctl daemon-reload</li>
+</ol>
+<ul>
+<li>设置一下用户的 VNC 密码</li>
+</ul>
+<ol>
+<li>vncpasswd<h3 id="开启VNC服务"><a href="#开启VNC服务" class="headerlink" title="开启VNC服务"></a>开启VNC服务</h3></li>
+<li>systemctl enable vncserver@:1.service</li>
+<li>systemctl start vncserver@:1.service<h3 id="打开防火墙上的5920端口-或关闭防火墙"><a href="#打开防火墙上的5920端口-或关闭防火墙" class="headerlink" title="打开防火墙上的5920端口(或关闭防火墙)"></a>打开防火墙上的5920端口(或关闭防火墙)</h3></li>
+<li>systemctl stop firewalld.service</li>
+<li>systemctl disable firewalld.service<h2 id="安装gnome图形界面程序-VNC需要-官网下载"><a href="#安装gnome图形界面程序-VNC需要-官网下载" class="headerlink" title="安装gnome图形界面程序(VNC需要-官网下载)"></a>安装gnome图形界面程序(VNC需要-官网下载)</h2></li>
+<li>yum groupinstall “GNOME Desktop” “Graphical Administration Tools”</li>
+</ol>
+<ul>
+<li>更新系统的运行级别(开机启动图像化)</li>
+</ul>
+<ol>
+<li>ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target</li>
+</ol>
+<ul>
+<li>vncserver 查看状态可能出现：<img src="e:kvm3.png" alt="image"></li>
+<li>检查vnc服务正在监听的端口：</li>
+</ul>
+<ol>
+<li>netstat -tulpn | grep vnc</li>
+</ol>
+<ul>
+<li>发现端口正常，vncserver服务正常（怪），可以正常远程连接</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/书籍记录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/02/书籍记录/" itemprop="url">书籍记录提醒</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T21:02:39+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/书籍记录/" itemprop="url" rel="index">
+                    <span itemprop="name">书籍记录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="社科类"><a href="#社科类" class="headerlink" title="社科类"></a>社科类</h2><h2 id="工具书"><a href="#工具书" class="headerlink" title="工具书"></a>工具书</h2><h2 id="技术视野"><a href="#技术视野" class="headerlink" title="技术视野"></a>技术视野</h2><h2 id="亟待补充"><a href="#亟待补充" class="headerlink" title="亟待补充"></a>亟待补充</h2><ul>
+<li>其他书单 <a href="https://www.liuchuo.net/archives/category/books" target="_blank" rel="noopener">https://www.liuchuo.net/archives/category/books</a> </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/home下磁盘空间移动到根目录下/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/23/home下磁盘空间移动到根目录下/" itemprop="url">home下磁盘空间移动到根目录</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T20:46:25+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、目的"><a href="#一、目的" class="headerlink" title="一、目的"></a>一、目的</h2><p>在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况：</p>
+<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           404G 670M 382G  1% /home<br>下面的详细步骤部分将从vg_centos-lv_home分区下取出100G的空间添加到/vg_centos-lv_root分区上去。</p>
+<h2 id="二、详细步骤"><a href="#二、详细步骤" class="headerlink" title="二、详细步骤"></a>二、详细步骤</h2><ol>
+<li>卸载vg_centos-lv_home分区</li>
+</ol>
+<p>[root@CentOS-78 /]# umount /home<br>此时在用df命令查看将会发现/home目录已经看不见了，如下所示：</p>
+<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot </p>
+<ol start="2">
+<li>从新设定vg_home-lv_home的大小</li>
+</ol>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_home 282G<br>resize2fs 1.41.12 (17-May-2010)<br>Please run ‘e2fsck -f /dev/mapper/vg_centos-lv_home’ first.<br>这一步设定vg_home-lv_home大小没有成功，系统提示我们先运行下面的命令，操作如下：</p>
+<p>[root@CentOS-78 /]# e2fsck -f /dev/mapper/vg_centos-lv_home<br>e2fsck 1.41.12 (17-May-2010)<br>Pass 1: Checking inodes, blocks, and sizes<br>Pass 2: Checking directory structure<br>Pass 3: Checking directory connectivity<br>Pass 4: Checking reference counts<br>Pass 5: Checking group summary information<br>/dev/mapper/vg_centos-lv_home: 1386/26836992 files (0.9% non-contiguous), 1855856/107344896 blocks<br>从新设定vg_home-lv_home的大小：</p>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_home 282G<br>resize2fs 1.41.12 (17-May-2010)<br>Resizing the filesystem on /dev/mapper/vg_centos-lv_home to 73924608 (4k) blocks.<br>Begin pass 2 (max = 43)<br>Relocating blocks       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>Begin pass 3 (max = 3276)<br>Scanning inode table     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>Begin pass 4 (max = 266)<br>Updating inode references   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>The filesystem on /dev/mapper/vg_centos-lv_home is now 73924608 blocks long.<br>检查是否成功：</p>
+<p>[root@CentOS-78 /]# mount /home<br>[root@CentOS-78 /]#<br>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           278G 663M 263G  1% /home<br>[root@CentOS-78 /]# </p>
+<ol start="3">
+<li>将lv_home逻辑分区减小到指定大小</li>
+</ol>
+<p>[root@CentOS-78 /]# lvreduce -L 282G /dev/mapper/vg_centos-lv_home<br> WARNING: Reducing active and open logical volume to 282.00 GiB<br> THIS MAY DESTROY YOUR DATA (filesystem etc.)<br>Do you really want to reduce lv_home? [y/n]: y<br> Reducing logical volume lv_home to 282.00 GiB<br> Logical volume lv_home successfully resized<br>[root@CentOS-78 /]#<br>我认为这个命令是将已经减少的100G空间拿到系统公共的区域，可以被其他分区加载和利用。<br>查询卷组的信息：</p>
+<p>[root@CentOS-78 /]# vgdisplay<br> — Volume group —<br> VG Name        vg_centos<br> System ID<br> Format        lvm2<br> Metadata Areas    1<br> Metadata Sequence No 5<br> VG Access       read/write<br> VG Status       resizable<br> MAX LV        0<br> Cur LV        3<br> Open LV        3<br> Max PV        0<br> Cur PV        1<br> Act PV        1<br> VG Size        465.27 GiB<br> PE Size        4.00 MiB<br> Total PE       119109<br> Alloc PE / Size    86472 / 337.78 GiB<br> Free PE / Size    32637 / 127.49 GiB<br> VG UUID        1k4ooN-RFV9-uyf1-uMYf-aERG-YaGs-ZNoSD6<br>Free PE / Size指定的应该是现在可在分配的空间。</p>
+<ol start="4">
+<li>增加vg_centos-lv_root分区的大小<br>将可用的空间添加到vg_centos-lv_root分区上面：</li>
+</ol>
+<p>[root@CentOS-78 /]# lvextend -L +127.40G /dev/mapper/vg_centos-lv_root<br> Rounding up size to full physical extent 127.40 GiB<br> Extending logical volume lv_root to 177.40 GiB<br> Logical volume lv_root successfully resized<br>[root@CentOS-78 /]#<br>从新设定该分区的大小：</p>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_root<br>resize2fs 1.41.12 (17-May-2010)<br>Filesystem at /dev/mapper/vg_centos-lv_root is mounted on /; on-line resizing required<br>old desc_blocks = 4, new_desc_blocks = 12<br>Performing an on-line resize of /dev/mapper/vg_centos-lv_root to 46504960 (4k) blocks.<br>The filesystem on /dev/mapper/vg_centos-lv_root is now 46504960 blocks long. </p>
+<ol start="5">
+<li>再次查看分区大小</li>
+</ol>
+<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>           175G  14G 153G  9% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           278G 663M 263G  1% /home<br>我们发现vg_centos-lv_root分区的空间已经增加了125G，之所以比lv_home减少的空间要多25G主要是由于我们把系统所有的可用的空间都加在了lv_root分区。</p>
+<h2 id="三、所遇到的问题"><a href="#三、所遇到的问题" class="headerlink" title="三、所遇到的问题"></a>三、所遇到的问题</h2><p>1、在卸载/home目录的时候失败</p>
+<p>可先执行如下fuser命令，然后再umount即可：</p>
+<p>[root@CentOS-78 /]# fuser -m /home<br>[root@CentOS-78 /]#<br>2、设定完lv_home的大小，再次mount该分区时，发现用df命令无法看到给分区，此时只要在mount一次即可<br>3、在设定lv_root的大小时，不要把Free PE / Size的空间全部都用上，这很可能会出现Free PE空间不足的现象，建议保留一点Free PE的空间。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/28/梯子搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/28/梯子搭建/" itemprop="url">梯子搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T10:59:19+08:00">
+                2018-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/环境搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">环境搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="vultr-科学上网"><a href="#vultr-科学上网" class="headerlink" title="vultr 科学上网"></a>vultr 科学上网</h1><h2 id="一-购买合适的VPS"><a href="#一-购买合适的VPS" class="headerlink" title="一.购买合适的VPS"></a>一.购买合适的VPS</h2><p>  1.注册地址:官方地址：<a href="https://www.vultr.com/" target="_blank" rel="noopener">https://www.vultr.com/</a>  </p>
+<p>  2.vultr账户充值与配置  </p>
+<ul>
+<li>1&gt;支付方式：1.信用卡2.paypay3.支付宝-&gt;推荐支付宝即可  </li>
+<li>2&gt;在Billing界面选择充值,10美元(最少)<h2 id="搭建VPS"><a href="#搭建VPS" class="headerlink" title="搭建VPS"></a>搭建VPS</h2>1.步骤如下  </li>
+<li>1&gt;选择vps节点，（日本，美国等）  </li>
+<li>2&gt;操作系统centos或其他系统  </li>
+<li>3&gt;服务器配置,5美元即可(土豪随意)  </li>
+</ul>
+<p>2.部署deplpy ，如下图所示,等待服务器状态为running<br><img src="https://i.imgur.com/qSukjn9.png" alt></p>
+<p>3.测试服务器与本地是否连通，ping 即可，如果不通，说明被墙，重新删除服务器，换个节点地址，多试下。亲测日本不行，LA可以  </p>
+<p>4.ss账号生成（xsell,putty）  </p>
+<ul>
+<li>1&gt;远程连接上服务器  </li>
+<li>2&gt;wget –no-check-certificate  <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</a>  </li>
+<li>3&gt;wget –no-check-certificate  <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</a>  </li>
+<li>4&gt;./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log  </li>
+<li>注：注：提示你输入你的SS SERVER的账号，和端口。不输入就是默认。跑完命令后会出来你的SS客户端的信息<br>出现如下画面<br><img src="https://i.imgur.com/VfI6uLh.png" alt> </li>
+</ul>
+<p>5.windows下在客户端  </p>
+<ul>
+<li>1&gt;Shadowsocks-4.0.6.zip<br>地址：<a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a>  </li>
+<li>2&gt; 配置客户端信息    </li>
+<li><img src="https://i.imgur.com/bsEky8R.png" alt></li>
+<li>3&gt; 在电脑右下角任务栏找到ss图标，右键点击，点击启用系统代理就可以了<br><img src="https://i.imgur.com/T2kaG6L.png" alt><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2></li>
+</ul>
+<ol>
+<li><a href="http://blog.sina.com.cn/s/blog_5406d2910102wrtc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5406d2910102wrtc.html</a></li>
+<li><a href="https://tieba.baidu.com/p/5412867118?red_tag=0176701493" target="_blank" rel="noopener">https://tieba.baidu.com/p/5412867118?red_tag=0176701493</a></li>
+</ol>
+<h1 id="linux-SSR多用户版配置详解"><a href="#linux-SSR多用户版配置详解" class="headerlink" title="linux-SSR多用户版配置详解"></a>linux-SSR多用户版配置详解</h1><ol>
+<li>先停止shadowsocks<br>/etc/init.d/shadowsocks stop  </li>
+<li>编辑配置文件<br>vi /etc/shadowsocks.json  <pre>
+{  
+"server":"0.0.0.0",
+"server_ipv6": "[::]",
+"local_address":"127.0.0.1",
+"local_port":1080,
+"port_password":{
+ "8989":"password1",//着里输入想要的端口和密码
+ "8990":"password2"，
+ "8991":"password3"
+},
+"timeout":300,
+"method":"aes-256-cfb",//加密方式可以修改也可以不修改本人用chacha20
+"protocol": "origin",//协议也是可以修改了本人用auth_sha1
+"protocol_param": "",
+"obfs": "plain",//这里很重要,免流的请注意必须修改,本人用http_simple
+"obfs_param": "",
+"redirect": "",
+"dns_ipv6": false,
+"fast_open": false,
+"workers": 1
+}
+</pre>  </li>
+<li>退出并保存文件  </li>
+<li>修改防火墙，供多个人使用  (centos 7 的防火墙为firewall)<br>1&gt; 停止防火墙：systemctl stop firewalld<br>2&gt;编辑public.xml文件<br>vi /etc/firewalld/zones/public.xml<br><img src="https://i.imgur.com/y9RNJGl.png" alt>  </li>
+<li>保存重启动防火墙和ssr<br>1&gt; systemctl start firewalld<br>2&gt; /etc/init.d/shadowsocks start<h1 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p><a href="https://www.cnblogs.com/gne-hwz/p/6662000.html" target="_blank" rel="noopener">https://www.cnblogs.com/gne-hwz/p/6662000.html</a></p>
+</blockquote>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Shuai Guo">
+            
+              <p class="site-author-name" itemprop="name">Shuai Guo</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gollumHome" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1025951714@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-qq"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/cleaner_xiaoqiang" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-csdn"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.douban.com/people/170183273/" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-豆瓣"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuai Guo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

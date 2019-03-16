@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、目的在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -hFilesystem      Size Used Avail Use% Mounted on/dev/mapper/vg_centos-lv_ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="home下磁盘空间移动到根目录">
+<meta property="og:url" content="http://yoursite.com/2018/03/23/home下磁盘空间移动到根目录下/index.html">
+<meta property="og:site_name" content="openstack">
+<meta property="og:description" content="一、目的在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -hFilesystem      Size Used Avail Use% Mounted on/dev/mapper/vg_centos-lv_ro">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-06T13:28:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="home下磁盘空间移动到根目录">
+<meta name="twitter:description" content="一、目的在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -hFilesystem      Size Used Avail Use% Mounted on/dev/mapper/vg_centos-lv_ro">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/23/home下磁盘空间移动到根目录下/">
+
+
+
+
+
+  <title>home下磁盘空间移动到根目录 | openstack</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">openstack</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/23/home下磁盘空间移动到根目录下/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">home下磁盘空间移动到根目录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T20:46:25+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/基础知识/" itemprop="url" rel="index">
+                    <span itemprop="name">基础知识</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、目的"><a href="#一、目的" class="headerlink" title="一、目的"></a>一、目的</h2><p>在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况：</p>
+<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           404G 670M 382G  1% /home<br>下面的详细步骤部分将从vg_centos-lv_home分区下取出100G的空间添加到/vg_centos-lv_root分区上去。</p>
+<h2 id="二、详细步骤"><a href="#二、详细步骤" class="headerlink" title="二、详细步骤"></a>二、详细步骤</h2><ol>
+<li>卸载vg_centos-lv_home分区</li>
+</ol>
+<p>[root@CentOS-78 /]# umount /home<br>此时在用df命令查看将会发现/home目录已经看不见了，如下所示：</p>
+<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot </p>
+<ol start="2">
+<li>从新设定vg_home-lv_home的大小</li>
+</ol>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_home 282G<br>resize2fs 1.41.12 (17-May-2010)<br>Please run ‘e2fsck -f /dev/mapper/vg_centos-lv_home’ first.<br>这一步设定vg_home-lv_home大小没有成功，系统提示我们先运行下面的命令，操作如下：</p>
+<p>[root@CentOS-78 /]# e2fsck -f /dev/mapper/vg_centos-lv_home<br>e2fsck 1.41.12 (17-May-2010)<br>Pass 1: Checking inodes, blocks, and sizes<br>Pass 2: Checking directory structure<br>Pass 3: Checking directory connectivity<br>Pass 4: Checking reference counts<br>Pass 5: Checking group summary information<br>/dev/mapper/vg_centos-lv_home: 1386/26836992 files (0.9% non-contiguous), 1855856/107344896 blocks<br>从新设定vg_home-lv_home的大小：</p>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_home 282G<br>resize2fs 1.41.12 (17-May-2010)<br>Resizing the filesystem on /dev/mapper/vg_centos-lv_home to 73924608 (4k) blocks.<br>Begin pass 2 (max = 43)<br>Relocating blocks       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>Begin pass 3 (max = 3276)<br>Scanning inode table     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>Begin pass 4 (max = 266)<br>Updating inode references   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>The filesystem on /dev/mapper/vg_centos-lv_home is now 73924608 blocks long.<br>检查是否成功：</p>
+<p>[root@CentOS-78 /]# mount /home<br>[root@CentOS-78 /]#<br>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           278G 663M 263G  1% /home<br>[root@CentOS-78 /]# </p>
+<ol start="3">
+<li>将lv_home逻辑分区减小到指定大小</li>
+</ol>
+<p>[root@CentOS-78 /]# lvreduce -L 282G /dev/mapper/vg_centos-lv_home<br> WARNING: Reducing active and open logical volume to 282.00 GiB<br> THIS MAY DESTROY YOUR DATA (filesystem etc.)<br>Do you really want to reduce lv_home? [y/n]: y<br> Reducing logical volume lv_home to 282.00 GiB<br> Logical volume lv_home successfully resized<br>[root@CentOS-78 /]#<br>我认为这个命令是将已经减少的100G空间拿到系统公共的区域，可以被其他分区加载和利用。<br>查询卷组的信息：</p>
+<p>[root@CentOS-78 /]# vgdisplay<br> — Volume group —<br> VG Name        vg_centos<br> System ID<br> Format        lvm2<br> Metadata Areas    1<br> Metadata Sequence No 5<br> VG Access       read/write<br> VG Status       resizable<br> MAX LV        0<br> Cur LV        3<br> Open LV        3<br> Max PV        0<br> Cur PV        1<br> Act PV        1<br> VG Size        465.27 GiB<br> PE Size        4.00 MiB<br> Total PE       119109<br> Alloc PE / Size    86472 / 337.78 GiB<br> Free PE / Size    32637 / 127.49 GiB<br> VG UUID        1k4ooN-RFV9-uyf1-uMYf-aERG-YaGs-ZNoSD6<br>Free PE / Size指定的应该是现在可在分配的空间。</p>
+<ol start="4">
+<li>增加vg_centos-lv_root分区的大小<br>将可用的空间添加到vg_centos-lv_root分区上面：</li>
+</ol>
+<p>[root@CentOS-78 /]# lvextend -L +127.40G /dev/mapper/vg_centos-lv_root<br> Rounding up size to full physical extent 127.40 GiB<br> Extending logical volume lv_root to 177.40 GiB<br> Logical volume lv_root successfully resized<br>[root@CentOS-78 /]#<br>从新设定该分区的大小：</p>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_root<br>resize2fs 1.41.12 (17-May-2010)<br>Filesystem at /dev/mapper/vg_centos-lv_root is mounted on /; on-line resizing required<br>old desc_blocks = 4, new_desc_blocks = 12<br>Performing an on-line resize of /dev/mapper/vg_centos-lv_root to 46504960 (4k) blocks.<br>The filesystem on /dev/mapper/vg_centos-lv_root is now 46504960 blocks long. </p>
+<ol start="5">
+<li>再次查看分区大小</li>
+</ol>
+<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>           175G  14G 153G  9% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           278G 663M 263G  1% /home<br>我们发现vg_centos-lv_root分区的空间已经增加了125G，之所以比lv_home减少的空间要多25G主要是由于我们把系统所有的可用的空间都加在了lv_root分区。</p>
+<h2 id="三、所遇到的问题"><a href="#三、所遇到的问题" class="headerlink" title="三、所遇到的问题"></a>三、所遇到的问题</h2><p>1、在卸载/home目录的时候失败</p>
+<p>可先执行如下fuser命令，然后再umount即可：</p>
+<p>[root@CentOS-78 /]# fuser -m /home<br>[root@CentOS-78 /]#<br>2、设定完lv_home的大小，再次mount该分区时，发现用df命令无法看到给分区，此时只要在mount一次即可<br>3、在设定lv_root的大小时，不要把Free PE / Size的空间全部都用上，这很可能会出现Free PE空间不足的现象，建议保留一点Free PE的空间。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/28/梯子搭建/" rel="next" title="梯子搭建">
+                <i class="fa fa-chevron-left"></i> 梯子搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/02/书籍记录/" rel="prev" title="书籍记录提醒">
+                书籍记录提醒 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Shuai Guo">
+            
+              <p class="site-author-name" itemprop="name">Shuai Guo</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gollumHome" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1025951714@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-qq"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/cleaner_xiaoqiang" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-csdn"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.douban.com/people/170183273/" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-豆瓣"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、目的"><span class="nav-number">1.</span> <span class="nav-text">一、目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、详细步骤"><span class="nav-number">2.</span> <span class="nav-text">二、详细步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、所遇到的问题"><span class="nav-number">3.</span> <span class="nav-text">三、所遇到的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuai Guo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
