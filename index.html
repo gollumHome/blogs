@@ -249,6 +249,390 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/17/interview1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/03/17/interview1/" itemprop="url">面试总结1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-17T21:53:10+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>面试整理1</strong></p>
+<h2 id="待完善。。"><a href="#待完善。。" class="headerlink" title="待完善。。"></a>待完善。。</h2><p>在我参加的后台开发岗位面试中，主要有以下知识是比较侧重：</p>
+<p>数据库CRUD操作/查询优化以及数据库知识量</p>
+<p>框架的对比和了解/项目具体模块的业务逻辑描述</p>
+<p>常见排序算法</p>
+<p>Linux系统的常用命令和Linux系统了解程度考核</p>
+<p>项目部署用到的服务器的配置和了解程度</p>
+<p>加分项</p>
+<p>数据库基本功必须掌握但同时更重要的是理解为什么和是如何实现的，拓展自己知识面</p>
+<p>Linux系统的底层原理和了解程度</p>
+<p>目前Golang在后端中也逐渐流行，有时间还是需要去掌握</p>
+<p>技术没有终点，保持乐于学习和接受新技术的心态，面试官看重技术能力同时也更看重你的心态</p>
+<p>自信且好学</p>
+<p><strong>面试问题</strong></p>
+<p>问题就给大家了，答案自己去查找吧。只有经过自己努力的东西才会格外珍惜与铭刻。</p>
+<h2 id="1-Python相关"><a href="#1-Python相关" class="headerlink" title="1. Python相关"></a>1. Python相关</h2><p>实现一个单例模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">线程非安全版</span><br><span class="line"></span><br><span class="line">class Singleton(object):</span><br><span class="line">    # 方法1,实现__new__方法</span><br><span class="line">    # 并在将一个类的实例绑定到类变量_instance上,</span><br><span class="line">    # 如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回</span><br><span class="line">    # 如果cls._instance不为None,直接返回cls._instance</span><br><span class="line">    # 定义静态变量实例</span><br><span class="line">    __instance = None</span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not cls.__instance: #if hasattr(cls.&apos;__instance&apos;)非单例对象</span><br><span class="line">            cls.__instance = super(Singleton, cls).__new__(cls, *args, **kwargs)</span><br><span class="line">        return cls.__instance</span><br><span class="line"></span><br><span class="line">    def __init__(self, status_number):</span><br><span class="line">        self.status_number = status_number</span><br><span class="line"></span><br><span class="line">instance1 = Singleton(2)</span><br><span class="line">instance2 = Singleton(4)</span><br><span class="line">print id(instance1)</span><br><span class="line">print id(instance2)</span><br><span class="line">print instance1.status_number</span><br><span class="line">print instance1.status_number</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">39940840</span><br><span class="line">39940840</span><br><span class="line">4</span><br><span class="line">4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">线程非安全版</span><br><span class="line">--------------------------------------------------</span><br><span class="line">#使用元类</span><br><span class="line">class Singleton(type):</span><br><span class="line">    _instance = None</span><br><span class="line"></span><br><span class="line">    def __call__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(cls, &apos;_instance&apos;):</span><br><span class="line">            cls._instance = super(Singleton, cls).__call__(*args, **kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class SingletonChild(object):</span><br><span class="line">    __metaclass__ = Singleton</span><br><span class="line"></span><br><span class="line">instance1 = SingletonChild()</span><br><span class="line">instance2 = SingletonChild()</span><br><span class="line">print id(instance1)</span><br><span class="line">print id(instance2)</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">503241816</span><br><span class="line">503241816</span><br><span class="line"></span><br><span class="line">---------------------------------------------------</span><br><span class="line"></span><br><span class="line">线程安全版：</span><br><span class="line">问题说明：当有多个线程同时去初始化对象时，就很可能同时判断__instance is None，从而进入初始化instance</span><br><span class="line"></span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import threading</span><br><span class="line">from threading import Thread</span><br><span class="line"></span><br><span class="line">Lock = threading.Lock()</span><br><span class="line"></span><br><span class="line">class Singleton(object):</span><br><span class="line">    # 定义静态变量实例</span><br><span class="line">    __instance = None</span><br><span class="line"></span><br><span class="line">    def __init__(self, status_number):</span><br><span class="line">        self.status_number = status_number + 1</span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not cls.__instance:</span><br><span class="line">            try:</span><br><span class="line">                Lock.acquire()</span><br><span class="line">                if not cls.__instance:</span><br><span class="line">                    cls.__instance = super(Singleton, cls).__new__(cls, *args,</span><br><span class="line">                                                                   **kwargs)</span><br><span class="line">            finally:</span><br><span class="line">                Lock.release()</span><br><span class="line">        return cls.__instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def test_singleton_in_thread():</span><br><span class="line">    print id(Singleton(2))</span><br><span class="line">    print Singleton(2).status_number</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    idx = 0</span><br><span class="line">    while 1:</span><br><span class="line">        Thread(target=test_singleton_in_thread, group=None).start()</span><br><span class="line">        idx += 1</span><br><span class="line">        if idx &gt; 0X100:</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">&gt; 1496192</span><br><span class="line">3</span><br><span class="line">41496192</span><br><span class="line">3</span><br><span class="line">41496192</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+<p><strong>实现一个装饰器</strong></p>
+<blockquote>
+<p>装饰器：本质就是一个函数，为其他函数添加附加功能。装饰器=高阶函数+函数嵌套+闭包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#带有不定参数的装饰器</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def deco(func):</span><br><span class="line">    def wrapper(*args, **kwargs):</span><br><span class="line">        startTime = time.time()</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line">        endTime = time.time()</span><br><span class="line">        msecs = (endTime - startTime)*1000</span><br><span class="line">        print(&quot;time is %d ms&quot; %msecs)</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    f = func</span><br><span class="line">    func2(3,4,5)</span><br><span class="line">    f(3,4)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong>用Python实现快排</strong></p>
+<p><strong>如果系统中需要很多个Python版本，如何进行Python版本的管理</strong></p>
+<blockquote>
+<p>python 虚机环境隔离 virtualenv</p>
+</blockquote>
+<p><strong>如何实现一个全局变量？(除了global,还可以通过单例模式)</strong></p>
+<h2 id="2-数据库"><a href="#2-数据库" class="headerlink" title="2. 数据库"></a>2. 数据库</h2><p><strong>数据库的数据是实时更新的吗？每点击一次，数据库数据修改一次？</strong></p>
+<blockquote>
+<p>redis 本身的持久化到本地文件，定时任务来写进 mysql</p>
+</blockquote>
+<p><strong>Redis hash的个数</strong></p>
+<p><strong>如何修改Redis数据库的库的个数？&amp;</strong></p>
+<p><strong>Redis数据库如何实现持久化</strong></p>
+<p><strong>Redis数据库支持的数据类型</strong></p>
+<blockquote>
+<p>Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)</p>
+</blockquote>
+<p><strong>Redis使用AOF方式持久化，aof文件不断增大，如何处理？</strong></p>
+<blockquote>
+<p>AOF 简介：Redis的持久化方式之一RDB是通过保存数据库中的键值对来记录数据库的状态。而另一种持久化方式 AOF 则是通过保存Redis服务器所执行的写命令来记录数据库状态</p>
+</blockquote>
+<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A000.png" alt="image"></p>
+<blockquote>
+<p>RDB 持久化方式就是将 str1,str2,str3 这三个键值对保存到 RDB文件中，而 AOF 持久化则是将执行的 set,sadd,lpush 三个命令保存到 AOF 文件中</p>
+</blockquote>
+<blockquote>
+<p>问题产生原因及解决方式：由于AOF持久化是Redis不断将写命令记录到 AOF 文件中，随着Redis不断的进行，AOF 的文件会越来越大，文件越大，占用服务器内存越大以及 AOF 恢复要求时间越长。为了解决这个问题，Redis新增了重写机制，当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩，只保留可以恢复数据的最小指令集。可以使用命令 bgrewriteaof 来重写</p>
+</blockquote>
+<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A001.png" alt="image"> </p>
+<blockquote>
+<p>如果不进行 AOF 文件重写，那么 AOF 文件将保存四条 SADD 命令，如果使用AOF 重写，那么AOF 文件中将只会保留下面一条命令：</p>
+</blockquote>
+<blockquote>
+<p>sadd animals “dog” “tiger” “panda” “lion” “cat”<br>　　也就是说 AOF 文件重写并不是对原文件进行重新整理，而是直接读取服务器现有的键值对，然后用一条命令去代替之前记录这个键值对的多条命令，生成一个新的文件后去替换原来的 AOF 文件。</p>
+</blockquote>
+<blockquote>
+<p>AOF 文件重写触发机制：通过 redis.conf 配置文件中的 auto-aof-rewrite-percentage：默认值为100，以及auto-aof-rewrite-min-size：64mb 配置，也就是说默认Redis会记录上次重写时的AOF大小，默认配置是当AOF文件大小是上次rewrite后大小的一倍且文件大于64M时触发。</p>
+</blockquote>
+<blockquote>
+<p>这里再提一下，我们知道 Redis 是单线程工作，如果 重写 AOF 需要比较长的时间，那么在重写 AOF 期间，Redis将长时间无法处理其他的命令，这显然是不能忍受的。Redis为了克服这个问题，解决办法是将 AOF 重写程序放到子程序中进行，这样有两个好处  </p>
+</blockquote>
+<blockquote>
+<p>①、子进程进行 AOF 重写期间，服务器进程（父进程）可以继续处理其他命令。</p>
+</blockquote>
+<blockquote>
+<p>②、子进程带有父进程的数据副本，使用子进程而不是线程，可以在避免使用锁的情况下，保证数据的安全性。</p>
+</blockquote>
+<blockquote>
+<p>使用子进程解决了上面的问题，但是新问题也产生了：因为子进程在进行 AOF 重写期间，服务器进程依然在处理其它命令，这新的命令有可能也对数据库进行了修改操作，使得当前数据库状态和重写后的 AOF 文件状态不一致。</p>
+</blockquote>
+<blockquote>
+<p>为了解决这个数据状态不一致的问题，Redis 服务器设置了一个 AOF 重写缓冲区，这个缓冲区是在创建子进程后开始使用，当Redis服务器执行一个写命令之后，就会将这个写命令也发送到 AOF 重写缓冲区。当子进程完成 AOF 重写之后，就会给父进程发送一个信号，父进程接收此信号后，就会调用函数将 AOF 重写缓冲区的内容都写到新的 AOF 文件中。<br>　　这样将 AOF 重写对服务器造成的影响降到了最低。</p>
+</blockquote>
+<p><strong>Redis数据库如何设置密码</strong>  </p>
+<blockquote>
+<p>设置密码命令（默认没密码）<br>127.0.0.1:6379&gt; config set requirepass “xxx”  </p>
+<ul>
+<li>查询密码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">(error) ERR operation not permitted</span><br><span class="line"></span><br><span class="line">密码验证：</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; auth xxx</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">再次查询：</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">1) &quot;requirepass&quot;</span><br><span class="line">2) &quot;xxx&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p><strong>hash表是如何生成的</strong></p>
+<p><strong>MySQL数据库如何使用sql语句插入一条数据</strong>  </p>
+<blockquote>
+<p>insert into table_name ( field1, field2,…fieldN ) values (value1, value2,…valueN );  </p>
+</blockquote>
+<p><strong>MySQL数据库的慢查询有了解过吗</strong><br><a href="https://note.youdao.com/" target="_blank" rel="noopener">link</a></p>
+<p><strong>MySQL数据库如何进行查询优化</strong>  </p>
+<p><a href="https://note.youdao.com/" target="_blank" rel="noopener">link</a><br><strong>如何很多请求同时对Redis的同一个键进行访问，如何保证数据安全</strong></p>
+<blockquote>
+<p>利用setnx实现锁  </p>
+</blockquote>
+<p><strong>说说Redis的淘汰机制</strong></p>
+<ul>
+<li>概述：  <blockquote>
+<p>redis 中，允许用户设置最大使用内存大小通过配置redis.conf中的maxmemory这个值来开启内存淘汰功能.  </p>
+</blockquote>
+</li>
+<li>edis 提供 6种数据淘汰策略通过maxmemory-policy设置策略：  <blockquote>
+<ol>
+<li>volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰  </li>
+<li>volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰  </li>
+<li>volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰  </li>
+<li>allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰  </li>
+<li>allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰  </li>
+<li>no-enviction（驱逐）：禁止驱逐数据  </li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p><strong>MySQL数据库每天晚上12点进行全备份。第二天有员工在9点钟误删除了一个数据库，但在10点钟才被发现。问如何进行恢复被误删除的数据库并同时保留9点到10点钟新增的数据同时不影响业务的正常运行?</strong>   </p>
+<blockquote>
+<p>参考  <a href="http://www.cnblogs.com/kevingrace/p/5904800.html" target="_blank" rel="noopener">http://www.cnblogs.com/kevingrace/p/5904800.html</a><br><strong>当数据越来越多，如何避免hash槽中key出现相同的情况?</strong></p>
+</blockquote>
+<p><strong>MongoDB在哪些场合使用过？</strong></p>
+<blockquote>
+<p>存储非结构性数据</p>
+</blockquote>
+<h2 id="03-项目部署"><a href="#03-项目部署" class="headerlink" title="03. 项目部署"></a>03. 项目部署</h2><p><strong>大家都说Nginx快？快的原因是什么？</strong></p>
+<blockquote>
+<p>Nginx采用epoll模型，异步非阻塞。对于Nginx来说，把一个完整的连接请求处理都划分成了事件，一个一个的事件。比如accept（）， receive（），磁盘I/O，send（）等，每部分都有相应的模块去处理，一个完整的请求可能是由几百个模块去处理。真正核心的就是事件收集和分发模块，这就是管理所有模块的核心。只有核心模块的调度才能让对应的模块占用CPU资源，从而处理请求。拿一个HTTP请求来说，首先在事件收集分发模块注册感兴趣的监听事件，注册好之后不阻塞直接返回，接下来就不需要再管了，等待有连接来了内核会通知你(epoll的轮询会告诉进程)，cpu就可以处理其他事情去了。一旦有请求来，那么对整个请求分配相应的上下文（其实已经预先分配好），这时候再注册新的感兴趣的事件(read函数)，同样客户端数据来了内核会自动通知进程可以去读数据了，读了数据之后就是解析，解析完后去磁盘找资源（I/O），一旦I/O完成会通知进程，进程开始给客户端发回数据send()，这时候也不是阻塞的，调用后就等内核发回通知发送的结果就行。整个下来把一个请求分成了很多个阶段，每个阶段都到很多模块去注册，然后处理，都是异步非阻塞。异步这里指的就是做一个事情，不需要等返回结果，做好了会自动通知你  </p>
+</blockquote>
+<p><strong>对RPC了解吗?</strong></p>
+<ul>
+<li>概念  <blockquote>
+<p>远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议,RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易  </p>
+</blockquote>
+</li>
+<li>组成  </li>
+</ul>
+<ol>
+<li>User</li>
+<li>User-stub<br>3.RPCRuntime</li>
+<li>Server-stub</li>
+<li>Server  </li>
+</ol>
+<ul>
+<li>RPC远程调用过程<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A005.png" alt="image"></li>
+</ul>
+<ol>
+<li><p>首先，要解决通讯的问题，主要是通过在客户端和服务器之间建立TCP连接，远程过程调用的所有交换的数据都在这个连接里传输。连接可以是按需连接，调用结束后就断掉，也可以是长连接，多个远程过程调用共享同一个连接。</p>
+</li>
+<li><p>第二，要解决寻址的问题，也就是说，A服务器上的应用怎么告诉底层的RPC框架，如何连接到B服务器（如主机或IP地址）以及特定的端口，方法的名称名称是什么，这样才能完成调用。比如基于Web服务协议栈的RPC，就要提供一个endpoint<br>URI，或者是从UDDI服务上查找。如果是RMI调用的话，还需要一个RMI Registry来注册服务的地址。</p>
+</li>
+<li><p>第三，当A服务器上的应用发起远程过程调用时，方法的参数需要通过底层的网络协议如TCP传递到B服务器，由于网络协议是基于二进制的，内存中的参数的值要序列化成二进制的形式，也就是序列化（Serialize）或编组（marshal），通过寻址和传输将序列化的二进制发送给B服务器。</p>
+</li>
+<li><p>第四，B服务器收到请求后，需要对参数进行反序列化（序列化的逆操作），恢复为内存中的表达方式，然后找到对应的方法（寻址的一部分）进行本地调用，然后得到返回值。</p>
+</li>
+<li><p>第五，返回值还要发送回服务器A上的应用，也要经过序列化的方式发送，服务器A接到后，再反序列化，恢复为内存中的表达方式，交给A服务器上的应用</p>
+</li>
+</ol>
+<p><strong>如何在服务器上设置业务进程数？</strong>  </p>
+<blockquote>
+<p>Nginx 配置文件 nginx.conf,Nginx 的配置文档 nginx.conf 中可以设置 worker_processes 来更改 Nginx 的进程数量</p>
+</blockquote>
+<p><strong>说说正向代理和反向代理</strong>  </p>
+<ul>
+<li><p>正向代理  </p>
+<blockquote>
+<p>正向代理 是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    resolver 192.168.1.1; #指定DNS服务器IP地址  </span><br><span class="line">    listen 8080;  </span><br><span class="line">    location / &#123;  </span><br><span class="line">        proxy_pass http://$http_host$request_uri; #设定代理服务器的协议和地址  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>反向代理  </p>
+<blockquote>
+<p>以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    location /demo &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8081;</span><br><span class="line">    &#125;</span><br><span class="line">    location /demo1 &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8082;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="04-Linux相关"><a href="#04-Linux相关" class="headerlink" title="04. Linux相关"></a>04. Linux相关</h2><p><strong>如何查看剩余内存</strong></p>
+<blockquote>
+<p>top 、free -m  </p>
+</blockquote>
+<p><strong>如何查看端口是否被占用</strong></p>
+<blockquote>
+<ol>
+<li>netstat -tunlp |  |grep   端口号  </li>
+<li>lsof -i:端口号 用于查看某一端口的占用情况   </li>
+<li>ps -ef|grep 16923</li>
+</ol>
+</blockquote>
+<p><strong>如何查看一个程序的PID以及它的所有子进程</strong>  </p>
+<blockquote>
+<p>ps -ef | grep process_name  拿到进程Id<br>pstree -p 进程id  </p>
+</blockquote>
+<p><strong>如何为一个目录下的所有文件添加权限</strong></p>
+<blockquote>
+<p> chmod －R 755 文件夹名   </p>
+</blockquote>
+<p><strong>如果你对一个目录具有写权限，那么你是否具有对这个目录下的所有文件具有删除权限</strong></p>
+<blockquote>
+<p>超级用户无论权限如何，都可以进入目录，进行读写和执行操作，而对于普通用户，进入目录需要执行权限，要显示目录需要读权限，目录下创建文件和删除目录下文件需要对目录拥有写权限<br><strong>对Linux多路复用的理解</strong></p>
+</blockquote>
+<p><strong>修改IP地址的方法</strong>  </p>
+<ul>
+<li>即时生效  <blockquote>
+<p>$ ifconfig eth0 192.168.1.155 netmask 255.255.255.0  </p>
+</blockquote>
+</li>
+<li>重启生效 <blockquote>
+<p>$ vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>$ service network restart</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="05-前端相关"><a href="#05-前端相关" class="headerlink" title="05. 前端相关"></a>05. 前端相关</h2><ol>
+<li>对前端HTML CSS 和 JS了解多少？熟悉吗？<blockquote>
+<p>…  </p>
+</blockquote>
+</li>
+<li>对React和bootstrap了解吗?  <blockquote>
+<p>…  </p>
+</blockquote>
+</li>
+<li>如何进行http优化？(响应头设置Content-Encoding: gzip)  <blockquote>
+<p>…</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="06-网络编程"><a href="#06-网络编程" class="headerlink" title="06. 网络编程"></a>06. 网络编程</h2><p><strong>说一下实现TCP建立连接的过程以及当时进入了什么状态？为什么建立连接只需要3次，断开连接需要4次？为什么断开连接时第二次和第三次要分开，不能合在一起吗？</strong></p>
+<h2 id="07-项目相关"><a href="#07-项目相关" class="headerlink" title="07. 项目相关"></a>07. 项目相关</h2><p><strong>说一下一个请求过来到返回response的过程</strong></p>
+<p><strong>如何实现单点登录</strong></p>
+<p><strong>JWT token是如何进行生成和校验的</strong></p>
+<p><strong>了解过哪些后端框架？Tornado了解吗?</strong></p>
+<p><strong>了解过webapp2吗</strong></p>
+<p><strong>Django如何实现csrf攻击保护</strong></p>
+<p><strong>说说你项目中遇到的困难以及如何解决</strong></p>
+<blockquote>
+<p>…<br>说说你认为自己最有成就感或最深刻的项目<br>…    </p>
+</blockquote>
+<p><strong>对KAFKA了解吗？用过哪些消息队列？使用过RabbitMQ吗?</strong></p>
+<p><strong>08. 版本控制</strong></p>
+<p><strong>如何从远程仓库拉取分支到本地</strong></p>
+<p><strong>如何进行版本回退</strong></p>
+<p> <strong>09. 其他内容</strong></p>
+<p><strong>Celery的原理和应用场景</strong></p>
+<p><strong>Elasticsearch 的原理</strong></p>
+<p><strong>平时是如何学习的?有关注哪些技术?</strong></p>
+<blockquote>
+<p>…</p>
+</blockquote>
+<p><strong>Docker的了解，常用命令，如何暴露端口</strong></p>
+<p><strong>对ERP了解吗？Odoo了解吗?</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/16/redis基础篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2017,244 +2401,6 @@ Hi, I am a gir
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2018/08/05/ovsSwitch基本使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2018/08/05/ovsSwitch基本使用/" itemprop="url">Openswitch基本使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T17:00:29+08:00">
-                2018-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/虚拟化/" itemprop="url" rel="index">
-                    <span itemprop="name">虚拟化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="ovsSwitch基本使用"><a href="#ovsSwitch基本使用" class="headerlink" title="ovsSwitch基本使用"></a>ovsSwitch基本使用</h2><h3 id="管理类"><a href="#管理类" class="headerlink" title="管理类"></a>管理类</h3><ol>
-<li><p>添加交换机  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl add-br br0</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看网桥和端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl show</span><br><span class="line"></span><br><span class="line">4e588465-6786-47e2-bf91-7884c40aa43f</span><br><span class="line">   Bridge &quot;br0&quot;</span><br><span class="line">       Port &quot;br0&quot;</span><br><span class="line">           Interface &quot;br0&quot;</span><br><span class="line">               type: internal3</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加/删除一个端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl add-port br0 eth1</span><br><span class="line">ovs-vsctl del-port br0 eth1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看某网桥当前流表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl dump-flows br0</span><br><span class="line"></span><br><span class="line"> cookie=0x0, duration=301.915s, table=0, n_packets=0, n_bytes=0, priority=0 actions=NORMAL</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置/删除控制器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl set-controller br0 tcp:1.2.3.4:6633</span><br><span class="line">ovs-vsctl del-controller br0</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看控制器列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl list controller</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置fail模式，支持standalone或者secure  standalone(default)：清除所有控制器下发的流表，ovs自己接管  secure：按照原来流表继续转发</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl del-fail-mode br0</span><br><span class="line">ovs-vsctl set-fail-mode br0 secure</span><br><span class="line">ovs-vsctl get-fail-mode br0</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="流表类"><a href="#流表类" class="headerlink" title="流表类"></a>流表类</h3><ol>
-<li><p>配置eth0收到/发送的数据包镜像到eth1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl -- set bridge br0 mirrors=@m \</span><br><span class="line">-- --id=@eth0 get port eth0 \</span><br><span class="line">-- --id=@eth1 get port eth1 \</span><br><span class="line">-- --id=@m create mirror name=mymirror select-dst-port=@eth0 select-src-port=@eth0 output-port=@eth1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建一个vxlan接口，并且指定端口id=2001</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl add-port br0 vxlan1 -- set Interface vxlan1 type=vxlan options:remote_ip=1.1.1.1 ofport_request=2001</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>动作为出接口  从指定接口转发出去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flow br0 in_port=1,actions=output:2</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="ovSwitch-官网教程高级使用"><a href="#ovSwitch-官网教程高级使用" class="headerlink" title="ovSwitch 官网教程高级使用"></a>ovSwitch 官网教程高级使用</h2><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>具有四个端口的支持VLAN的MAC学习交换机构建Open vSwitch流表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">P1</span><br><span class="line">在OpenFlow端口1上承载所有VLAN的Trunk端口。</span><br><span class="line">P2</span><br><span class="line">OpenFlow端口2上的VLAN 20的访问端口。</span><br><span class="line">p3，p4</span><br><span class="line">两个端口分别用于VLAN 30，OpenFlow端口3和4。</span><br></pre></td></tr></table></figure>
-<p>我们的交换机设计将包含五个主流表，每个流表在交换机管道中实现一个阶段：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- 表0</span><br><span class="line">  访问控制。</span><br><span class="line">- 表格1</span><br><span class="line">  VLAN输入处理。</span><br><span class="line">- 表2</span><br><span class="line">  了解入口端口的源MAC和VLAN。</span><br><span class="line">- 表3</span><br><span class="line">  查找目标MAC和VLAN的学习端口。</span><br><span class="line">- 表4</span><br><span class="line">  输出处理。</span><br></pre></td></tr></table></figure>
-<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ovs-vsctl add-br br0 -- set Bridge br0 fail-mode=secure</span><br><span class="line">一个新桥“br0”并将“br0”置于所谓的“故障安全”模式。出于我们的目的，这只意味着OpenFlow流表开始为空</span><br></pre></td></tr></table></figure>
-<p>上只有一个端口，即“本地端口”br0。我们需要添加<code>p1</code>，<code>p2</code>，<code>p3</code>，和<code>p4</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in 1 2 3 4; do</span><br><span class="line">    ovs-vsctl add-port br0 p$i -- set Interface p$i ofport_request=$i</span><br><span class="line">    ovs-ofctl mod-port br0 p$i up</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-<p>Note:</p>
-<p>我们可以省略设置ofport_request并让Open vSwitch为我们选择端口号，但是为了本教程的目的，它很方便，因为我们可以讨论OpenFlow端口1并知道它对应于<code>p1</code>。</p>
-<ol>
-<li><p>实施表0:准入控制</p>
-<p>表0是数据包进入交换机的位置。我们使用此阶段丢弃由于某种原因无效的数据包。例如，具有组播源地址的数据包无效，因此我们可以添加一个流，以便在进入交换机时将其丢弃：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flow br0 \</span><br><span class="line">    &quot;table=0, dl_src=01:00:00:00:00:00/01:00:00:00:00:00, actions=drop&quot;</span><br></pre></td></tr></table></figure>
-<p>交换机也不应转发IEEE 802.1D生成树协议（STP）数据包，因此我们还可以添加一个流来丢弃具有保留多播协议的数据包和其他数据包： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flow br0 \</span><br><span class="line">    &quot;table=0, dl_dst=01:80:c2:00:00:00/ff:ff:ff:ff:ff:f0, actions=drop&quot;</span><br></pre></td></tr></table></figure>
-<p>还需要一个优先级低于默认值的流，以便与上面添加的“drop”流不匹配的流转到OpenFlow表1中的管道阶段1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flow br0 &quot;table=0, priority=0, actions=resubmit(,1)&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>表1测试例子</p>
-<p>输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ovs-appctl ofproto/trace br0 in_port=1,dl_dst=01:80:c2:00:00:05</span><br></pre></td></tr></table></figure>
-<p>输出例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Flow: in_port=1,vlan_tci=0x0000,dl_src=00:00:00:00:00:00,dl_dst=01:80:c2:00:00:05,dl_type=0x0000</span><br><span class="line"></span><br><span class="line">bridge(&quot;br0&quot;)</span><br><span class="line">-------------</span><br><span class="line"> 0. dl_dst=01:80:c2:00:00:00/ff:ff:ff:ff:ff:f0, priority 32768</span><br><span class="line">    drop</span><br><span class="line"></span><br><span class="line">Final flow: unchanged</span><br><span class="line">Megaflow: recirc_id=0,in_port=1,dl_src=00:00:00:00:00:00/01:00:00:00:00:00,dl_dst=01:80:c2:00:00:00/ff:ff:ff:ff:ff:f0,dl_type=0x0000</span><br><span class="line">Datapath actions: drop</span><br></pre></td></tr></table></figure>
-<p>第一行显示正在跟踪的流，其详细程度略高于命令行中指定的流程。它主要是零，因为未指定的字段默认为零。</p>
-<p>第二组线显示数据包通过桥br0的行程。在表0中，我们看到字段匹配的OpenFlow流及其优先级，然后是其操作，每行一个。在这种情况下，我们看到具有保留多播目标地址的此数据包与丢弃这些数据包的流匹配。</p>
-<p>最后一行总结了结果</p>
-<ol start="2">
-<li><p>实现表1：VLAN输入处理</p>
-<p>进入表1的数据包通过表0中的基本验证。表1的目的是根据数据包进入交换机的交换机端口的VLAN配置验证数据包的VLAN。还将使用它将VLAN标头附加到到达访问端口的数据包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">默认丢弃：</span><br><span class="line"></span><br><span class="line">ovs-ofctl add-flow br0 &quot;table=1, priority=0, actions=drop&quot;</span><br></pre></td></tr></table></figure>
-<p>p1端口为中继端口，<code>p1</code>接受任何数据包，无论它是否具有VLAN标头或VLAN是什么，因此添加一个流，将输入端口1上的所有内容重新提交到下一个表：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flow br0 \</span><br><span class="line">    &quot;table=1, priority=99, in_port=1, actions=resubmit(,2)&quot;</span><br></pre></td></tr></table></figure>
-<p>其他端口，设置接受任何没有VLAN标头的数据包，使用访问端口的VLAN编号标记它，然后将其传递到下一个阶段： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flows br0 - &lt;&lt;&apos;EOF&apos;</span><br><span class="line">table=1,priority=99,in_port=2,vlan_tci=0,actions=mod_vlan_vid:20, resubmit(,2)</span><br><span class="line">table=1, priority=99, in_port=3, vlan_tci=0, actions=mod_vlan_vid:30, resubmit(,2)</span><br><span class="line">table=1, priority=99, in_port=4, vlan_tci=0, actions=mod_vlan_vid:30, resubmit(,2)</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<p>测试1：中继端口上的数据包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ovs-appctl ofproto/trace br0 in_port=1,vlan_tci=5</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Flow: in_port=1,vlan_tci=0x0005,dl_src=00:00:00:00:00:00,dl_dst=00:00:00:00:00:00,dl_type=0x0000</span><br><span class="line"></span><br><span class="line">bridge(&quot;br0&quot;)</span><br><span class="line">-------------</span><br><span class="line"> 0. priority 0</span><br><span class="line">    resubmit(,1)</span><br><span class="line"> 1. in_port=1, priority 99</span><br><span class="line">    resubmit(,2)</span><br><span class="line"> 2. No match.</span><br><span class="line">    drop</span><br><span class="line"></span><br><span class="line">Final flow: unchanged</span><br><span class="line">Megaflow: recirc_id=0,in_port=1,dl_src=00:00:00:00:00:00/01:00:00:00:00:00,dl_dst=00:00:00:00:00:00/ff:ff:ff:ff:ff:f0,dl_type=0x0000</span><br><span class="line">Datapath actions: drop</span><br><span class="line"></span><br><span class="line">NOTE:显示表0中的查找，重新提交到表1，并重新提交到表2（它什么也没做，因为我们还没有放任何东西）：</span><br></pre></td></tr></table></figure>
-<p>测试2：访问端口上的有效数据包:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ovs-appctl ofproto/trace br0 in_port=2</span><br><span class="line"></span><br><span class="line">Flow: in_port=2,vlan_tci=0x0000,dl_src=00:00:00:00:00:00,dl_dst=00:00:00:00:00:00,dl_type=0x0000</span><br><span class="line"></span><br><span class="line">bridge(&quot;br0&quot;)</span><br><span class="line">-------------</span><br><span class="line"> 0. priority 0</span><br><span class="line">    resubmit(,1)</span><br><span class="line"> 1. in_port=2,vlan_tci=0x0000, priority 99</span><br><span class="line">    mod_vlan_vid:20</span><br><span class="line">    resubmit(,2)</span><br><span class="line"> 2. No match.</span><br><span class="line">    drop</span><br><span class="line"></span><br><span class="line">Final flow: in_port=2,dl_vlan=20,dl_vlan_pcp=0,dl_src=00:00:00:00:00:00,dl_dst=00:00:00:00:00:00,dl_type=0x0000</span><br><span class="line">Megaflow: recirc_id=0,in_port=2,vlan_tci=0x0000,dl_src=00:00:00:00:00:00/01:00:00:00:00:00,dl_dst=00:00:00:00:00:00/ff:ff:ff:ff:ff:f0,dl_type=0x0000</span><br><span class="line">Datapath actions: drop</span><br><span class="line"></span><br><span class="line">NOTE:输出类似于前一种情况的输出，除了它在将数据包p2传递到表2之前另外用VLAN 20 标记数据包：</span><br></pre></td></tr></table></figure>
-<p>实现表2：入口端口的MAC + VLAN学习</p>
-<p>​    主要目的：存储源数据包MAC地址对应的VLAN，相应的端口，有利于当目的地址为该mac地址时 高效转发</p>
-<p>实现交换机了解数据包的源MAC位于数据包VLAN中数据包的入口端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flow br0 \</span><br><span class="line">    &quot;table=2 actions=learn(table=10, NXM_OF_VLAN_TCI[0..11], \</span><br><span class="line">                           NXM_OF_ETH_DST[]=NXM_OF_ETH_SRC[], \</span><br><span class="line">                           load:NXM_OF_IN_PORT[]-&gt;NXM_NX_REG0[0..15]), \</span><br><span class="line">                     resubmit(,3)&quot;</span><br><span class="line">                     </span><br><span class="line">table=10</span><br><span class="line">修改流表10.这将是MAC学习表。</span><br><span class="line">NXM_OF_VLAN_TCI[0..11]</span><br><span class="line">使我们添加到流表10的流与我们当前正在处理的数据包包含的VLAN ID相匹配。这有效地将MAC学习条目范围限定为单个VLAN，这是VLAN感知交换机的普通行为。</span><br><span class="line">NXM_OF_ETH_DST[]=NXM_OF_ETH_SRC[]</span><br><span class="line">使我们添加到流表10的流与以太网目的地匹配，我们当前正在处理的数据包的以太网源地址。</span><br><span class="line">load:NXM_OF_IN_PORT[]-&gt;NXM_NX_REG0[0..15]</span><br><span class="line">前面的部分指定了要匹配的新流的字段，而这指定了流匹配时要采取的操作。该操作用于将当前数据包的入口端口号加载到寄存器0（一个特殊字段，即OpenFlow的Open vSwitch扩展）。</span><br></pre></td></tr></table></figure>
-<p>测试例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ovs-appctl ofproto/trace br0 \</span><br><span class="line">    in_port=1,vlan_tci=20,dl_src=50:00:00:00:00:01 -generate</span><br><span class="line">    </span><br><span class="line">Flow: in_port=1,vlan_tci=0x0014,dl_src=50:00:00:00:00:01,dl_dst=00:00:00:00:00:00,dl_type=0x0000</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bridge(&quot;br0&quot;)</span><br><span class="line">-------------</span><br><span class="line"> 0. priority 0</span><br><span class="line">    resubmit(,1)</span><br><span class="line"> 1. in_port=1, priority 99</span><br><span class="line">    resubmit(,2)</span><br><span class="line"> 2. priority 32768</span><br><span class="line">    learn(table=10,NXM_OF_VLAN_TCI[0..11],NXM_OF_ETH_DST[]=NXM_OF_ETH_SRC[],load:NXM_OF_IN_PORT[]-&gt;NXM_NX_REG0[0..15])</span><br><span class="line">     -&gt; table=10 vlan_tci=0x0014/0x0fff,dl_dst=50:00:00:00:00:01 priority=32768 actions=load:0x1-&gt;NXM_NX_REG0[0..15]</span><br><span class="line">    resubmit(,3)</span><br><span class="line"> 3. No match.</span><br><span class="line">    drop</span><br><span class="line"></span><br><span class="line">Final flow: unchanged</span><br><span class="line">Megaflow: recirc_id=0,in_port=1,vlan_tci=0x0014/0x1fff,dl_src=50:00:00:00:00:01,dl_dst=00:00:00:00:00:00/ff:ff:ff:ff:ff:f0,dl_type=0x0000</span><br><span class="line">Datapath actions: drop</span><br><span class="line"></span><br><span class="line">NOTE:带有源MAC的 VLAN上的数据包50:00:00:00:00:01成为匹配VLAN 20（以十六进制写入）和目标MAC的流50:00:00:00:00:01。流程将端口号1（我们测试的流的输入端口）加载到寄存器0中</span><br></pre></td></tr></table></figure>
-<p>实现表3 ：查找目标端口</p>
-<p>​    此表根据目标MAC和VLAN计算出应该将数据包发送到哪个端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ovs-ofctl add-flow br0 \</span><br><span class="line">    &quot;table=3 priority=50 actions=resubmit(,10), resubmit(,4)&quot;</span><br><span class="line"></span><br><span class="line">流程的第一个操作重新提交到表10，即“学习”操作修改的表。如前所述，此表中的学习流将已学习的端口写入寄存器0.如果尚未学习数据包的目的地，则没有匹配的流</span><br></pre></td></tr></table></figure>
-<p>​    测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">ovs-appctl ofproto/trace br0 \</span><br><span class="line">    in_port=1,dl_vlan=20,dl_src=f0:00:00:00:00:01,dl_dst=90:00:00:00:00:01 \</span><br><span class="line">    -generate</span><br><span class="line">   </span><br><span class="line">NOTE:触发OVS学习，记录端口p1,vlaN,通过数据包</span><br><span class="line"></span><br><span class="line">Flow: in_port=1,dl_vlan=20,dl_vlan_pcp=0,dl_src=f0:00:00:00:00:01,dl_dst=90:00:00:00:00:01,dl_type=0x0000</span><br><span class="line"></span><br><span class="line">bridge(&quot;br0&quot;)</span><br><span class="line">-------------</span><br><span class="line"> 0. priority 0</span><br><span class="line">    resubmit(,1)</span><br><span class="line"> 1. in_port=1, priority 99</span><br><span class="line">    resubmit(,2)</span><br><span class="line"> 2. priority 32768</span><br><span class="line">    learn(table=10,NXM_OF_VLAN_TCI[0..11],NXM_OF_ETH_DST[]=NXM_OF_ETH_SRC[],load:NXM_OF_IN_PORT[]-&gt;NXM_NX_REG0[0..15])</span><br><span class="line">     -&gt; table=10 vlan_tci=0x0014/0x0fff,dl_dst=f0:00:00:00:00:01 priority=32768 actions=load:0x1-&gt;NXM_NX_REG0[0..15]</span><br><span class="line">    resubmit(,3)</span><br><span class="line"> 3. priority 50</span><br><span class="line">    resubmit(,10)</span><br><span class="line">    10. No match.</span><br><span class="line">            drop</span><br><span class="line">    resubmit(,4)</span><br><span class="line"> 4. No match.</span><br><span class="line">    drop</span><br><span class="line"></span><br><span class="line">Final flow: unchanged</span><br><span class="line">Megaflow: recirc_id=0,in_port=1,dl_vlan=20,dl_src=f0:00:00:00:00:01,dl_dst=90:00:00:00:00:01,dl_type=0x0000</span><br><span class="line">Datapath actions: drop</span><br><span class="line"></span><br><span class="line">NOTE:输出显示（从“不匹配”查找重新提交到表10）流的目的地未知</span><br></pre></td></tr></table></figure>
-<p>   验证数据包的源mac已经记录学习</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">ovs-appctl ofproto/trace br0 \</span><br><span class="line">    in_port=2,dl_src=90:00:00:00:00:01,dl_dst=f0:00:00:00:00:01 -generate</span><br><span class="line"></span><br><span class="line">NOTE:p2上注入一个数据包，其目的地是我们刚刚在p1上学到的MAC地址：</span><br><span class="line"></span><br><span class="line">Flow: in_port=2,vlan_tci=0x0000,dl_src=90:00:00:00:00:01,dl_dst=f0:00:00:00:00:01,dl_type=0x0000</span><br><span class="line"></span><br><span class="line">bridge(&quot;br0&quot;)</span><br><span class="line">-------------</span><br><span class="line"> 0. priority 0</span><br><span class="line">    resubmit(,1)</span><br><span class="line"> 1. in_port=2,vlan_tci=0x0000, priority 99</span><br><span class="line">    mod_vlan_vid:20</span><br><span class="line">    resubmit(,2)</span><br><span class="line"> 2. priority 32768</span><br><span class="line">    learn(table=10,NXM_OF_VLAN_TCI[0..11],NXM_OF_ETH_DST[]=NXM_OF_ETH_SRC[],load:NXM_OF_IN_PORT[]-&gt;NXM_NX_REG0[0..15])</span><br><span class="line">     -&gt; table=10 vlan_tci=0x0014/0x0fff,dl_dst=90:00:00:00:00:01 priority=32768 actions=load:0x2-&gt;NXM_NX_REG0[0..15]</span><br><span class="line">    resubmit(,3)</span><br><span class="line"> 3. priority 50</span><br><span class="line">    resubmit(,10)</span><br><span class="line">    10. vlan_tci=0x0014/0x0fff,dl_dst=f0:00:00:00:00:01, priority 32768</span><br><span class="line">            load:0x1-&gt;NXM_NX_REG0[0..15]</span><br><span class="line">    resubmit(,4)</span><br><span class="line"> 4. No match.</span><br><span class="line">    drop</span><br><span class="line"></span><br><span class="line">Final flow: reg0=0x1,in_port=2,dl_vlan=20,dl_vlan_pcp=0,dl_src=90:00:00:00:00:01,dl_dst=f0:00:00:00:00:01,dl_type=0x0000</span><br><span class="line">Megaflow: recirc_id=0,in_port=2,vlan_tci=0x0000,dl_src=90:00:00:00:00:01,dl_dst=f0:00:00:00:00:01,dl_type=0x0000</span><br><span class="line">Datapath actions: drop</span><br><span class="line"></span><br><span class="line">NOTE:查看跟踪的行resubmit(,10)，显示数据包与我们使用的第一个MAC的学习流匹配，将学习端口的OpenFlow端口号加载p1到寄存器中0：</span><br></pre></td></tr></table></figure>
-<p>实现表4：输出处理</p>
-<p> 数据进入阶段4使，寄存器0已经记录了数据包mac-vlan输出的端口，不同的数据包有几个不同的处理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输出到中继端口p1:</span><br><span class="line">ovs-ofctl add-flow br0 &quot;table=4 reg0=1 actions=1&quot;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输出到访问端口，需在输出数据包之前剥离VLAN标头</span><br><span class="line">ovs-ofctl add-flows br0 - &lt;&lt;&apos;EOF&apos;</span><br><span class="line">table=4 reg0=2 actions=strip_vlan,2</span><br><span class="line">table=4 reg0=3 actions=strip_vlan,3</span><br><span class="line">table=4 reg0=4 actions=strip_vlan,4</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">泛洪多播、广播、未学习的单播-确保我们只将数据包输出到携带数据包VLAN的端口</span><br><span class="line"></span><br><span class="line">ovs-ofctl add-flows br0 - &lt;&lt;&apos;EOF&apos;</span><br><span class="line">table=4 reg0=0 priority=99 dl_vlan=20 actions=1,strip_vlan,2</span><br><span class="line">table=4 reg0=0 priority=99 dl_vlan=30 actions=1,strip_vlan,3,4</span><br><span class="line">table=4 reg0=0 priority=50            actions=1</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<p>测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p1在VLAN中学习端口MAC 30</span><br><span class="line"></span><br><span class="line">ovs-appctl ofproto/trace br0 \</span><br><span class="line">    in_port=1,dl_vlan=30,dl_src=10:00:00:00:00:01,dl_dst=20:00:00:00:00:01 \</span><br><span class="line">    -generate</span><br><span class="line">    </span><br><span class="line">Datapath actions: pop_vlan,3,4</span><br><span class="line">NOTE：最后一行看到数据包的目标未知，因此被泛洪到VLAN p3和p4VLAN中的其他端口 30：</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在端口上学习第一个流的目的地p4:</span><br><span class="line">ovs-appctl ofproto/trace br0 \</span><br><span class="line">    in_port=4,dl_src=20:00:00:00:00:01,dl_dst=10:00:00:00:00:01 -generate</span><br><span class="line">    </span><br><span class="line">Datapath actions: push_vlan(vid=30,pcp=0),1</span><br><span class="line"></span><br><span class="line">NOTE:最后一行输出显示该数据包的目的地已知p1</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">重新运行第一个命令</span><br><span class="line">ovs-appctl ofproto/trace br0 \</span><br><span class="line">    in_port=1,dl_vlan=30,dl_src=10:00:00:00:00:01,dl_dst=20:00:00:00:00:01 \</span><br><span class="line">    -generate</span><br><span class="line"></span><br><span class="line">Datapath actions: pop_vlan,4</span><br><span class="line"></span><br><span class="line">NOTE:数据包已经被转到指定的学习目标端口p4</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2307,7 +2453,7 @@ Hi, I am a gir
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2318,7 +2464,7 @@ Hi, I am a gir
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

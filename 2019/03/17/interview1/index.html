@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/gollumhome.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/gollumhome.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/gollumhome.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/gollumhome.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/gollumhome.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/gollumhome.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/gollumhome.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="面试整理1 待完善。。在我参加的后台开发岗位面试中，主要有以下知识是比较侧重： 数据库CRUD操作/查询优化以及数据库知识量 框架的对比和了解/项目具体模块的业务逻辑描述 常见排序算法 Linux系统的常用命令和Linux系统了解程度考核 项目部署用到的服务器的配置和了解程度 加分项 数据库基本功必须掌握但同时更重要的是理解为什么和是如何实现的，拓展自己知识面 Linux系统的底层原理和了解程度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试总结1">
+<meta property="og:url" content="https://gollumhome.github.io/2019/03/17/interview1/index.html">
+<meta property="og:site_name" content="openstack">
+<meta property="og:description" content="面试整理1 待完善。。在我参加的后台开发岗位面试中，主要有以下知识是比较侧重： 数据库CRUD操作/查询优化以及数据库知识量 框架的对比和了解/项目具体模块的业务逻辑描述 常见排序算法 Linux系统的常用命令和Linux系统了解程度考核 项目部署用到的服务器的配置和了解程度 加分项 数据库基本功必须掌握但同时更重要的是理解为什么和是如何实现的，拓展自己知识面 Linux系统的底层原理和了解程度">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A000.png">
+<meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A001.png">
+<meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A005.png">
+<meta property="og:updated_time" content="2019-03-17T14:03:08.173Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试总结1">
+<meta name="twitter:description" content="面试整理1 待完善。。在我参加的后台开发岗位面试中，主要有以下知识是比较侧重： 数据库CRUD操作/查询优化以及数据库知识量 框架的对比和了解/项目具体模块的业务逻辑描述 常见排序算法 Linux系统的常用命令和Linux系统了解程度考核 项目部署用到的服务器的配置和了解程度 加分项 数据库基本功必须掌握但同时更重要的是理解为什么和是如何实现的，拓展自己知识面 Linux系统的底层原理和了解程度">
+<meta name="twitter:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A000.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/gollumhome.github.io/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://gollumhome.github.io/2019/03/17/interview1/">
+
+
+
+
+
+  <title>面试总结1 | openstack</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/gollumhome.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">openstack</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/gollumhome.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/gollumhome.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/gollumhome.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/gollumhome.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/17/interview1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试总结1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-17T21:53:10+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>面试整理1</strong></p>
+<h2 id="待完善。。"><a href="#待完善。。" class="headerlink" title="待完善。。"></a>待完善。。</h2><p>在我参加的后台开发岗位面试中，主要有以下知识是比较侧重：</p>
+<p>数据库CRUD操作/查询优化以及数据库知识量</p>
+<p>框架的对比和了解/项目具体模块的业务逻辑描述</p>
+<p>常见排序算法</p>
+<p>Linux系统的常用命令和Linux系统了解程度考核</p>
+<p>项目部署用到的服务器的配置和了解程度</p>
+<p>加分项</p>
+<p>数据库基本功必须掌握但同时更重要的是理解为什么和是如何实现的，拓展自己知识面</p>
+<p>Linux系统的底层原理和了解程度</p>
+<p>目前Golang在后端中也逐渐流行，有时间还是需要去掌握</p>
+<p>技术没有终点，保持乐于学习和接受新技术的心态，面试官看重技术能力同时也更看重你的心态</p>
+<p>自信且好学</p>
+<p><strong>面试问题</strong></p>
+<p>问题就给大家了，答案自己去查找吧。只有经过自己努力的东西才会格外珍惜与铭刻。</p>
+<h2 id="1-Python相关"><a href="#1-Python相关" class="headerlink" title="1. Python相关"></a>1. Python相关</h2><p>实现一个单例模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">线程非安全版</span><br><span class="line"></span><br><span class="line">class Singleton(object):</span><br><span class="line">    # 方法1,实现__new__方法</span><br><span class="line">    # 并在将一个类的实例绑定到类变量_instance上,</span><br><span class="line">    # 如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回</span><br><span class="line">    # 如果cls._instance不为None,直接返回cls._instance</span><br><span class="line">    # 定义静态变量实例</span><br><span class="line">    __instance = None</span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not cls.__instance: #if hasattr(cls.&apos;__instance&apos;)非单例对象</span><br><span class="line">            cls.__instance = super(Singleton, cls).__new__(cls, *args, **kwargs)</span><br><span class="line">        return cls.__instance</span><br><span class="line"></span><br><span class="line">    def __init__(self, status_number):</span><br><span class="line">        self.status_number = status_number</span><br><span class="line"></span><br><span class="line">instance1 = Singleton(2)</span><br><span class="line">instance2 = Singleton(4)</span><br><span class="line">print id(instance1)</span><br><span class="line">print id(instance2)</span><br><span class="line">print instance1.status_number</span><br><span class="line">print instance1.status_number</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">39940840</span><br><span class="line">39940840</span><br><span class="line">4</span><br><span class="line">4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">线程非安全版</span><br><span class="line">--------------------------------------------------</span><br><span class="line">#使用元类</span><br><span class="line">class Singleton(type):</span><br><span class="line">    _instance = None</span><br><span class="line"></span><br><span class="line">    def __call__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(cls, &apos;_instance&apos;):</span><br><span class="line">            cls._instance = super(Singleton, cls).__call__(*args, **kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class SingletonChild(object):</span><br><span class="line">    __metaclass__ = Singleton</span><br><span class="line"></span><br><span class="line">instance1 = SingletonChild()</span><br><span class="line">instance2 = SingletonChild()</span><br><span class="line">print id(instance1)</span><br><span class="line">print id(instance2)</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">503241816</span><br><span class="line">503241816</span><br><span class="line"></span><br><span class="line">---------------------------------------------------</span><br><span class="line"></span><br><span class="line">线程安全版：</span><br><span class="line">问题说明：当有多个线程同时去初始化对象时，就很可能同时判断__instance is None，从而进入初始化instance</span><br><span class="line"></span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import threading</span><br><span class="line">from threading import Thread</span><br><span class="line"></span><br><span class="line">Lock = threading.Lock()</span><br><span class="line"></span><br><span class="line">class Singleton(object):</span><br><span class="line">    # 定义静态变量实例</span><br><span class="line">    __instance = None</span><br><span class="line"></span><br><span class="line">    def __init__(self, status_number):</span><br><span class="line">        self.status_number = status_number + 1</span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not cls.__instance:</span><br><span class="line">            try:</span><br><span class="line">                Lock.acquire()</span><br><span class="line">                if not cls.__instance:</span><br><span class="line">                    cls.__instance = super(Singleton, cls).__new__(cls, *args,</span><br><span class="line">                                                                   **kwargs)</span><br><span class="line">            finally:</span><br><span class="line">                Lock.release()</span><br><span class="line">        return cls.__instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def test_singleton_in_thread():</span><br><span class="line">    print id(Singleton(2))</span><br><span class="line">    print Singleton(2).status_number</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    idx = 0</span><br><span class="line">    while 1:</span><br><span class="line">        Thread(target=test_singleton_in_thread, group=None).start()</span><br><span class="line">        idx += 1</span><br><span class="line">        if idx &gt; 0X100:</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">&gt; 1496192</span><br><span class="line">3</span><br><span class="line">41496192</span><br><span class="line">3</span><br><span class="line">41496192</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
+<p><strong>实现一个装饰器</strong></p>
+<blockquote>
+<p>装饰器：本质就是一个函数，为其他函数添加附加功能。装饰器=高阶函数+函数嵌套+闭包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#带有不定参数的装饰器</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def deco(func):</span><br><span class="line">    def wrapper(*args, **kwargs):</span><br><span class="line">        startTime = time.time()</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line">        endTime = time.time()</span><br><span class="line">        msecs = (endTime - startTime)*1000</span><br><span class="line">        print(&quot;time is %d ms&quot; %msecs)</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    f = func</span><br><span class="line">    func2(3,4,5)</span><br><span class="line">    f(3,4)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong>用Python实现快排</strong></p>
+<p><strong>如果系统中需要很多个Python版本，如何进行Python版本的管理</strong></p>
+<blockquote>
+<p>python 虚机环境隔离 virtualenv</p>
+</blockquote>
+<p><strong>如何实现一个全局变量？(除了global,还可以通过单例模式)</strong></p>
+<h2 id="2-数据库"><a href="#2-数据库" class="headerlink" title="2. 数据库"></a>2. 数据库</h2><p><strong>数据库的数据是实时更新的吗？每点击一次，数据库数据修改一次？</strong></p>
+<blockquote>
+<p>redis 本身的持久化到本地文件，定时任务来写进 mysql</p>
+</blockquote>
+<p><strong>Redis hash的个数</strong></p>
+<p><strong>如何修改Redis数据库的库的个数？&amp;</strong></p>
+<p><strong>Redis数据库如何实现持久化</strong></p>
+<p><strong>Redis数据库支持的数据类型</strong></p>
+<blockquote>
+<p>Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)</p>
+</blockquote>
+<p><strong>Redis使用AOF方式持久化，aof文件不断增大，如何处理？</strong></p>
+<blockquote>
+<p>AOF 简介：Redis的持久化方式之一RDB是通过保存数据库中的键值对来记录数据库的状态。而另一种持久化方式 AOF 则是通过保存Redis服务器所执行的写命令来记录数据库状态</p>
+</blockquote>
+<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A000.png" alt="image"></p>
+<blockquote>
+<p>RDB 持久化方式就是将 str1,str2,str3 这三个键值对保存到 RDB文件中，而 AOF 持久化则是将执行的 set,sadd,lpush 三个命令保存到 AOF 文件中</p>
+</blockquote>
+<blockquote>
+<p>问题产生原因及解决方式：由于AOF持久化是Redis不断将写命令记录到 AOF 文件中，随着Redis不断的进行，AOF 的文件会越来越大，文件越大，占用服务器内存越大以及 AOF 恢复要求时间越长。为了解决这个问题，Redis新增了重写机制，当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩，只保留可以恢复数据的最小指令集。可以使用命令 bgrewriteaof 来重写</p>
+</blockquote>
+<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A001.png" alt="image"> </p>
+<blockquote>
+<p>如果不进行 AOF 文件重写，那么 AOF 文件将保存四条 SADD 命令，如果使用AOF 重写，那么AOF 文件中将只会保留下面一条命令：</p>
+</blockquote>
+<blockquote>
+<p>sadd animals “dog” “tiger” “panda” “lion” “cat”<br>　　也就是说 AOF 文件重写并不是对原文件进行重新整理，而是直接读取服务器现有的键值对，然后用一条命令去代替之前记录这个键值对的多条命令，生成一个新的文件后去替换原来的 AOF 文件。</p>
+</blockquote>
+<blockquote>
+<p>AOF 文件重写触发机制：通过 redis.conf 配置文件中的 auto-aof-rewrite-percentage：默认值为100，以及auto-aof-rewrite-min-size：64mb 配置，也就是说默认Redis会记录上次重写时的AOF大小，默认配置是当AOF文件大小是上次rewrite后大小的一倍且文件大于64M时触发。</p>
+</blockquote>
+<blockquote>
+<p>这里再提一下，我们知道 Redis 是单线程工作，如果 重写 AOF 需要比较长的时间，那么在重写 AOF 期间，Redis将长时间无法处理其他的命令，这显然是不能忍受的。Redis为了克服这个问题，解决办法是将 AOF 重写程序放到子程序中进行，这样有两个好处  </p>
+</blockquote>
+<blockquote>
+<p>①、子进程进行 AOF 重写期间，服务器进程（父进程）可以继续处理其他命令。</p>
+</blockquote>
+<blockquote>
+<p>②、子进程带有父进程的数据副本，使用子进程而不是线程，可以在避免使用锁的情况下，保证数据的安全性。</p>
+</blockquote>
+<blockquote>
+<p>使用子进程解决了上面的问题，但是新问题也产生了：因为子进程在进行 AOF 重写期间，服务器进程依然在处理其它命令，这新的命令有可能也对数据库进行了修改操作，使得当前数据库状态和重写后的 AOF 文件状态不一致。</p>
+</blockquote>
+<blockquote>
+<p>为了解决这个数据状态不一致的问题，Redis 服务器设置了一个 AOF 重写缓冲区，这个缓冲区是在创建子进程后开始使用，当Redis服务器执行一个写命令之后，就会将这个写命令也发送到 AOF 重写缓冲区。当子进程完成 AOF 重写之后，就会给父进程发送一个信号，父进程接收此信号后，就会调用函数将 AOF 重写缓冲区的内容都写到新的 AOF 文件中。<br>　　这样将 AOF 重写对服务器造成的影响降到了最低。</p>
+</blockquote>
+<p><strong>Redis数据库如何设置密码</strong>  </p>
+<blockquote>
+<p>设置密码命令（默认没密码）<br>127.0.0.1:6379&gt; config set requirepass “xxx”  </p>
+<ul>
+<li>查询密码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">(error) ERR operation not permitted</span><br><span class="line"></span><br><span class="line">密码验证：</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; auth xxx</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">再次查询：</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">1) &quot;requirepass&quot;</span><br><span class="line">2) &quot;xxx&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p><strong>hash表是如何生成的</strong></p>
+<p><strong>MySQL数据库如何使用sql语句插入一条数据</strong>  </p>
+<blockquote>
+<p>insert into table_name ( field1, field2,…fieldN ) values (value1, value2,…valueN );  </p>
+</blockquote>
+<p><strong>MySQL数据库的慢查询有了解过吗</strong><br><a href="https://note.youdao.com/" target="_blank" rel="noopener">link</a></p>
+<p><strong>MySQL数据库如何进行查询优化</strong>  </p>
+<p><a href="https://note.youdao.com/" target="_blank" rel="noopener">link</a><br><strong>如何很多请求同时对Redis的同一个键进行访问，如何保证数据安全</strong></p>
+<blockquote>
+<p>利用setnx实现锁  </p>
+</blockquote>
+<p><strong>说说Redis的淘汰机制</strong></p>
+<ul>
+<li>概述：  <blockquote>
+<p>redis 中，允许用户设置最大使用内存大小通过配置redis.conf中的maxmemory这个值来开启内存淘汰功能.  </p>
+</blockquote>
+</li>
+<li>edis 提供 6种数据淘汰策略通过maxmemory-policy设置策略：  <blockquote>
+<ol>
+<li>volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰  </li>
+<li>volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰  </li>
+<li>volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰  </li>
+<li>allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰  </li>
+<li>allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰  </li>
+<li>no-enviction（驱逐）：禁止驱逐数据  </li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p><strong>MySQL数据库每天晚上12点进行全备份。第二天有员工在9点钟误删除了一个数据库，但在10点钟才被发现。问如何进行恢复被误删除的数据库并同时保留9点到10点钟新增的数据同时不影响业务的正常运行?</strong>   </p>
+<blockquote>
+<p>参考  <a href="http://www.cnblogs.com/kevingrace/p/5904800.html" target="_blank" rel="noopener">http://www.cnblogs.com/kevingrace/p/5904800.html</a><br><strong>当数据越来越多，如何避免hash槽中key出现相同的情况?</strong></p>
+</blockquote>
+<p><strong>MongoDB在哪些场合使用过？</strong></p>
+<blockquote>
+<p>存储非结构性数据</p>
+</blockquote>
+<h2 id="03-项目部署"><a href="#03-项目部署" class="headerlink" title="03. 项目部署"></a>03. 项目部署</h2><p><strong>大家都说Nginx快？快的原因是什么？</strong></p>
+<blockquote>
+<p>Nginx采用epoll模型，异步非阻塞。对于Nginx来说，把一个完整的连接请求处理都划分成了事件，一个一个的事件。比如accept（）， receive（），磁盘I/O，send（）等，每部分都有相应的模块去处理，一个完整的请求可能是由几百个模块去处理。真正核心的就是事件收集和分发模块，这就是管理所有模块的核心。只有核心模块的调度才能让对应的模块占用CPU资源，从而处理请求。拿一个HTTP请求来说，首先在事件收集分发模块注册感兴趣的监听事件，注册好之后不阻塞直接返回，接下来就不需要再管了，等待有连接来了内核会通知你(epoll的轮询会告诉进程)，cpu就可以处理其他事情去了。一旦有请求来，那么对整个请求分配相应的上下文（其实已经预先分配好），这时候再注册新的感兴趣的事件(read函数)，同样客户端数据来了内核会自动通知进程可以去读数据了，读了数据之后就是解析，解析完后去磁盘找资源（I/O），一旦I/O完成会通知进程，进程开始给客户端发回数据send()，这时候也不是阻塞的，调用后就等内核发回通知发送的结果就行。整个下来把一个请求分成了很多个阶段，每个阶段都到很多模块去注册，然后处理，都是异步非阻塞。异步这里指的就是做一个事情，不需要等返回结果，做好了会自动通知你  </p>
+</blockquote>
+<p><strong>对RPC了解吗?</strong></p>
+<ul>
+<li>概念  <blockquote>
+<p>远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议,RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易  </p>
+</blockquote>
+</li>
+<li>组成  </li>
+</ul>
+<ol>
+<li>User</li>
+<li>User-stub<br>3.RPCRuntime</li>
+<li>Server-stub</li>
+<li>Server  </li>
+</ol>
+<ul>
+<li>RPC远程调用过程<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A005.png" alt="image"></li>
+</ul>
+<ol>
+<li><p>首先，要解决通讯的问题，主要是通过在客户端和服务器之间建立TCP连接，远程过程调用的所有交换的数据都在这个连接里传输。连接可以是按需连接，调用结束后就断掉，也可以是长连接，多个远程过程调用共享同一个连接。</p>
+</li>
+<li><p>第二，要解决寻址的问题，也就是说，A服务器上的应用怎么告诉底层的RPC框架，如何连接到B服务器（如主机或IP地址）以及特定的端口，方法的名称名称是什么，这样才能完成调用。比如基于Web服务协议栈的RPC，就要提供一个endpoint<br>URI，或者是从UDDI服务上查找。如果是RMI调用的话，还需要一个RMI Registry来注册服务的地址。</p>
+</li>
+<li><p>第三，当A服务器上的应用发起远程过程调用时，方法的参数需要通过底层的网络协议如TCP传递到B服务器，由于网络协议是基于二进制的，内存中的参数的值要序列化成二进制的形式，也就是序列化（Serialize）或编组（marshal），通过寻址和传输将序列化的二进制发送给B服务器。</p>
+</li>
+<li><p>第四，B服务器收到请求后，需要对参数进行反序列化（序列化的逆操作），恢复为内存中的表达方式，然后找到对应的方法（寻址的一部分）进行本地调用，然后得到返回值。</p>
+</li>
+<li><p>第五，返回值还要发送回服务器A上的应用，也要经过序列化的方式发送，服务器A接到后，再反序列化，恢复为内存中的表达方式，交给A服务器上的应用</p>
+</li>
+</ol>
+<p><strong>如何在服务器上设置业务进程数？</strong>  </p>
+<blockquote>
+<p>Nginx 配置文件 nginx.conf,Nginx 的配置文档 nginx.conf 中可以设置 worker_processes 来更改 Nginx 的进程数量</p>
+</blockquote>
+<p><strong>说说正向代理和反向代理</strong>  </p>
+<ul>
+<li><p>正向代理  </p>
+<blockquote>
+<p>正向代理 是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    resolver 192.168.1.1; #指定DNS服务器IP地址  </span><br><span class="line">    listen 8080;  </span><br><span class="line">    location / &#123;  </span><br><span class="line">        proxy_pass http://$http_host$request_uri; #设定代理服务器的协议和地址  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>反向代理  </p>
+<blockquote>
+<p>以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    location /demo &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8081;</span><br><span class="line">    &#125;</span><br><span class="line">    location /demo1 &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8082;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="04-Linux相关"><a href="#04-Linux相关" class="headerlink" title="04. Linux相关"></a>04. Linux相关</h2><p><strong>如何查看剩余内存</strong></p>
+<blockquote>
+<p>top 、free -m  </p>
+</blockquote>
+<p><strong>如何查看端口是否被占用</strong></p>
+<blockquote>
+<ol>
+<li>netstat -tunlp |  |grep   端口号  </li>
+<li>lsof -i:端口号 用于查看某一端口的占用情况   </li>
+<li>ps -ef|grep 16923</li>
+</ol>
+</blockquote>
+<p><strong>如何查看一个程序的PID以及它的所有子进程</strong>  </p>
+<blockquote>
+<p>ps -ef | grep process_name  拿到进程Id<br>pstree -p 进程id  </p>
+</blockquote>
+<p><strong>如何为一个目录下的所有文件添加权限</strong></p>
+<blockquote>
+<p> chmod －R 755 文件夹名   </p>
+</blockquote>
+<p><strong>如果你对一个目录具有写权限，那么你是否具有对这个目录下的所有文件具有删除权限</strong></p>
+<blockquote>
+<p>超级用户无论权限如何，都可以进入目录，进行读写和执行操作，而对于普通用户，进入目录需要执行权限，要显示目录需要读权限，目录下创建文件和删除目录下文件需要对目录拥有写权限<br><strong>对Linux多路复用的理解</strong></p>
+</blockquote>
+<p><strong>修改IP地址的方法</strong>  </p>
+<ul>
+<li>即时生效  <blockquote>
+<p>$ ifconfig eth0 192.168.1.155 netmask 255.255.255.0  </p>
+</blockquote>
+</li>
+<li>重启生效 <blockquote>
+<p>$ vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>$ service network restart</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="05-前端相关"><a href="#05-前端相关" class="headerlink" title="05. 前端相关"></a>05. 前端相关</h2><ol>
+<li>对前端HTML CSS 和 JS了解多少？熟悉吗？<blockquote>
+<p>…  </p>
+</blockquote>
+</li>
+<li>对React和bootstrap了解吗?  <blockquote>
+<p>…  </p>
+</blockquote>
+</li>
+<li>如何进行http优化？(响应头设置Content-Encoding: gzip)  <blockquote>
+<p>…</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="06-网络编程"><a href="#06-网络编程" class="headerlink" title="06. 网络编程"></a>06. 网络编程</h2><p><strong>说一下实现TCP建立连接的过程以及当时进入了什么状态？为什么建立连接只需要3次，断开连接需要4次？为什么断开连接时第二次和第三次要分开，不能合在一起吗？</strong></p>
+<h2 id="07-项目相关"><a href="#07-项目相关" class="headerlink" title="07. 项目相关"></a>07. 项目相关</h2><p><strong>说一下一个请求过来到返回response的过程</strong></p>
+<p><strong>如何实现单点登录</strong></p>
+<p><strong>JWT token是如何进行生成和校验的</strong></p>
+<p><strong>了解过哪些后端框架？Tornado了解吗?</strong></p>
+<p><strong>了解过webapp2吗</strong></p>
+<p><strong>Django如何实现csrf攻击保护</strong></p>
+<p><strong>说说你项目中遇到的困难以及如何解决</strong></p>
+<blockquote>
+<p>…<br>说说你认为自己最有成就感或最深刻的项目<br>…    </p>
+</blockquote>
+<p><strong>对KAFKA了解吗？用过哪些消息队列？使用过RabbitMQ吗?</strong></p>
+<p><strong>08. 版本控制</strong></p>
+<p><strong>如何从远程仓库拉取分支到本地</strong></p>
+<p><strong>如何进行版本回退</strong></p>
+<p> <strong>09. 其他内容</strong></p>
+<p><strong>Celery的原理和应用场景</strong></p>
+<p><strong>Elasticsearch 的原理</strong></p>
+<p><strong>平时是如何学习的?有关注哪些技术?</strong></p>
+<blockquote>
+<p>…</p>
+</blockquote>
+<p><strong>Docker的了解，常用命令，如何暴露端口</strong></p>
+<p><strong>对ERP了解吗？Odoo了解吗?</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/gollumhome.github.io/2019/03/16/redis基础篇/" rel="next" title="redis基础篇">
+                <i class="fa fa-chevron-left"></i> redis基础篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/gollumhome.github.io/images/avatar.png" alt="Shuai Guo">
+            
+              <p class="site-author-name" itemprop="name">Shuai Guo</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/gollumhome.github.io/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/gollumhome.github.io/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gollumHome" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1025951714@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-qq"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/cleaner_xiaoqiang" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-csdn"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.douban.com/people/170183273/" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-豆瓣"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#待完善。。"><span class="nav-number">1.</span> <span class="nav-text">待完善。。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Python相关"><span class="nav-number">2.</span> <span class="nav-text">1. Python相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据库"><span class="nav-number">3.</span> <span class="nav-text">2. 数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#03-项目部署"><span class="nav-number">4.</span> <span class="nav-text">03. 项目部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#04-Linux相关"><span class="nav-number">5.</span> <span class="nav-text">04. Linux相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#05-前端相关"><span class="nav-number">6.</span> <span class="nav-text">05. 前端相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#06-网络编程"><span class="nav-number">7.</span> <span class="nav-text">06. 网络编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#07-项目相关"><span class="nav-number">8.</span> <span class="nav-text">07. 项目相关</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuai Guo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/gollumhome.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
