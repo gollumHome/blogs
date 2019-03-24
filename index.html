@@ -249,6 +249,239 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/24/Mysql慢查询/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/03/24/Mysql慢查询/" itemprop="url">Mysql慢查询</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T14:19:55+08:00">
+                2019-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/database/" itemprop="url" rel="index">
+                    <span itemprop="name">database</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Mysql慢查询日志、分析、优化"><a href="#Mysql慢查询日志、分析、优化" class="headerlink" title="Mysql慢查询日志、分析、优化"></a>Mysql慢查询日志、分析、优化</h2><h2 id="慢查询"><a href="#慢查询" class="headerlink" title="慢查询"></a>慢查询</h2><p><strong>简介：</strong>  </p>
+<ul>
+<li><p>概念：  </p>
+<blockquote>
+<p>MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。long_query_time的默认值为10，意思是运行10S以上的语句。默认情况下，Mysql数据库并不启动慢查询日志  </p>
+</blockquote>
+</li>
+<li><p>作用：  </p>
+<blockquote>
+<p>开启慢查询日志，MySQL能记录下查询超过指定时间的语句，通过定位分析性能的瓶颈，可以更好的优化数据库系统的性能    </p>
+</blockquote>
+</li>
+<li><p>参数说明：  </p>
+<blockquote>
+<p>slow_query_log 慢查询开启状态<br>slow_query_log_file 慢查询日志存放的位置（这个目录需要MySQL的运行帐号的可写权限，一般设置为MySQL的数据存放目录）<br>long_query_time 查询超过多少秒才记录</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>慢查询设置</strong>：  </p>
+<ol>
+<li>查看慢查询相关参数  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;slow_query%&apos;;</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line">| Variable_name             | Value                            |</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line">| slow_query_log            | OFF                              |</span><br><span class="line">| slow_query_log_file       | /mysql/data/localhost-slow.log   |</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &apos;long_query_time&apos;;</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">| Variable_name   | Value     |</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">| long_query_time | 10.000000 |</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">```  </span><br><span class="line">2. 设置方法  </span><br><span class="line">*方法一:全局变量设置* </span><br><span class="line">&gt;将 slow_query_log 全局变量设置为“ON”状态</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>mysql&gt; set global slow_query_log=’ON’;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;设置慢查询日志存放的位置</span><br></pre></td></tr></table></figure></p>
+<p>mysql&gt; set global slow_query_log_file=’/usr/local/mysql/data/slow.log’;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 查询超过1秒就记录</span><br></pre></td></tr></table></figure></p>
+<p>mysql&gt; set global long_query_time=1;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*方法二:配置文件设置* </span><br><span class="line">&gt;修改配置文件my.cnf，在[mysqld]下的下方加入</span><br></pre></td></tr></table></figure></p>
+<p>[mysqld]<br>slow_query_log = ON<br>slow_query_log_file = /usr/local/mysql/data/slow.log<br>long_query_time = 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**重启MySQL服务**</span><br></pre></td></tr></table></figure></p>
+<p>service mysqld restart<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**查看设置后的参数**</span><br></pre></td></tr></table></figure></p>
+<p>mysql&gt; show variables like ‘slow_query%’;<br>+———————+——————————–+<br>| Variable_name       | Value                          |<br>+———————+——————————–+<br>| slow_query_log      | ON                             |<br>| slow_query_log_file | /usr/local/mysql/data/slow.log |<br>+———————+——————————–+</p>
+<p>mysql&gt; show variables like ‘long_query_time’;<br>+—————–+———-+<br>| Variable_name   | Value    |<br>+—————–+———-+<br>| long_query_time | 1.000000 |<br>+—————–+———-+<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">**测试**  </span><br><span class="line">-  执行一条慢查询SQL语句  </span><br><span class="line">&gt;mysql&gt; select sleep(2);  </span><br><span class="line">- 查看是否生成慢查询日志  </span><br><span class="line">&gt; ls /usr/local/mysql/data/slow.log</span><br><span class="line"></span><br><span class="line">## 日志分析工具mysqldumpslow</span><br></pre></td></tr></table></figure></p>
+<p>[root@localhost~]# mysqldumpslow –help<br>Usage: mysqldumpslow [ OPTS… ] [ LOGS… ]</p>
+<p>Parse and summarize the MySQL slow query log. Options are</p>
+<p>  –verbose    verbose<br>  –debug      debug<br>  –help       write this text to standard output</p>
+<p>  -v           verbose<br>  -d           debug<br>  -s ORDER     what to sort by (al, at, ar, c, l, r, t), ‘at’ is default<br>                al: average lock time<br>                ar: average rows sent<br>                at: average query time<br>                 c: count<br>                 l: lock time<br>                 r: rows sent<br>                 t: query time<br>  -r           reverse the sort order (largest last instead of first)<br>  -t NUM       just show the top n queries<br>  -a           don’t abstract all numbers to N and strings to ‘S’<br>  -n NUM       abstract numbers with at least n digits within names<br>  -g PATTERN   grep: only consider stmts that include this string<br>  -h HOSTNAME  hostname of db server for <em>-slow.log filename (can be wildcard),<br>               default is ‘</em>‘, i.e. match all<br>  -i NAME      name of server instance (if using mysql.server startup script)<br>  -l           don’t subtract lock time from total time</p>
+<p>mysqldumpslow –help<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- 使用举例</span><br></pre></td></tr></table></figure></p>
+<p>-s, 是表示按照何种方式排序<br>    c: 访问计数</p>
+<pre><code>l: 锁定时间
+
+r: 返回记录
+
+t: 查询时间
+
+al:平均锁定时间
+
+ar:平均返回记录数
+
+at:平均查询时间
+</code></pre><p>-t, 是top n的意思，即为返回前面多少条的数据；<br>-g, 后边可以写一个正则匹配模式，大小写不敏感的；</p>
+<p>比如:<br>得到返回记录集最多的10个SQL。<br>mysqldumpslow -s r -t 10 /database/mysql/mysql06_slow.log</p>
+<p>得到访问次数最多的10个SQL<br>mysqldumpslow -s c -t 10 /database/mysql/mysql06_slow.log</p>
+<p>得到按照时间排序的前10条里面含有左连接的查询语句。<br>mysqldumpslow -s t -t 10 -g “left join” /database/mysql/mysql06_slow.log</p>
+<p>另外建议在使用这些命令时结合 | 和more 使用 ，否则有可能出现刷屏的情况。<br>mysqldumpslow -s r -t 20 /mysqldata/mysql/mysql06-slow.log | more</p>
+<p><code>`</code></p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p><strong>1. SQL语句优化</strong>  </p>
+<blockquote>
+<p>（1）避免select *，将需要查找的字段列出来<br>（2）使用连接（join）来代替子查询<br>（3）拆分大的delete或insert语句  </p>
+</blockquote>
+<p><strong>2. 选择合适的数据类型</strong>  </p>
+<blockquote>
+<p>（1）使用简单的数据类型，整型比字符处理开销更小，因为字符串的比较更复杂。如，int类型存储时间类型<br>（2）使用合理的字段属性长度，固定长度的表会更快。使用enum、char而不是varchar<br>（3）尽可能使用not null定义字段<br>（4）尽量少用text，非用不可最好分表    </p>
+</blockquote>
+<p><strong>3. 优化LIMIT分页</strong>  </p>
+<ul>
+<li><p>1、offset比较小的时候  </p>
+<blockquote>
+<p>直接使用limit较优  </p>
+</blockquote>
+</li>
+<li><p>2 offset大的时候  </p>
+<blockquote>
+<p>select id,title from collect limit 90000,10 修改为<br>-&gt; select id,title from collect where id&gt;=(select id from collect order by id limit 90000,1) limit 10;  </p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Mysql-索引"><a href="#Mysql-索引" class="headerlink" title="Mysql 索引"></a>Mysql 索引</h2><ol>
+<li>单列索引  <blockquote>
+<p>一个索引只包含单个列</p>
+</blockquote>
+</li>
+</ol>
+<p>2.组合索引  </p>
+<blockquote>
+<p>一个索引包含多个列  </p>
+<ol start="3">
+<li>唯一索引<br>索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一</li>
+</ol>
+</blockquote>
+<hr>
+<p><strong>参考：</strong>  </p>
+<blockquote>
+<p><a href="http://www.cnblogs.com/luyucheng/p/6265594.html" target="_blank" rel="noopener">http://www.cnblogs.com/luyucheng/p/6265594.html</a><br><a href="https://www.cnblogs.com/saneri/p/6656161.html" target="_blank" rel="noopener">https://www.cnblogs.com/saneri/p/6656161.html</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/17/interview1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2225,187 +2458,11 @@ Hi, I am a gir
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2018/09/10/django多种view使用方式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2018/09/10/django多种view使用方式/" itemprop="url">django多种view使用方式.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T21:31:52+08:00">
-                2018-09-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/django/" itemprop="url" rel="index">
-                    <span itemprop="name">django</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="django-多种视图view继承方式"><a href="#django-多种视图view继承方式" class="headerlink" title="django 多种视图view继承方式"></a>django 多种视图view继承方式</h2><p><strong>1. APIVIEW</strong>  </p>
-<blockquote>
-<p>继承django view，基于类视图，区别与基于方法视图  </p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from rest_framework.views import APIView</span><br><span class="line">from rest_framework.response import Response</span><br><span class="line">from django.contrib.auth.models import User</span><br><span class="line"></span><br><span class="line">class ListUsers(APIView):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    View to list all users in the system.</span><br><span class="line"></span><br><span class="line">    * Requires token authentication.</span><br><span class="line">    * Only admin users are able to access this view.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def get(self, request, format=None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Return a list of all users.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        usernames = [user.username for user in User.objects.all()]</span><br><span class="line">        return Response(usernames)</span><br><span class="line">    </span><br><span class="line">    def put((self, request, format=None):</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure>
-<p><strong>2. GenericAPIView</strong>  </p>
-<blockquote>
-<p>继承于APIVIEW,继承自APIVIew，增加了对于列表视图和详情视图可能用到的通用支持方法。通常使用时，可搭配一个或多个Mixin扩展类   </p>
-</blockquote>
-<blockquote>
-<p>子类:<br>. CreateAPIView<br>. ListAPIView<br>. RetrieveAPIView<br>. DestroyAPIView<br>. UpdateAPIView<br>…</p>
-</blockquote>
-<blockquote>
-<p>支持定义的属性：</p>
-</blockquote>
-<blockquote>
-<p>列表视图与详情视图通用<br>queryset 列表视图的查询集<br>serializer_class 视图使用的序列化器</p>
-</blockquote>
-<ul>
-<li>列表视图使用：<br>pagination_class 分页控制类<br>filter_backends 过滤控制后端</li>
-<li>详情页视图使用：<br>lookup_field 查询单一数据库对象时使用的条件字段，默认为’pk’<br>lookup_url_kwarg 查询单一数据时URL中的参数关键字名称，默认与look_field相同<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">from rest_framework.mixins import ListModelMixin</span><br><span class="line">from django_filters.rest_framework import DjangoFilterBackend</span><br><span class="line"></span><br><span class="line">class LargeResultsSetPagination(PageNumberPagination):</span><br><span class="line">    page_size = 1000</span><br><span class="line">    page_size_query_param = &apos;page_size&apos;</span><br><span class="line">    max_page_size = 10000</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">class BookView(ListModelMixin,mixins.CreateModelMixin, GenericAPIView):</span><br><span class="line"></span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line">    filter_backends = filter_backends = (DjangoFilterBackend,)</span><br><span class="line">    filter_fields = (&apos;category&apos;, &apos;in_stock&apos;)</span><br><span class="line">    #或者查询</span><br><span class="line">    search_fields = (&apos;username&apos;, &apos;email&apos;)</span><br><span class="line">    #分页</span><br><span class="line">    pagination_class = LargeResultsSetPagination</span><br><span class="line"></span><br><span class="line">    def get(self, request):</span><br><span class="line">        return self.list(request)</span><br><span class="line">        </span><br><span class="line">    def post(self, request, *args, **kwargs):</span><br><span class="line">        return self.create(request, *args, **kwargs)</span><br><span class="line">        </span><br><span class="line">---------------------------------------------------------</span><br><span class="line">url(r&quot;books/$&quot;,views.BookView.as_view()),</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>3. Mixins</strong>  </p>
-<ul>
-<li>ListModelMixin  </li>
-<li><p>CreateModelMixin </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class BookDetailView(RetrieveModelMixin, GenericAPIView):</span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line"> </span><br><span class="line">    def get(self, request, pk):</span><br><span class="line">        return self.retrieve(request)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>RetrieveModelMixin  </p>
-</li>
-<li>UpdateModelMixin  </li>
-<li>DestroyModelMixin</li>
-</ul>
-<p><strong>4. viewset</strong><br>ViewSet视图集类不再实现get()、post()等方法，而是实现动作 action 如 list() 、create() 等通过as_view<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">class UserViewSet(viewsets.ViewSet):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Example empty viewset demonstrating the standard</span><br><span class="line">    actions that will be handled by a router class.</span><br><span class="line"></span><br><span class="line">    If you&apos;re using format suffixes, make sure to also include</span><br><span class="line">    the `format=None` keyword argument for each action.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def list(self, request):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def create(self, request):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def retrieve(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def update(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def partial_update(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def destroy(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line">----------------------------------</span><br><span class="line">url 设置</span><br><span class="line"></span><br><span class="line">user_list = UserViewSet.as_view(&#123;&apos;get&apos;: &apos;list&apos;&#125;)</span><br><span class="line">user_detail = UserViewSet.as_view(&#123;&apos;get&apos;: &apos;retrieve&apos;&#125;)</span><br><span class="line">或者</span><br><span class="line">from myapp.views import UserViewSet</span><br><span class="line">from rest_framework.routers import DefaultRouter</span><br><span class="line"></span><br><span class="line">router = DefaultRouter()</span><br><span class="line">router.register(r&apos;users&apos;, UserViewSet, base_name=&apos;user&apos;)</span><br><span class="line">urlpatterns = router.urls</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/gollumhome.github.io/page/2/">2</a><a class="extend next" rel="next" href="/gollumhome.github.io/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/gollumhome.github.io/page/2/">2</a><a class="page-number" href="/gollumhome.github.io/page/3/">3</a><a class="extend next" rel="next" href="/gollumhome.github.io/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2453,7 +2510,7 @@ Hi, I am a gir
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2470,6 +2527,15 @@ Hi, I am a gir
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/gollumhome.github.io/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>

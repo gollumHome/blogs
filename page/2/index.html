@@ -249,6 +249,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2018/09/10/django多种view使用方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2018/09/10/django多种view使用方式/" itemprop="url">django多种view使用方式.md</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T21:31:52+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/django/" itemprop="url" rel="index">
+                    <span itemprop="name">django</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="django-多种视图view继承方式"><a href="#django-多种视图view继承方式" class="headerlink" title="django 多种视图view继承方式"></a>django 多种视图view继承方式</h2><p><strong>1. APIVIEW</strong>  </p>
+<blockquote>
+<p>继承django view，基于类视图，区别与基于方法视图  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from rest_framework.views import APIView</span><br><span class="line">from rest_framework.response import Response</span><br><span class="line">from django.contrib.auth.models import User</span><br><span class="line"></span><br><span class="line">class ListUsers(APIView):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    View to list all users in the system.</span><br><span class="line"></span><br><span class="line">    * Requires token authentication.</span><br><span class="line">    * Only admin users are able to access this view.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def get(self, request, format=None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Return a list of all users.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        usernames = [user.username for user in User.objects.all()]</span><br><span class="line">        return Response(usernames)</span><br><span class="line">    </span><br><span class="line">    def put((self, request, format=None):</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure>
+<p><strong>2. GenericAPIView</strong>  </p>
+<blockquote>
+<p>继承于APIVIEW,继承自APIVIew，增加了对于列表视图和详情视图可能用到的通用支持方法。通常使用时，可搭配一个或多个Mixin扩展类   </p>
+</blockquote>
+<blockquote>
+<p>子类:<br>. CreateAPIView<br>. ListAPIView<br>. RetrieveAPIView<br>. DestroyAPIView<br>. UpdateAPIView<br>…</p>
+</blockquote>
+<blockquote>
+<p>支持定义的属性：</p>
+</blockquote>
+<blockquote>
+<p>列表视图与详情视图通用<br>queryset 列表视图的查询集<br>serializer_class 视图使用的序列化器</p>
+</blockquote>
+<ul>
+<li>列表视图使用：<br>pagination_class 分页控制类<br>filter_backends 过滤控制后端</li>
+<li>详情页视图使用：<br>lookup_field 查询单一数据库对象时使用的条件字段，默认为’pk’<br>lookup_url_kwarg 查询单一数据时URL中的参数关键字名称，默认与look_field相同<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">from rest_framework.mixins import ListModelMixin</span><br><span class="line">from django_filters.rest_framework import DjangoFilterBackend</span><br><span class="line"></span><br><span class="line">class LargeResultsSetPagination(PageNumberPagination):</span><br><span class="line">    page_size = 1000</span><br><span class="line">    page_size_query_param = &apos;page_size&apos;</span><br><span class="line">    max_page_size = 10000</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">class BookView(ListModelMixin,mixins.CreateModelMixin, GenericAPIView):</span><br><span class="line"></span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line">    filter_backends = filter_backends = (DjangoFilterBackend,)</span><br><span class="line">    filter_fields = (&apos;category&apos;, &apos;in_stock&apos;)</span><br><span class="line">    #或者查询</span><br><span class="line">    search_fields = (&apos;username&apos;, &apos;email&apos;)</span><br><span class="line">    #分页</span><br><span class="line">    pagination_class = LargeResultsSetPagination</span><br><span class="line"></span><br><span class="line">    def get(self, request):</span><br><span class="line">        return self.list(request)</span><br><span class="line">        </span><br><span class="line">    def post(self, request, *args, **kwargs):</span><br><span class="line">        return self.create(request, *args, **kwargs)</span><br><span class="line">        </span><br><span class="line">---------------------------------------------------------</span><br><span class="line">url(r&quot;books/$&quot;,views.BookView.as_view()),</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>3. Mixins</strong>  </p>
+<ul>
+<li>ListModelMixin  </li>
+<li><p>CreateModelMixin </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class BookDetailView(RetrieveModelMixin, GenericAPIView):</span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line"> </span><br><span class="line">    def get(self, request, pk):</span><br><span class="line">        return self.retrieve(request)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>RetrieveModelMixin  </p>
+</li>
+<li>UpdateModelMixin  </li>
+<li>DestroyModelMixin</li>
+</ul>
+<p><strong>4. viewset</strong><br>ViewSet视图集类不再实现get()、post()等方法，而是实现动作 action 如 list() 、create() 等通过as_view<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">class UserViewSet(viewsets.ViewSet):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Example empty viewset demonstrating the standard</span><br><span class="line">    actions that will be handled by a router class.</span><br><span class="line"></span><br><span class="line">    If you&apos;re using format suffixes, make sure to also include</span><br><span class="line">    the `format=None` keyword argument for each action.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def list(self, request):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def create(self, request):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def retrieve(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def update(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def partial_update(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def destroy(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line">----------------------------------</span><br><span class="line">url 设置</span><br><span class="line"></span><br><span class="line">user_list = UserViewSet.as_view(&#123;&apos;get&apos;: &apos;list&apos;&#125;)</span><br><span class="line">user_detail = UserViewSet.as_view(&#123;&apos;get&apos;: &apos;retrieve&apos;&#125;)</span><br><span class="line">或者</span><br><span class="line">from myapp.views import UserViewSet</span><br><span class="line">from rest_framework.routers import DefaultRouter</span><br><span class="line"></span><br><span class="line">router = DefaultRouter()</span><br><span class="line">router.register(r&apos;users&apos;, UserViewSet, base_name=&apos;user&apos;)</span><br><span class="line">urlpatterns = router.urls</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2018/08/05/ovsSwitch基本使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1811,214 +1987,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2018/01/28/梯子搭建/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2018/01/28/梯子搭建/" itemprop="url">梯子搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T10:59:19+08:00">
-                2018-01-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/环境搭建/" itemprop="url" rel="index">
-                    <span itemprop="name">环境搭建</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="vultr-科学上网"><a href="#vultr-科学上网" class="headerlink" title="vultr 科学上网"></a>vultr 科学上网</h1><h2 id="一-购买合适的VPS"><a href="#一-购买合适的VPS" class="headerlink" title="一.购买合适的VPS"></a>一.购买合适的VPS</h2><p>  1.注册地址:官方地址：<a href="https://www.vultr.com/" target="_blank" rel="noopener">https://www.vultr.com/</a>  </p>
-<p>  2.vultr账户充值与配置  </p>
-<ul>
-<li>1&gt;支付方式：1.信用卡2.paypay3.支付宝-&gt;推荐支付宝即可  </li>
-<li>2&gt;在Billing界面选择充值,10美元(最少)<h2 id="搭建VPS"><a href="#搭建VPS" class="headerlink" title="搭建VPS"></a>搭建VPS</h2>1.步骤如下  </li>
-<li>1&gt;选择vps节点，（日本，美国等）  </li>
-<li>2&gt;操作系统centos或其他系统  </li>
-<li>3&gt;服务器配置,5美元即可(土豪随意)  </li>
-</ul>
-<p>2.部署deplpy ，如下图所示,等待服务器状态为running<br><img src="https://i.imgur.com/qSukjn9.png" alt></p>
-<p>3.测试服务器与本地是否连通，ping 即可，如果不通，说明被墙，重新删除服务器，换个节点地址，多试下。亲测日本不行，LA可以  </p>
-<p>4.ss账号生成（xsell,putty）  </p>
-<ul>
-<li>1&gt;远程连接上服务器  </li>
-<li>2&gt;wget –no-check-certificate  <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</a>  </li>
-<li>3&gt;wget –no-check-certificate  <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh" target="_blank" rel="noopener">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</a>  </li>
-<li>4&gt;./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log  </li>
-<li>注：注：提示你输入你的SS SERVER的账号，和端口。不输入就是默认。跑完命令后会出来你的SS客户端的信息<br>出现如下画面<br><img src="https://i.imgur.com/VfI6uLh.png" alt> </li>
-</ul>
-<p>5.windows下在客户端  </p>
-<ul>
-<li>1&gt;Shadowsocks-4.0.6.zip<br>地址：<a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a>  </li>
-<li>2&gt; 配置客户端信息    </li>
-<li><img src="https://i.imgur.com/bsEky8R.png" alt></li>
-<li>3&gt; 在电脑右下角任务栏找到ss图标，右键点击，点击启用系统代理就可以了<br><img src="https://i.imgur.com/T2kaG6L.png" alt><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2></li>
-</ul>
-<ol>
-<li><a href="http://blog.sina.com.cn/s/blog_5406d2910102wrtc.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5406d2910102wrtc.html</a></li>
-<li><a href="https://tieba.baidu.com/p/5412867118?red_tag=0176701493" target="_blank" rel="noopener">https://tieba.baidu.com/p/5412867118?red_tag=0176701493</a></li>
-</ol>
-<h1 id="linux-SSR多用户版配置详解"><a href="#linux-SSR多用户版配置详解" class="headerlink" title="linux-SSR多用户版配置详解"></a>linux-SSR多用户版配置详解</h1><ol>
-<li>先停止shadowsocks<br>/etc/init.d/shadowsocks stop  </li>
-<li>编辑配置文件<br>vi /etc/shadowsocks.json  <pre>
-{  
-"server":"0.0.0.0",
-"server_ipv6": "[::]",
-"local_address":"127.0.0.1",
-"local_port":1080,
-"port_password":{
- "8989":"password1",//着里输入想要的端口和密码
- "8990":"password2"，
- "8991":"password3"
-},
-"timeout":300,
-"method":"aes-256-cfb",//加密方式可以修改也可以不修改本人用chacha20
-"protocol": "origin",//协议也是可以修改了本人用auth_sha1
-"protocol_param": "",
-"obfs": "plain",//这里很重要,免流的请注意必须修改,本人用http_simple
-"obfs_param": "",
-"redirect": "",
-"dns_ipv6": false,
-"fast_open": false,
-"workers": 1
-}
-</pre>  </li>
-<li>退出并保存文件  </li>
-<li>修改防火墙，供多个人使用  (centos 7 的防火墙为firewall)<br>1&gt; 停止防火墙：systemctl stop firewalld<br>2&gt;编辑public.xml文件<br>vi /etc/firewalld/zones/public.xml<br><img src="https://i.imgur.com/y9RNJGl.png" alt>  </li>
-<li>保存重启动防火墙和ssr<br>1&gt; systemctl start firewalld<br>2&gt; /etc/init.d/shadowsocks start<h1 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h1><blockquote>
-<p><a href="https://www.cnblogs.com/gne-hwz/p/6662000.html" target="_blank" rel="noopener">https://www.cnblogs.com/gne-hwz/p/6662000.html</a></p>
-</blockquote>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/gollumhome.github.io/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/gollumhome.github.io/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/gollumhome.github.io/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/gollumhome.github.io/">1</a><span class="page-number current">2</span><a class="page-number" href="/gollumhome.github.io/page/3/">3</a><a class="extend next" rel="next" href="/gollumhome.github.io/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2066,7 +2039,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2083,6 +2056,15 @@
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/gollumhome.github.io/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
