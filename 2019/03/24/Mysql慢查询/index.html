@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="database,">
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="redis基础篇1. 安装目录结构     ①、redis-server：Redis服务器   　　②、redis-cli：Redis命令行客户端   　　③、redis-benchmark：Redis性能测试工具   　　④、redis-check-aof：AOF文件修复工具   　　⑤、redis-check-rdb：RDB文件检查工具    2.启动redis  默认配置启动 $ cd sr">
+<meta name="description" content="Mysql慢查询日志、分析、优化慢查询简介：    概念：    MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。long_query_time的默认值为10，意思是运行10S以上的语句。默认情况下，Mysql数据库并不启动慢查询日志     作用：    开">
+<meta name="keywords" content="database">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis基础篇">
-<meta property="og:url" content="https://gollumhome.github.io/2019/03/16/redis基础篇/index.html">
+<meta property="og:title" content="Mysql慢查询">
+<meta property="og:url" content="https://gollumhome.github.io/2019/03/24/Mysql慢查询/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="redis基础篇1. 安装目录结构     ①、redis-server：Redis服务器   　　②、redis-cli：Redis命令行客户端   　　③、redis-benchmark：Redis性能测试工具   　　④、redis-check-aof：AOF文件修复工具   　　⑤、redis-check-rdb：RDB文件检查工具    2.启动redis  默认配置启动 $ cd sr">
+<meta property="og:description" content="Mysql慢查询日志、分析、优化慢查询简介：    概念：    MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。long_query_time的默认值为10，意思是运行10S以上的语句。默认情况下，Mysql数据库并不启动慢查询日志     作用：    开">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A002.png">
-<meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A003.png">
-<meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A004.png">
-<meta property="og:updated_time" content="2019-03-16T14:59:57.493Z">
+<meta property="og:updated_time" content="2019-03-24T06:22:03.014Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis基础篇">
-<meta name="twitter:description" content="redis基础篇1. 安装目录结构     ①、redis-server：Redis服务器   　　②、redis-cli：Redis命令行客户端   　　③、redis-benchmark：Redis性能测试工具   　　④、redis-check-aof：AOF文件修复工具   　　⑤、redis-check-rdb：RDB文件检查工具    2.启动redis  默认配置启动 $ cd sr">
-<meta name="twitter:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A002.png">
+<meta name="twitter:title" content="Mysql慢查询">
+<meta name="twitter:description" content="Mysql慢查询日志、分析、优化慢查询简介：    概念：    MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。long_query_time的默认值为10，意思是运行10S以上的语句。默认情况下，Mysql数据库并不启动慢查询日志     作用：    开">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://gollumhome.github.io/2019/03/16/redis基础篇/">
+  <link rel="canonical" href="https://gollumhome.github.io/2019/03/24/Mysql慢查询/">
 
 
 
 
 
-  <title>redis基础篇 | openstack</title>
+  <title>Mysql慢查询 | openstack</title>
   
 
 
@@ -256,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/16/redis基础篇/">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/24/Mysql慢查询/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shuai Guo">
@@ -273,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">redis基础篇</h1>
+          <h1 class="post-title" itemprop="name headline">Mysql慢查询</h1>
         
 
         <div class="post-meta">
@@ -285,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-16T22:57:17+08:00">
-                2019-03-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T14:19:55+08:00">
+                2019-03-24
               </time>
             
 
@@ -345,51 +342,97 @@
       
 
       
-        <h2 id="redis基础篇"><a href="#redis基础篇" class="headerlink" title="redis基础篇"></a>redis基础篇</h2><p><strong>1. 安装目录结构</strong>  </p>
-<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A002.png" alt="image"></p>
-<blockquote>
-<p>①、redis-server：Redis服务器</p>
-</blockquote>
-<blockquote>
-<p>　　②、redis-cli：Redis命令行客户端</p>
-</blockquote>
-<blockquote>
-<p>　　③、redis-benchmark：Redis性能测试工具</p>
-</blockquote>
-<blockquote>
-<p>　　④、redis-check-aof：AOF文件修复工具</p>
-</blockquote>
-<blockquote>
-<p>　　⑤、redis-check-rdb：RDB文件检查工具  </p>
-</blockquote>
-<p><strong>2.启动redis</strong></p>
+        <h2 id="Mysql慢查询日志、分析、优化"><a href="#Mysql慢查询日志、分析、优化" class="headerlink" title="Mysql慢查询日志、分析、优化"></a>Mysql慢查询日志、分析、优化</h2><h2 id="慢查询"><a href="#慢查询" class="headerlink" title="慢查询"></a>慢查询</h2><p><strong>简介：</strong>  </p>
 <ul>
-<li>默认配置启动<blockquote>
-<p>$ cd src<br>$ ./redis-server</p>
-</blockquote>
-</li>
-<li><p>定配置文件启动</p>
+<li><p>概念：  </p>
 <blockquote>
-<p>$ cd src<br>$ ./redis-server  ../redis.conf  </p>
+<p>MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。long_query_time的默认值为10，意思是运行10S以上的语句。默认情况下，Mysql数据库并不启动慢查询日志  </p>
 </blockquote>
 </li>
-<li><p>启动成功页面  </p>
+<li><p>作用：  </p>
+<blockquote>
+<p>开启慢查询日志，MySQL能记录下查询超过指定时间的语句，通过定位分析性能的瓶颈，可以更好的优化数据库系统的性能    </p>
+</blockquote>
+</li>
+<li><p>参数说明：  </p>
+<blockquote>
+<p>slow_query_log 慢查询开启状态<br>slow_query_log_file 慢查询日志存放的位置（这个目录需要MySQL的运行帐号的可写权限，一般设置为MySQL的数据存放目录）<br>long_query_time 查询超过多少秒才记录</p>
+</blockquote>
 </li>
 </ul>
-<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A003.png" alt="image"></p>
+<p><strong>慢查询设置</strong>：  </p>
+<ol>
+<li>查看慢查询相关参数  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;slow_query%&apos;;</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line">| Variable_name             | Value                            |</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line">| slow_query_log            | OFF                              |</span><br><span class="line">| slow_query_log_file       | /mysql/data/localhost-slow.log   |</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &apos;long_query_time&apos;;</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">| Variable_name   | Value     |</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">| long_query_time | 10.000000 |</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">```  </span><br><span class="line">2. 设置方法  </span><br><span class="line">*方法一:全局变量设置* </span><br><span class="line">&gt;将 slow_query_log 全局变量设置为“ON”状态</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>mysql&gt; set global slow_query_log=’ON’;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;设置慢查询日志存放的位置</span><br></pre></td></tr></table></figure></p>
+<p>mysql&gt; set global slow_query_log_file=’/usr/local/mysql/data/slow.log’;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 查询超过1秒就记录</span><br></pre></td></tr></table></figure></p>
+<p>mysql&gt; set global long_query_time=1;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*方法二:配置文件设置* </span><br><span class="line">&gt;修改配置文件my.cnf，在[mysqld]下的下方加入</span><br></pre></td></tr></table></figure></p>
+<p>[mysqld]<br>slow_query_log = ON<br>slow_query_log_file = /usr/local/mysql/data/slow.log<br>long_query_time = 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**重启MySQL服务**</span><br></pre></td></tr></table></figure></p>
+<p>service mysqld restart<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**查看设置后的参数**</span><br></pre></td></tr></table></figure></p>
+<p>mysql&gt; show variables like ‘slow_query%’;<br>+———————+——————————–+<br>| Variable_name       | Value                          |<br>+———————+——————————–+<br>| slow_query_log      | ON                             |<br>| slow_query_log_file | /usr/local/mysql/data/slow.log |<br>+———————+——————————–+</p>
+<p>mysql&gt; show variables like ‘long_query_time’;<br>+—————–+———-+<br>| Variable_name   | Value    |<br>+—————–+———-+<br>| long_query_time | 1.000000 |<br>+—————–+———-+<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">**测试**  </span><br><span class="line">-  执行一条慢查询SQL语句  </span><br><span class="line">&gt;mysql&gt; select sleep(2);  </span><br><span class="line">- 查看是否生成慢查询日志  </span><br><span class="line">&gt; ls /usr/local/mysql/data/slow.log</span><br><span class="line"></span><br><span class="line">## 日志分析工具mysqldumpslow</span><br></pre></td></tr></table></figure></p>
+<p>[root@localhost~]# mysqldumpslow –help<br>Usage: mysqldumpslow [ OPTS… ] [ LOGS… ]</p>
+<p>Parse and summarize the MySQL slow query log. Options are</p>
+<p>  –verbose    verbose<br>  –debug      debug<br>  –help       write this text to standard output</p>
+<p>  -v           verbose<br>  -d           debug<br>  -s ORDER     what to sort by (al, at, ar, c, l, r, t), ‘at’ is default<br>                al: average lock time<br>                ar: average rows sent<br>                at: average query time<br>                 c: count<br>                 l: lock time<br>                 r: rows sent<br>                 t: query time<br>  -r           reverse the sort order (largest last instead of first)<br>  -t NUM       just show the top n queries<br>  -a           don’t abstract all numbers to N and strings to ‘S’<br>  -n NUM       abstract numbers with at least n digits within names<br>  -g PATTERN   grep: only consider stmts that include this string<br>  -h HOSTNAME  hostname of db server for <em>-slow.log filename (can be wildcard),<br>               default is ‘</em>‘, i.e. match all<br>  -i NAME      name of server instance (if using mysql.server startup script)<br>  -l           don’t subtract lock time from total time</p>
+<p>mysqldumpslow –help<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- 使用举例</span><br></pre></td></tr></table></figure></p>
+<p>-s, 是表示按照何种方式排序<br>    c: 访问计数</p>
+<pre><code>l: 锁定时间
+
+r: 返回记录
+
+t: 查询时间
+
+al:平均锁定时间
+
+ar:平均返回记录数
+
+at:平均查询时间
+</code></pre><p>-t, 是top n的意思，即为返回前面多少条的数据；<br>-g, 后边可以写一个正则匹配模式，大小写不敏感的；</p>
+<p>比如:<br>得到返回记录集最多的10个SQL。<br>mysqldumpslow -s r -t 10 /database/mysql/mysql06_slow.log</p>
+<p>得到访问次数最多的10个SQL<br>mysqldumpslow -s c -t 10 /database/mysql/mysql06_slow.log</p>
+<p>得到按照时间排序的前10条里面含有左连接的查询语句。<br>mysqldumpslow -s t -t 10 -g “left join” /database/mysql/mysql06_slow.log</p>
+<p>另外建议在使用这些命令时结合 | 和more 使用 ，否则有可能出现刷屏的情况。<br>mysqldumpslow -s r -t 20 /mysqldata/mysql/mysql06-slow.log | more</p>
+<p><code>`</code></p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p><strong>1. SQL语句优化</strong>  </p>
 <blockquote>
-<p>　注意：此种方式启动 Redis，当关闭命令窗口时，则 redis-server 程序也结束了，这显然是不友好的，我们需要将Redis设置为以守护进程的方式进行启动  </p>
+<p>（1）避免select *，将需要查找的字段列出来<br>（2）使用连接（join）来代替子查询<br>（3）拆分大的delete或insert语句  </p>
 </blockquote>
-<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A004.png" alt="image"></p>
+<p><strong>2. 选择合适的数据类型</strong>  </p>
 <blockquote>
-<p>在 redis.conf 文件中，找到daemonize，将其设置为yes即可：重新启动redis即可  </p>
+<p>（1）使用简单的数据类型，整型比字符处理开销更小，因为字符串的比较更复杂。如，int类型存储时间类型<br>（2）使用合理的字段属性长度，固定长度的表会更快。使用enum、char而不是varchar<br>（3）尽可能使用not null定义字段<br>（4）尽量少用text，非用不可最好分表    </p>
 </blockquote>
-<p><strong>3.关闭redis</strong>  </p>
+<p><strong>3. 优化LIMIT分页</strong>  </p>
+<ul>
+<li><p>1、offset比较小的时候  </p>
 <blockquote>
-<p>①、redis-cli shutdown：安全关闭，但是只适用于没有配置密码的场景（一般情况下不会给Redis设置密码）。</p>
+<p>直接使用limit较优  </p>
 </blockquote>
+</li>
+<li><p>2 offset大的时候  </p>
 <blockquote>
-<p>②、kill -9 pid：强制关闭，可能会造成Redis内存数据丢失。</p>
+<p>select id,title from collect limit 90000,10 修改为<br>-&gt; select id,title from collect where id&gt;=(select id from collect order by id limit 90000,1) limit 10;  </p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Mysql-索引"><a href="#Mysql-索引" class="headerlink" title="Mysql 索引"></a>Mysql 索引</h2><ol>
+<li>单列索引  <blockquote>
+<p>一个索引只包含单个列</p>
+</blockquote>
+</li>
+</ol>
+<p>2.组合索引  </p>
+<blockquote>
+<p>一个索引包含多个列  </p>
+<ol start="3">
+<li>唯一索引<br>索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一</li>
+</ol>
+</blockquote>
+<hr>
+<p><strong>参考：</strong>  </p>
+<blockquote>
+<p><a href="http://www.cnblogs.com/luyucheng/p/6265594.html" target="_blank" rel="noopener">http://www.cnblogs.com/luyucheng/p/6265594.html</a><br><a href="https://www.cnblogs.com/saneri/p/6656161.html" target="_blank" rel="noopener">https://www.cnblogs.com/saneri/p/6656161.html</a></p>
 </blockquote>
 
       
@@ -406,6 +449,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/gollumhome.github.io/tags/database/" rel="tag"># database</a>
+          
+        </div>
+      
 
       
       
@@ -415,8 +464,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/gollumhome.github.io/2019/03/10/django缓存/" rel="next" title="django缓存.md">
-                <i class="fa fa-chevron-left"></i> django缓存.md
+              <a href="/gollumhome.github.io/2019/03/17/interview1/" rel="next" title="面试总结1">
+                <i class="fa fa-chevron-left"></i> 面试总结1
               </a>
             
           </div>
@@ -424,10 +473,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/gollumhome.github.io/2019/03/17/interview1/" rel="prev" title="面试总结1">
-                面试总结1 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis基础篇"><span class="nav-number">1.</span> <span class="nav-text">redis基础篇</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql慢查询日志、分析、优化"><span class="nav-number">1.</span> <span class="nav-text">Mysql慢查询日志、分析、优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#慢查询"><span class="nav-number">2.</span> <span class="nav-text">慢查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化"><span class="nav-number">3.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql-索引"><span class="nav-number">4.</span> <span class="nav-text">Mysql 索引</span></a></li></ol></div>
             
 
           </div>
