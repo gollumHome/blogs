@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/gollumhome.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/gollumhome.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/gollumhome.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/gollumhome.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/gollumhome.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/gollumhome.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/gollumhome.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="参考文档 1.https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md 2.http://tour.studygolang.com/welcome/1 1234## 2. 结构struct与方法method  - 结构体定义的一般方式如下： type identifier struct { field1 typ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go方法与接口">
+<meta property="og:url" content="https://gollumhome.github.io/2019/04/06/go方法与接口/index.html">
+<meta property="og:site_name" content="openstack">
+<meta property="og:description" content="参考文档 1.https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md 2.http://tour.studygolang.com/welcome/1 1234## 2. 结构struct与方法method  - 结构体定义的一般方式如下： type identifier struct { field1 typ">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-06T14:23:25.993Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go方法与接口">
+<meta name="twitter:description" content="参考文档 1.https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md 2.http://tour.studygolang.com/welcome/1 1234## 2. 结构struct与方法method  - 结构体定义的一般方式如下： type identifier struct { field1 typ">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/gollumhome.github.io/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://gollumhome.github.io/2019/04/06/go方法与接口/">
+
+
+
+
+
+  <title>go方法与接口 | openstack</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/gollumhome.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">openstack</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/gollumhome.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/gollumhome.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/gollumhome.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/gollumhome.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go方法与接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">go方法与接口</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:23:04+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>参考文档</strong></p>
+<p>1.<a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md</a></p>
+<p>2.<a href="http://tour.studygolang.com/welcome/1" target="_blank" rel="noopener">http://tour.studygolang.com/welcome/1</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 2. 结构struct与方法method  </span><br><span class="line"></span><br><span class="line">- 结构体定义的一般方式如下：</span><br></pre></td></tr></table></figure>
+<p>type identifier struct {</p>
+<pre><code>field1 type1
+
+field2 type2
+...
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)</span><br><span class="line">    访问结构体变量或赋值</span><br></pre></td></tr></table></figure></p>
+<p>structname.fieldname</p>
+<p>structname.fieldname = value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 匿名字段和内嵌结构体  </span><br><span class="line">    结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import “fmt”</p>
+<p>type A struct {<br>    ax, ay int<br>}</p>
+<p>type B struct {<br>    A<br>    bx, by float32<br>}</p>
+<p>func main() {<br>    b := B{A{1, 2}, 3.0, 4.0}<br>    fmt.Println(b.ax, b.ay, b.bx, b.by)<br>    fmt.Println(b.A)<br>}</p>
+<p>1 2 3 4</p>
+<p>{1 2}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.1 方法  </span><br><span class="line">    结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  </span><br><span class="line">    定义方法的一般格式如下：</span><br></pre></td></tr></table></figure></p>
+<p>func (recv receiver_type) methodName(parameter_list) (return_value_list) { … }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 示例method .go</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import “fmt”</p>
+<p>type TwoInts struct {<br>    a int<br>    b int<br>}</p>
+<p>func main() {<br>    two1 := new(TwoInts)<br>    two1.a = 12<br>    two1.b = 10<br>    fmt.Printf(“The sum is: %d\n”, two1.AddThem())<br>    fmt.Printf(“Add them to the param: %d\n”, two1.AddToParam(20))<br>    two2 := TwoInts{3, 4}<br>    fmt.Printf(“The sum is: %d\n”, two2.AddThem())<br>}</p>
+<p>func (tn *TwoInts) AddThem() int {<br>    return tn.a + tn.b<br>}</p>
+<p>func (tn *TwoInts) AddToParam(param int) int {<br>    return tn.a + tn.b + param<br>}</p>
+<hr>
+<p>The sum is: 22</p>
+<p>Add them to the param: 42</p>
+<p>The sum is: 7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.2内嵌类型的方法和继承  </span><br><span class="line">    当一个匿名类型被内嵌在结构体中时，匿名类型的可见方法也同样被内嵌，这在效果上等同于外层类型继承了这些方法  </span><br><span class="line">&gt;示例：method3.go</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import (<br>    “fmt”<br>    “math”<br>)</p>
+<p>type Point struct {<br>    x, y float64<br>}</p>
+<p>func (p *Point) Abs() float64 {<br>    return math.Sqrt(p.xp.x + p.yp.y)<br>}</p>
+<p>type NamedPoint struct {<br>    Point<br>    name string<br>}</p>
+<p>func main() {<br>    n := &amp;NamedPoint{Point{3, 4}, “Pythagoras”}<br>    fmt.Println(n.Abs()) // 打印5<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.3接口（interface）</span><br><span class="line">      接口提供了一种方式来 说明 对象的行为，接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量  </span><br><span class="line">      1 一般定义为</span><br></pre></td></tr></table></figure></p>
+<p>type Namer interface {<br>    Method1(param_list) return_type<br>    Method2(param_list) return_type<br>    …<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;示例 interfaces.go:</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import “fmt”</p>
+<p>type Shaper interface {<br>    Area() float32<br>}</p>
+<p>type Square struct {<br>    side float32<br>}</p>
+<p>func (sq <em>Square) Area() float32 {<br>    return sq.side </em> sq.side<br>}</p>
+<p>func main() {<br>    sq1 := new(Square)<br>    sq1.side = 5<br>    var areaIntf Shaper<br>    areaIntf = sq1<br>    // shorter,without separate declaration:<br>    // areaIntf := Shaper(sq1)<br>    // or even:<br>    // areaIntf := sq1<br>    fmt.Printf(“The square has area: %f\n”, areaIntf.Area())<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">注：接口变量包含一个指向 Square 变量的引用，通过它可以调用 Square 上的方法 Area()，接口变量里包含了接收者实例的值和指向对应方法表的指针</span><br><span class="line"></span><br><span class="line">当前示例即是Go 版本的多态，同一种类型在不同的实例上似乎表现出不同的行为</span><br><span class="line"></span><br><span class="line">The square has area: 25.000000</span><br><span class="line"></span><br><span class="line">#### 2.4 接口嵌套  </span><br><span class="line">    一个接口可以包含一个或多个其他的接口，相当于直接将这些内嵌接口的方法列举在外层接口中一样</span><br></pre></td></tr></table></figure></p>
+<p>type ReadWrite interface {<br>    Read(b Buffer) bool<br>    Write(b Buffer) bool<br>}</p>
+<p>type Lock interface {<br>    Lock()<br>    Unlock()<br>}</p>
+<p>type File interface {<br>    ReadWrite<br>    Lock<br>    Close()<br>    }<br><code>`</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/gollumhome.github.io/2019/04/06/go基础介绍/" rel="next" title="go基础介绍">
+                <i class="fa fa-chevron-left"></i> go基础介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/gollumhome.github.io/2019/04/06/go并发学习/" rel="prev" title="go并发学习">
+                go并发学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/gollumhome.github.io/images/avatar.png" alt="Shuai Guo">
+            
+              <p class="site-author-name" itemprop="name">Shuai Guo</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/gollumhome.github.io/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/gollumhome.github.io/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/gollumhome.github.io/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gollumHome" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1025951714@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-qq"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/cleaner_xiaoqiang" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-csdn"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.douban.com/people/170183273/" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-豆瓣"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuai Guo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/gollumhome.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/gollumhome.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/gollumhome.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/gollumhome.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/gollumhome.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/gollumhome.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/gollumhome.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/gollumhome.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如何使用 Golang语法知识点练习   http://tour.studygolang.com/welcome/1   主要介绍三个方面    基础语法介绍，包含基本变量、流程控制、函数 等   方法与接口  如何实现面向对象、继承、多态、封装    并发介绍     错误处理与panic 恢复    1. 基础介绍 Go 程序的基本结构    示例hello_world.go package">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go基础介绍">
+<meta property="og:url" content="https://gollumhome.github.io/2019/04/06/go基础介绍/index.html">
+<meta property="og:site_name" content="openstack">
+<meta property="og:description" content="如何使用 Golang语法知识点练习   http://tour.studygolang.com/welcome/1   主要介绍三个方面    基础语法介绍，包含基本变量、流程控制、函数 等   方法与接口  如何实现面向对象、继承、多态、封装    并发介绍     错误处理与panic 恢复    1. 基础介绍 Go 程序的基本结构    示例hello_world.go package">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-06T14:22:23.293Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go基础介绍">
+<meta name="twitter:description" content="如何使用 Golang语法知识点练习   http://tour.studygolang.com/welcome/1   主要介绍三个方面    基础语法介绍，包含基本变量、流程控制、函数 等   方法与接口  如何实现面向对象、继承、多态、封装    并发介绍     错误处理与panic 恢复    1. 基础介绍 Go 程序的基本结构    示例hello_world.go package">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/gollumhome.github.io/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://gollumhome.github.io/2019/04/06/go基础介绍/">
+
+
+
+
+
+  <title>go基础介绍 | openstack</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/gollumhome.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">openstack</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/gollumhome.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/gollumhome.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/gollumhome.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/gollumhome.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go基础介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">go基础介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:18:54+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="如何使用-Golang"><a href="#如何使用-Golang" class="headerlink" title="如何使用 Golang"></a>如何使用 Golang</h2><p>语法知识点练习  </p>
+<p><a href="http://tour.studygolang.com/welcome/1" target="_blank" rel="noopener">http://tour.studygolang.com/welcome/1</a>  </p>
+<p><strong>主要介绍三个方面</strong>  </p>
+<ol>
+<li>基础语法介绍，包含基本变量、流程控制、函数 等  </li>
+<li>方法与接口 </li>
+<li>如何实现面向对象、继承、多态、封装   </li>
+<li>并发介绍    </li>
+<li>错误处理与panic 恢复  </li>
+</ol>
+<h3 id="1-基础介绍"><a href="#1-基础介绍" class="headerlink" title="1. 基础介绍"></a>1. 基础介绍</h3><ul>
+<li>Go 程序的基本结构  </li>
+</ul>
+<p>示例hello_world.go</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;hello, world&quot;)
+} 
+</code></pre><p>每个 Go 程序都是由包组成的,程序运行的入口是包 main;当前程序使用并导入了包 “fmt”  </p>
+<h4 id="1-1-包的概念、导入与可见性"><a href="#1-1-包的概念、导入与可见性" class="headerlink" title="1.1  包的概念、导入与可见性"></a>1.1  包的概念、导入与可见性</h4><ul>
+<li>每个程序都由包的概念组成，可以使用自身的包或者从其它包中导入内容   </li>
+<li>每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成  </li>
+<li>必须在源文件中非注释的第一行指明这个文件属于哪个包，如：package main,所有的包名都应该使用小写字母  </li>
+</ul>
+<p><strong>引入多个包</strong>  </p>
+<pre><code>import (
+   &quot;fmt&quot;
+   &quot;os&quot;
+)
+</code></pre><p><strong>可见性规则</strong>  </p>
+<ol>
+<li><p>当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：Group1，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）  </p>
+</li>
+<li><p>标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 private ）  </p>
+</li>
+</ol>
+<h4 id="1-2-数据类型"><a href="#1-2-数据类型" class="headerlink" title="1.2  数据类型"></a>1.2  数据类型</h4><ul>
+<li>数字类型：包含整型、浮点型、复数    </li>
+<li>布尔型  </li>
+<li><p>字符串  </p>
+<blockquote>
+<p>var str1 string = “str”</p>
+</blockquote>
+</li>
+<li><p>派生类型：包含struct、array、slice、map、channel,interface  </p>
+<p>数组：var identifier [len]type  固定长度 ，值类型</p>
+<p>切片：var identifier []type   切片是一个 长度可变的数组 ，引用类型</p>
+<p>map ： var map1 map[keytype]valuetype </p>
+<p>channel: chan T</p>
+</li>
+</ul>
+<h4 id="1-3-数组、切片、Map"><a href="#1-3-数组、切片、Map" class="headerlink" title="1.3 数组、切片、Map"></a>1.3 数组、切片、Map</h4><ul>
+<li><p>数组</p>
+<p>数组的长度是其类型的一部分，因此数组不能改变大小</p>
+<p>   primes := [6]int{2, 3, 5, 7, 11, 13}</p>
+</li>
+<li><p>切片  </p>
+</li>
+</ul>
+<p>切片（slice）是对数组一个连续片段的引用，切片则为数组元素提供动态大小</p>
+<pre><code>primes := [6]int{2, 3, 5, 7, 11, 13} --&gt;数组
+var s []int = primes[1:4]  -&gt;切片
+</code></pre><p> maek 创建切片指定大小</p>
+<pre><code>a := make([]int, 5)
+</code></pre><ul>
+<li>for - range遍历  </li>
+</ul>
+<p>for 循环的 range 形式可遍历切片或映射</p>
+<pre><code> for ix, value := range slice1 {
+    ...
+}
+</code></pre><p>当使用 for 循环遍历切片时，每次迭代都会返回两个值。第一个值为当前元素的下标，第二个值为该下标所对应元素的一份副本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">var pow = []int&#123;1, 2, 4, 8, 16, 32, 64, 128&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i, v := range pow &#123;</span><br><span class="line">		fmt.Printf(&quot;2**%d = %d\n&quot;, i, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">--------------------</span><br><span class="line">2**0 = 1</span><br><span class="line">2**1 = 2</span><br><span class="line">2**2 = 4</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-4MAP使用"><a href="#1-4MAP使用" class="headerlink" title="1.4MAP使用"></a>1.4MAP使用</h4><pre><code>var map1 map[keytype]valuetype
+var map1 map[string]int
+</code></pre><ul>
+<li><p>测试键值对是否存在及删除元素</p>
+<p>  val1, isPresent = map1[key1]<br>  isPresent 返回一个 bool 值：如果 key1 存在于 map1，val1 就是 key1 对应的 value 值，并且 isPresent为true；如果 key1 不存在，val1 就是一个空值，并且 isPresent 会返回 false</p>
+</li>
+<li><p>如果你只是想判断某个 key 是否存在而不关心它对应的 值  </p>
+<blockquote>
+<p>_, ok := map1[key1] // 如果key1存在则ok == true，否则ok为false   </p>
+</blockquote>
+</li>
+<li><p>与if 混合使用</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if _, ok := map1[key1]; ok &#123;</span><br><span class="line">	// ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>for-range 的map配套用法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for key, value := range map1 &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果只关心值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for _, value := range map1 &#123;</span><br><span class="line">	..</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>如果只想获取 key，你可以这么使用：  </p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>key :</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	fmt.Printf(&quot;key is: %d\n&quot;, key)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-5-类型转换"><a href="#1-5-类型转换" class="headerlink" title="1.5 类型转换"></a>1.5 类型转换</h4><p>Go 语言不存在隐式类型转换，必须显式说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a := 5.0</span><br><span class="line">b := int(a)</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-6-控制流程"><a href="#1-6-控制流程" class="headerlink" title="1.6 控制流程"></a>1.6 控制流程</h4><ul>
+<li>if-else结构  </li>
+</ul>
+<p>Go 完全省略了 if、switch 和 for 结构中条件语句两侧的括号，相比 Java、C++ 和 C# 中减少了很多视觉混乱的因素，同时也使你的代码更加简洁。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if condition &#123;</span><br><span class="line">	// do something	</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	// do something	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关键字 if 和 else 之后的左大括号 { 必须和关键字在同一行，如果你使用了 else-if 结构，则前段代码块的右大括号 } 必须和 else-if 关键字在同一行。这两条规则都是被编译器强制规定的。</p>
+<p>​    <em>非法的 Go 代码:</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if x&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">else &#123;	// 无效的</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 当 if 结构内有 break、continue、goto 或者 return 语句时， Go 代码的常见写法是省略 else 部分。无论满足哪个条件都会返回 x 或者 y 时，一般使用以下写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if condition &#123;</span><br><span class="line"></span><br><span class="line">	return x</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return y</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>switch结构  </p>
+<p>相比较 C 和 Java 等其它语言而言，Go 语言中的 switch 结构使用上更加灵活。它接受任意形式的表达式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">switch var1 &#123;</span><br><span class="line">	case val1:</span><br><span class="line">		...	</span><br><span class="line">	case val2:</span><br><span class="line">		...</span><br><span class="line">	default:</span><br><span class="line">		...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>for 循环遍历</p>
+<blockquote>
+<p>基本形式为 for 初始化语句; 条件语句; 修饰语句 {}  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i := 0; i &lt; 5; i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;This is the %d iteration\n&quot;, i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p><em>基于条件判断</em><br>    &gt; 基本形式为 for 条件语句 {},类似其它语言中的 while 循环<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i &gt;= 0 &#123;</span><br><span class="line">		i = i - 1</span><br><span class="line">		fmt.Printf(&quot;The variable i is now: %d\n&quot;, i)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>break和continue  </p>
+<p>break被用于任何形式的for循环以及switch或select语句，continue只能被用于for循环  </p>
+<h4 id="1-7-函数"><a href="#1-7-函数" class="headerlink" title="1.7 函数"></a>1.7 函数</h4><ul>
+<li>函数     <blockquote>
+<p>函数是 Go 里面的基本代码块,Go 里面有三种类型的函数：<br>普通的带有名字的函数<br>匿名函数或者lambda函数<br>方法Methods<br>符合规范的函数一般写成如下的形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func functionName(parameter_list) (return_value_list) &#123;</span><br><span class="line">   …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>注：1.函数需要被外部包调用的时候使用大写字母开头，遵循骆驼命名法。</p>
+<pre><code>2.左大括号 { 必须与方法的声明放在同一行，这是编译器的强制规定，否则你在使用 gofmt 时就会出现错误提示
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build-error: syntax error: unexpected semicolon or newline before &#123;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>函数返回值<br>  函数可以拥有多返回值，返回类型之间需要使用逗号分割，并使用小括号 () 将它们括起来  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func FunctionName (a typea, b typeb) (t1 type1, t2 type2)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>init 函数<br>  1&gt;一类非常特殊的函数，它不能够被人为调用，而是在每个包完成初始化后自动执行，并且执行优先级比 main 函数高<br>  2&gt;每个源文件都只能包含一个 init 函数。初始化总是以单线程执行，并且按照包的依赖关系顺序执行  </p>
+<p>  可能的用途：  变量初始化 init.go</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package trans</span><br><span class="line"></span><br><span class="line">import &quot;math&quot;</span><br><span class="line"></span><br><span class="line">var Pi float64</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line"></span><br><span class="line">   Pi = 4 * math.Atan(1) // init() function computes Pi</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按值传递、按引用传递  </p>
+<pre><code>1&gt;默认使用按值传递来传递参数，也就是传递参数的副本。函数接收参数副本之后，在使用变量的过程中可能对副本的值进行更改，但不会影响到原来的变量  
+2&gt; 如果函数直接修改参数的值，而不是对参数的副本进行操作，需要按引用传递，即变量名前面添加&amp;符号  
+</code></pre><p>  注：函数调用时，像切片（slice）、字典（map）、接口（interface）、通道（channel）这样的引用类型都是默认使用引用传递（即使没有显式的指出指针）</p>
+</li>
+<li><p>传递变长参数<br>  函数的最后一个参数是采用 …type 的形式，那么这个函数就可以处理一个变长的参数，这个长度可以为0  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func myFunc(a, b, arg ...int) &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>defer 函数<br>  defer 语句会将函数推迟到外层函数返回之后执行<br>  推迟调用的函数其参数会立即求值，但直到外层函数返回前该函数都不会被调用<br>  ==使用场景：一般用于释放某些已分配的资源==</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	defer fmt.Println(&quot;world&quot;)</span><br><span class="line">	fmt.Println(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello</span><br><span class="line"></span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回调<br>  函数可以作为其它函数的参数进行传递  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	callback(1, Add)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Add(a, b int) &#123;</span><br><span class="line">	fmt.Printf(&quot;The sum of %d and %d is: %d\n&quot;, a, b, a+b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func callback(y int, f func(int, int)) &#123;</span><br><span class="line">	f(y, 2) // this becomes Add(1, 2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">The sum of 1 and 2 is: 3</span><br><span class="line">## 2. 结构struct与方法method  </span><br><span class="line">    </span><br><span class="line">- 结构体定义的一般方式如下：  </span><br><span class="line"></span><br><span class="line">type identifier struct &#123;</span><br><span class="line"></span><br><span class="line">    field1 type1</span><br><span class="line">    </span><br><span class="line">    field2 type2</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li><p>使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)<br> 访问结构体变量或赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">structname.fieldname</span><br><span class="line"></span><br><span class="line">structname.fieldname = value</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>匿名字段和内嵌结构体<br> 结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type A struct &#123;</span><br><span class="line">	ax, ay int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct &#123;</span><br><span class="line">	A</span><br><span class="line">	bx, by float32</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	b := B&#123;A&#123;1, 2&#125;, 3.0, 4.0&#125;</span><br><span class="line">	fmt.Println(b.ax, b.ay, b.bx, b.by)</span><br><span class="line">	fmt.Println(b.A)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1 2 3 4</span><br><span class="line"></span><br><span class="line">&#123;1 2&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="2-1-方法"><a href="#2-1-方法" class="headerlink" title="2.1 方法"></a>2.1 方法</h4><pre><code>结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  
+定义方法的一般格式如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func (recv receiver_type) methodName(parameter_list) (return_value_list) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>示例：method .go
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type TwoInts struct &#123;</span><br><span class="line">	a int</span><br><span class="line">	b int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	two1 := new(TwoInts)</span><br><span class="line">	two1.a = 12</span><br><span class="line">	two1.b = 10</span><br><span class="line">	fmt.Printf(&quot;The sum is: %d\n&quot;, two1.AddThem())</span><br><span class="line">	fmt.Printf(&quot;Add them to the param: %d\n&quot;, two1.AddToParam(20))</span><br><span class="line">	two2 := TwoInts&#123;3, 4&#125;</span><br><span class="line">	fmt.Printf(&quot;The sum is: %d\n&quot;, two2.AddThem())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (tn *TwoInts) AddThem() int &#123;</span><br><span class="line">	return tn.a + tn.b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (tn *TwoInts) AddToParam(param int) int &#123;</span><br><span class="line">	return tn.a + tn.b + param</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">The sum is: 22</span><br><span class="line"></span><br><span class="line">Add them to the param: 42</span><br><span class="line"></span><br><span class="line">The sum is: 7</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/gollumhome.github.io/2019/04/06/基础介绍/" rel="next" title="基础介绍">
+                <i class="fa fa-chevron-left"></i> 基础介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/gollumhome.github.io/2019/04/06/go方法与接口/" rel="prev" title="go方法与接口">
+                go方法与接口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/gollumhome.github.io/images/avatar.png" alt="Shuai Guo">
+            
+              <p class="site-author-name" itemprop="name">Shuai Guo</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/gollumhome.github.io/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/gollumhome.github.io/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/gollumhome.github.io/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gollumHome" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1025951714@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-qq"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/cleaner_xiaoqiang" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-csdn"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.douban.com/people/170183273/" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-豆瓣"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-Golang"><span class="nav-number">1.</span> <span class="nav-text">如何使用 Golang</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基础介绍"><span class="nav-number">1.1.</span> <span class="nav-text">1. 基础介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-包的概念、导入与可见性"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1  包的概念、导入与可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-数据类型"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2  数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-数组、切片、Map"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 数组、切片、Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4MAP使用"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4MAP使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-类型转换"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5 类型转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-6-控制流程"><span class="nav-number">1.1.6.</span> <span class="nav-text">1.6 控制流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-函数"><span class="nav-number">1.1.7.</span> <span class="nav-text">1.7 函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-方法"><span class="nav-number">1.1.8.</span> <span class="nav-text">2.1 方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuai Guo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/gollumhome.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

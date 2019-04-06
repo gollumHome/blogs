@@ -249,6 +249,1132 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go面向对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/04/06/go面向对象/" itemprop="url">go面向对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:25:07+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="3-与oop分析对比"><a href="#3-与oop分析对比" class="headerlink" title="3. 与oop分析对比"></a>3. 与oop分析对比</h3><p>3.1 封装：  </p>
+<blockquote>
+<p>可以把struct看成一个类，可以看成对struct的封装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type struct1 struct &#123;</span><br><span class="line">    i1  int</span><br><span class="line">    f1  float32</span><br><span class="line">    str string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>3.2继承:</p>
+<blockquote>
+<p>结构体的嵌套模拟继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">type A struct&#123; //父类</span><br><span class="line">    name string	</span><br><span class="line">    age int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct&#123;//子类	</span><br><span class="line">    a A // 模拟聚合关系	.....</span><br><span class="line"></span><br><span class="line">type C struct&#123;//子类</span><br><span class="line">    A // 模拟继承</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b := B&#123;&#125;</span><br><span class="line">b.a.name</span><br><span class="line">c := C&#123;&#125;</span><br><span class="line">b.name</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>3.3 多态：  </p>
+<blockquote>
+<p>接口的所有方法的任何类型都表示隐式实现该接口。类型接口的变量可以保存实现该接口的任何值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    package main</span><br><span class="line">     </span><br><span class="line">    import (</span><br><span class="line">    	&quot;fmt&quot;</span><br><span class="line">    )</span><br><span class="line">     </span><br><span class="line">    type Person interface &#123;</span><br><span class="line">    	SayHello()</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Girl struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Boy struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Girl) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Boy) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func main() &#123;</span><br><span class="line">    	g := &amp;Girl&#123;&quot;girl&quot;&#125;</span><br><span class="line">    	b := &amp;Boy&#123;&quot;boy&quot;&#125;</span><br><span class="line">    	p := map[int]Person&#123;&#125;</span><br><span class="line">    	p[0] = g</span><br><span class="line">    	p[1] = b</span><br><span class="line">     </span><br><span class="line">    	for _, v := range p &#123;</span><br><span class="line">    		v.SayHello()</span><br><span class="line">    	&#125; </span><br><span class="line">    &#125;</span><br><span class="line">-------------------</span><br><span class="line">    Hi, I am a boy</span><br><span class="line">    Hi, I am a gir</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go并发学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/04/06/go并发学习/" itemprop="url">go并发学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:23:43+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="4-并发介绍"><a href="#4-并发介绍" class="headerlink" title="4.并发介绍"></a>4.并发介绍</h3><pre><code>*协程（goroutine）与通道（channel)*    
+&gt;goroutine这个概念类似于轻量级线程，运行时管理的轻量级线程  
+</code></pre><p>go f(x, y, z)  启动一个新的 Go 程并执行</p>
+<h4 id="4-1-changel"><a href="#4-1-changel" class="headerlink" title="4.1 changel"></a>4.1 changel</h4><p>ch &lt;- v    // 将 v 发送至信道 ch。</p>
+<p>v := &lt;-ch  // 从 ch 接收值并赋予 v。</p>
+<p>必须先创建changel</p>
+<p>ch := make(chan int)</p>
+<p>默认情况下，发送和接收操作在另一端准备好之前都会阻塞。这使得 Go 程可以在没有显式的锁或竞态变量的情况下进行同步</p>
+<ul>
+<li>带缓冲区changel  </li>
+</ul>
+<p>ch := make(chan int, 100)</p>
+<p>仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞</p>
+<ul>
+<li>range 和 close<br>  发送者可通过 close 关闭一个信道来表示没有需要发送的值了。接收者可以通过为接收表达式分配第二个参数来测试信道是否被关闭：若没有值可以接收且信道已被关闭，那么在执行完</li>
+</ul>
+<p>v, ok := &lt;-ch</p>
+<pre><code>之后 ok 会被设置为 false  
+循环 for i := range c  会不断从信道接收值，直到它被关闭
+</code></pre><p>注意： 只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。</p>
+<p>还要注意： 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有值需要发送的时候才有必要关闭，例如终止一个 range 循环</p>
+<ul>
+<li>sync.Mutex<br>  Go 标准库中提供了 sync.Mutex 互斥锁类型及其两个方法：Lock 、Unlock<br>  也可以用 defer 语句来保证互斥锁一定会被解锁<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>// SafeCounter 的并发使用是安全的。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type SafeCounter struct &#123;</span><br><span class="line">	v   map[string]int</span><br><span class="line">	mux sync.Mutex</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>// Inc 增加给定 key 的计数器的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func (c *SafeCounter) Inc(key string) &#123;</span><br><span class="line">	c.mux.Lock()</span><br><span class="line">	// Lock 之后同一时刻只有一个 goroutine 能访问 c.v</span><br><span class="line">	c.v[key]++</span><br><span class="line">	c.mux.Unlock()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>// Value 返回给定 key 的计数器的当前值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func (c *SafeCounter) Value(key string) int &#123;</span><br><span class="line">	c.mux.Lock()</span><br><span class="line">	// Lock 之后同一时刻只有一个 goroutine 能访问 c.v</span><br><span class="line">	defer c.mux.Unlock()</span><br><span class="line">	return c.v[key]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	c := SafeCounter&#123;v: make(map[string]int)&#125;</span><br><span class="line">	for i := 0; i &lt; 1000; i++ &#123;</span><br><span class="line">		go c.Inc(&quot;somekey&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	fmt.Println(c.Value(&quot;somekey&quot;))</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go方法与接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/04/06/go方法与接口/" itemprop="url">go方法与接口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:23:04+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>参考文档</strong></p>
+<p>1.<a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md</a></p>
+<p>2.<a href="http://tour.studygolang.com/welcome/1" target="_blank" rel="noopener">http://tour.studygolang.com/welcome/1</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 2. 结构struct与方法method  </span><br><span class="line"></span><br><span class="line">- 结构体定义的一般方式如下：</span><br></pre></td></tr></table></figure>
+<p>type identifier struct {</p>
+<pre><code>field1 type1
+
+field2 type2
+...
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)</span><br><span class="line">    访问结构体变量或赋值</span><br></pre></td></tr></table></figure></p>
+<p>structname.fieldname</p>
+<p>structname.fieldname = value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 匿名字段和内嵌结构体  </span><br><span class="line">    结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import “fmt”</p>
+<p>type A struct {<br>    ax, ay int<br>}</p>
+<p>type B struct {<br>    A<br>    bx, by float32<br>}</p>
+<p>func main() {<br>    b := B{A{1, 2}, 3.0, 4.0}<br>    fmt.Println(b.ax, b.ay, b.bx, b.by)<br>    fmt.Println(b.A)<br>}</p>
+<p>1 2 3 4</p>
+<p>{1 2}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.1 方法  </span><br><span class="line">    结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  </span><br><span class="line">    定义方法的一般格式如下：</span><br></pre></td></tr></table></figure></p>
+<p>func (recv receiver_type) methodName(parameter_list) (return_value_list) { … }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 示例method .go</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import “fmt”</p>
+<p>type TwoInts struct {<br>    a int<br>    b int<br>}</p>
+<p>func main() {<br>    two1 := new(TwoInts)<br>    two1.a = 12<br>    two1.b = 10<br>    fmt.Printf(“The sum is: %d\n”, two1.AddThem())<br>    fmt.Printf(“Add them to the param: %d\n”, two1.AddToParam(20))<br>    two2 := TwoInts{3, 4}<br>    fmt.Printf(“The sum is: %d\n”, two2.AddThem())<br>}</p>
+<p>func (tn *TwoInts) AddThem() int {<br>    return tn.a + tn.b<br>}</p>
+<p>func (tn *TwoInts) AddToParam(param int) int {<br>    return tn.a + tn.b + param<br>}</p>
+<hr>
+<p>The sum is: 22</p>
+<p>Add them to the param: 42</p>
+<p>The sum is: 7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.2内嵌类型的方法和继承  </span><br><span class="line">    当一个匿名类型被内嵌在结构体中时，匿名类型的可见方法也同样被内嵌，这在效果上等同于外层类型继承了这些方法  </span><br><span class="line">&gt;示例：method3.go</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import (<br>    “fmt”<br>    “math”<br>)</p>
+<p>type Point struct {<br>    x, y float64<br>}</p>
+<p>func (p *Point) Abs() float64 {<br>    return math.Sqrt(p.xp.x + p.yp.y)<br>}</p>
+<p>type NamedPoint struct {<br>    Point<br>    name string<br>}</p>
+<p>func main() {<br>    n := &amp;NamedPoint{Point{3, 4}, “Pythagoras”}<br>    fmt.Println(n.Abs()) // 打印5<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.3接口（interface）</span><br><span class="line">      接口提供了一种方式来 说明 对象的行为，接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量  </span><br><span class="line">      1 一般定义为</span><br></pre></td></tr></table></figure></p>
+<p>type Namer interface {<br>    Method1(param_list) return_type<br>    Method2(param_list) return_type<br>    …<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;示例 interfaces.go:</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import “fmt”</p>
+<p>type Shaper interface {<br>    Area() float32<br>}</p>
+<p>type Square struct {<br>    side float32<br>}</p>
+<p>func (sq <em>Square) Area() float32 {<br>    return sq.side </em> sq.side<br>}</p>
+<p>func main() {<br>    sq1 := new(Square)<br>    sq1.side = 5<br>    var areaIntf Shaper<br>    areaIntf = sq1<br>    // shorter,without separate declaration:<br>    // areaIntf := Shaper(sq1)<br>    // or even:<br>    // areaIntf := sq1<br>    fmt.Printf(“The square has area: %f\n”, areaIntf.Area())<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">注：接口变量包含一个指向 Square 变量的引用，通过它可以调用 Square 上的方法 Area()，接口变量里包含了接收者实例的值和指向对应方法表的指针</span><br><span class="line"></span><br><span class="line">当前示例即是Go 版本的多态，同一种类型在不同的实例上似乎表现出不同的行为</span><br><span class="line"></span><br><span class="line">The square has area: 25.000000</span><br><span class="line"></span><br><span class="line">#### 2.4 接口嵌套  </span><br><span class="line">    一个接口可以包含一个或多个其他的接口，相当于直接将这些内嵌接口的方法列举在外层接口中一样</span><br></pre></td></tr></table></figure></p>
+<p>type ReadWrite interface {<br>    Read(b Buffer) bool<br>    Write(b Buffer) bool<br>}</p>
+<p>type Lock interface {<br>    Lock()<br>    Unlock()<br>}</p>
+<p>type File interface {<br>    ReadWrite<br>    Lock<br>    Close()<br>    }<br><code>`</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go基础介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/04/06/go基础介绍/" itemprop="url">go基础介绍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:18:54+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="如何使用-Golang"><a href="#如何使用-Golang" class="headerlink" title="如何使用 Golang"></a>如何使用 Golang</h2><p>语法知识点练习  </p>
+<p><a href="http://tour.studygolang.com/welcome/1" target="_blank" rel="noopener">http://tour.studygolang.com/welcome/1</a>  </p>
+<p><strong>主要介绍三个方面</strong>  </p>
+<ol>
+<li>基础语法介绍，包含基本变量、流程控制、函数 等  </li>
+<li>方法与接口 </li>
+<li>如何实现面向对象、继承、多态、封装   </li>
+<li>并发介绍    </li>
+<li>错误处理与panic 恢复  </li>
+</ol>
+<h3 id="1-基础介绍"><a href="#1-基础介绍" class="headerlink" title="1. 基础介绍"></a>1. 基础介绍</h3><ul>
+<li>Go 程序的基本结构  </li>
+</ul>
+<p>示例hello_world.go</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;hello, world&quot;)
+} 
+</code></pre><p>每个 Go 程序都是由包组成的,程序运行的入口是包 main;当前程序使用并导入了包 “fmt”  </p>
+<h4 id="1-1-包的概念、导入与可见性"><a href="#1-1-包的概念、导入与可见性" class="headerlink" title="1.1  包的概念、导入与可见性"></a>1.1  包的概念、导入与可见性</h4><ul>
+<li>每个程序都由包的概念组成，可以使用自身的包或者从其它包中导入内容   </li>
+<li>每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成  </li>
+<li>必须在源文件中非注释的第一行指明这个文件属于哪个包，如：package main,所有的包名都应该使用小写字母  </li>
+</ul>
+<p><strong>引入多个包</strong>  </p>
+<pre><code>import (
+   &quot;fmt&quot;
+   &quot;os&quot;
+)
+</code></pre><p><strong>可见性规则</strong>  </p>
+<ol>
+<li><p>当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：Group1，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）  </p>
+</li>
+<li><p>标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 private ）  </p>
+</li>
+</ol>
+<h4 id="1-2-数据类型"><a href="#1-2-数据类型" class="headerlink" title="1.2  数据类型"></a>1.2  数据类型</h4><ul>
+<li>数字类型：包含整型、浮点型、复数    </li>
+<li>布尔型  </li>
+<li><p>字符串  </p>
+<blockquote>
+<p>var str1 string = “str”</p>
+</blockquote>
+</li>
+<li><p>派生类型：包含struct、array、slice、map、channel,interface  </p>
+<p>数组：var identifier [len]type  固定长度 ，值类型</p>
+<p>切片：var identifier []type   切片是一个 长度可变的数组 ，引用类型</p>
+<p>map ： var map1 map[keytype]valuetype </p>
+<p>channel: chan T</p>
+</li>
+</ul>
+<h4 id="1-3-数组、切片、Map"><a href="#1-3-数组、切片、Map" class="headerlink" title="1.3 数组、切片、Map"></a>1.3 数组、切片、Map</h4><ul>
+<li><p>数组</p>
+<p>数组的长度是其类型的一部分，因此数组不能改变大小</p>
+<p>   primes := [6]int{2, 3, 5, 7, 11, 13}</p>
+</li>
+<li><p>切片  </p>
+</li>
+</ul>
+<p>切片（slice）是对数组一个连续片段的引用，切片则为数组元素提供动态大小</p>
+<pre><code>primes := [6]int{2, 3, 5, 7, 11, 13} --&gt;数组
+var s []int = primes[1:4]  -&gt;切片
+</code></pre><p> maek 创建切片指定大小</p>
+<pre><code>a := make([]int, 5)
+</code></pre><ul>
+<li>for - range遍历  </li>
+</ul>
+<p>for 循环的 range 形式可遍历切片或映射</p>
+<pre><code> for ix, value := range slice1 {
+    ...
+}
+</code></pre><p>当使用 for 循环遍历切片时，每次迭代都会返回两个值。第一个值为当前元素的下标，第二个值为该下标所对应元素的一份副本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">var pow = []int&#123;1, 2, 4, 8, 16, 32, 64, 128&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i, v := range pow &#123;</span><br><span class="line">		fmt.Printf(&quot;2**%d = %d\n&quot;, i, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">--------------------</span><br><span class="line">2**0 = 1</span><br><span class="line">2**1 = 2</span><br><span class="line">2**2 = 4</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-4MAP使用"><a href="#1-4MAP使用" class="headerlink" title="1.4MAP使用"></a>1.4MAP使用</h4><pre><code>var map1 map[keytype]valuetype
+var map1 map[string]int
+</code></pre><ul>
+<li><p>测试键值对是否存在及删除元素</p>
+<p>  val1, isPresent = map1[key1]<br>  isPresent 返回一个 bool 值：如果 key1 存在于 map1，val1 就是 key1 对应的 value 值，并且 isPresent为true；如果 key1 不存在，val1 就是一个空值，并且 isPresent 会返回 false</p>
+</li>
+<li><p>如果你只是想判断某个 key 是否存在而不关心它对应的 值  </p>
+<blockquote>
+<p>_, ok := map1[key1] // 如果key1存在则ok == true，否则ok为false   </p>
+</blockquote>
+</li>
+<li><p>与if 混合使用</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if _, ok := map1[key1]; ok &#123;</span><br><span class="line">	// ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>for-range 的map配套用法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for key, value := range map1 &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果只关心值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for _, value := range map1 &#123;</span><br><span class="line">	..</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>如果只想获取 key，你可以这么使用：  </p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>key :</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	fmt.Printf(&quot;key is: %d\n&quot;, key)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-5-类型转换"><a href="#1-5-类型转换" class="headerlink" title="1.5 类型转换"></a>1.5 类型转换</h4><p>Go 语言不存在隐式类型转换，必须显式说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a := 5.0</span><br><span class="line">b := int(a)</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-6-控制流程"><a href="#1-6-控制流程" class="headerlink" title="1.6 控制流程"></a>1.6 控制流程</h4><ul>
+<li>if-else结构  </li>
+</ul>
+<p>Go 完全省略了 if、switch 和 for 结构中条件语句两侧的括号，相比 Java、C++ 和 C# 中减少了很多视觉混乱的因素，同时也使你的代码更加简洁。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if condition &#123;</span><br><span class="line">	// do something	</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	// do something	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关键字 if 和 else 之后的左大括号 { 必须和关键字在同一行，如果你使用了 else-if 结构，则前段代码块的右大括号 } 必须和 else-if 关键字在同一行。这两条规则都是被编译器强制规定的。</p>
+<p>​    <em>非法的 Go 代码:</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if x&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">else &#123;	// 无效的</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 当 if 结构内有 break、continue、goto 或者 return 语句时， Go 代码的常见写法是省略 else 部分。无论满足哪个条件都会返回 x 或者 y 时，一般使用以下写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if condition &#123;</span><br><span class="line"></span><br><span class="line">	return x</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return y</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>switch结构  </p>
+<p>相比较 C 和 Java 等其它语言而言，Go 语言中的 switch 结构使用上更加灵活。它接受任意形式的表达式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">switch var1 &#123;</span><br><span class="line">	case val1:</span><br><span class="line">		...	</span><br><span class="line">	case val2:</span><br><span class="line">		...</span><br><span class="line">	default:</span><br><span class="line">		...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>for 循环遍历</p>
+<blockquote>
+<p>基本形式为 for 初始化语句; 条件语句; 修饰语句 {}  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i := 0; i &lt; 5; i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;This is the %d iteration\n&quot;, i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p><em>基于条件判断</em><br>    &gt; 基本形式为 for 条件语句 {},类似其它语言中的 while 循环<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i &gt;= 0 &#123;</span><br><span class="line">		i = i - 1</span><br><span class="line">		fmt.Printf(&quot;The variable i is now: %d\n&quot;, i)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>break和continue  </p>
+<p>break被用于任何形式的for循环以及switch或select语句，continue只能被用于for循环  </p>
+<h4 id="1-7-函数"><a href="#1-7-函数" class="headerlink" title="1.7 函数"></a>1.7 函数</h4><ul>
+<li>函数     <blockquote>
+<p>函数是 Go 里面的基本代码块,Go 里面有三种类型的函数：<br>普通的带有名字的函数<br>匿名函数或者lambda函数<br>方法Methods<br>符合规范的函数一般写成如下的形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func functionName(parameter_list) (return_value_list) &#123;</span><br><span class="line">   …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>注：1.函数需要被外部包调用的时候使用大写字母开头，遵循骆驼命名法。</p>
+<pre><code>2.左大括号 { 必须与方法的声明放在同一行，这是编译器的强制规定，否则你在使用 gofmt 时就会出现错误提示
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build-error: syntax error: unexpected semicolon or newline before &#123;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>函数返回值<br>  函数可以拥有多返回值，返回类型之间需要使用逗号分割，并使用小括号 () 将它们括起来  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func FunctionName (a typea, b typeb) (t1 type1, t2 type2)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>init 函数<br>  1&gt;一类非常特殊的函数，它不能够被人为调用，而是在每个包完成初始化后自动执行，并且执行优先级比 main 函数高<br>  2&gt;每个源文件都只能包含一个 init 函数。初始化总是以单线程执行，并且按照包的依赖关系顺序执行  </p>
+<p>  可能的用途：  变量初始化 init.go</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package trans</span><br><span class="line"></span><br><span class="line">import &quot;math&quot;</span><br><span class="line"></span><br><span class="line">var Pi float64</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line"></span><br><span class="line">   Pi = 4 * math.Atan(1) // init() function computes Pi</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按值传递、按引用传递  </p>
+<pre><code>1&gt;默认使用按值传递来传递参数，也就是传递参数的副本。函数接收参数副本之后，在使用变量的过程中可能对副本的值进行更改，但不会影响到原来的变量  
+2&gt; 如果函数直接修改参数的值，而不是对参数的副本进行操作，需要按引用传递，即变量名前面添加&amp;符号  
+</code></pre><p>  注：函数调用时，像切片（slice）、字典（map）、接口（interface）、通道（channel）这样的引用类型都是默认使用引用传递（即使没有显式的指出指针）</p>
+</li>
+<li><p>传递变长参数<br>  函数的最后一个参数是采用 …type 的形式，那么这个函数就可以处理一个变长的参数，这个长度可以为0  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func myFunc(a, b, arg ...int) &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>defer 函数<br>  defer 语句会将函数推迟到外层函数返回之后执行<br>  推迟调用的函数其参数会立即求值，但直到外层函数返回前该函数都不会被调用<br>  ==使用场景：一般用于释放某些已分配的资源==</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	defer fmt.Println(&quot;world&quot;)</span><br><span class="line">	fmt.Println(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello</span><br><span class="line"></span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回调<br>  函数可以作为其它函数的参数进行传递  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	callback(1, Add)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Add(a, b int) &#123;</span><br><span class="line">	fmt.Printf(&quot;The sum of %d and %d is: %d\n&quot;, a, b, a+b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func callback(y int, f func(int, int)) &#123;</span><br><span class="line">	f(y, 2) // this becomes Add(1, 2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">The sum of 1 and 2 is: 3</span><br><span class="line">## 2. 结构struct与方法method  </span><br><span class="line">    </span><br><span class="line">- 结构体定义的一般方式如下：  </span><br><span class="line"></span><br><span class="line">type identifier struct &#123;</span><br><span class="line"></span><br><span class="line">    field1 type1</span><br><span class="line">    </span><br><span class="line">    field2 type2</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li><p>使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)<br> 访问结构体变量或赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">structname.fieldname</span><br><span class="line"></span><br><span class="line">structname.fieldname = value</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>匿名字段和内嵌结构体<br> 结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type A struct &#123;</span><br><span class="line">	ax, ay int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct &#123;</span><br><span class="line">	A</span><br><span class="line">	bx, by float32</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	b := B&#123;A&#123;1, 2&#125;, 3.0, 4.0&#125;</span><br><span class="line">	fmt.Println(b.ax, b.ay, b.bx, b.by)</span><br><span class="line">	fmt.Println(b.A)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1 2 3 4</span><br><span class="line"></span><br><span class="line">&#123;1 2&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="2-1-方法"><a href="#2-1-方法" class="headerlink" title="2.1 方法"></a>2.1 方法</h4><pre><code>结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  
+定义方法的一般格式如下：
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func (recv receiver_type) methodName(parameter_list) (return_value_list) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>示例：method .go
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type TwoInts struct &#123;</span><br><span class="line">	a int</span><br><span class="line">	b int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	two1 := new(TwoInts)</span><br><span class="line">	two1.a = 12</span><br><span class="line">	two1.b = 10</span><br><span class="line">	fmt.Printf(&quot;The sum is: %d\n&quot;, two1.AddThem())</span><br><span class="line">	fmt.Printf(&quot;Add them to the param: %d\n&quot;, two1.AddToParam(20))</span><br><span class="line">	two2 := TwoInts&#123;3, 4&#125;</span><br><span class="line">	fmt.Printf(&quot;The sum is: %d\n&quot;, two2.AddThem())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (tn *TwoInts) AddThem() int &#123;</span><br><span class="line">	return tn.a + tn.b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (tn *TwoInts) AddToParam(param int) int &#123;</span><br><span class="line">	return tn.a + tn.b + param</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">The sum is: 22</span><br><span class="line"></span><br><span class="line">Add them to the param: 42</span><br><span class="line"></span><br><span class="line">The sum is: 7</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/基础介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/04/06/基础介绍/" itemprop="url">基础介绍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:18:07+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go介绍与安装调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/04/06/go介绍与安装调试/" itemprop="url">go介绍与安装调试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:12:21+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/Golang/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Golang-初步介绍"><a href="#Golang-初步介绍" class="headerlink" title="Golang 初步介绍"></a>Golang 初步介绍</h2><p><strong>Golang主要学习资料</strong>   </p>
+<blockquote>
+<p><a href="https://tour.go-zh.org/concurrency/11" target="_blank" rel="noopener">https://tour.go-zh.org/concurrency/11</a><br><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md</a>  </p>
+</blockquote>
+<p><strong>1. Golang 初认识</strong>  </p>
+<ul>
+<li>吉祥物(囊地鼠Gopher)<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang002.jpg" alt="image">  </li>
+</ul>
+<p><strong>2. Golang使用范围</strong>  </p>
+<blockquote>
+<p><a href="https://studygolang.com/articles/4047" target="_blank" rel="noopener">引用自Golang中文社区</a>  </p>
+</blockquote>
+<blockquote>
+<p>1、服务器编程，以前你如果使用C或者C++做的那些事情，用Go来做很合适，例如处理日志、数据打包、虚拟机处理、文件系统等。</p>
+</blockquote>
+<blockquote>
+<p>2、分布式系统，数据库代理器等。</p>
+</blockquote>
+<blockquote>
+<p>3、网络编程，这一块目前应用最广，包括Web应用、API应用、下载应用。</p>
+</blockquote>
+<blockquote>
+<p>4、内存数据库，前一段时间google开发的groupcache，couchbase的部分组建。</p>
+</blockquote>
+<blockquote>
+<p>5、云平台，目前国外很多云平台在采用Go开发，CloudFoundy的部分组建，前VMare的技术总监自己出来搞的apcera云平台。</p>
+</blockquote>
+<blockquote>
+<p>6、游戏服务端的开发   </p>
+</blockquote>
+<blockquote>
+<p>其他介绍- Go语言适合做什么？<br><a href="https://blog.csdn.net/lmseo5hy/article/details/79654098" target="_blank" rel="noopener">https://blog.csdn.net/lmseo5hy/article/details/79654098</a><br><a href="https://www.zhihu.com/question/21409296" target="_blank" rel="noopener">https://www.zhihu.com/question/21409296</a></p>
+<ul>
+<li>Golang 只是图谱<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang001.png" alt="image"><br><strong>3. 语言发展介绍与特点</strong>  </li>
+<li>起源与发展<br>Go 语言起源 2007 年，并于 2009 年正式对外发布,该项目的三位领导者：Robert Griesemer，参与开发 Java HotSpot 虚拟机；Rob Pike，贝尔实验室 Unix 团队成员；Ken Thompson，贝尔实验室 Unix 团队成员等<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang003.png" alt="image"><br>Go 语言设计者：Griesemer、Thompson 和 Pike  </li>
+</ul>
+</blockquote>
+<blockquote>
+<p>发展时间轴   </p>
+</blockquote>
+<blockquote>
+<p>2007 年 9 月 21 日：雏形设计<br>2009 年 11 月 10日：首次公开发布<br>2010 年 1 月 8 日：当选 2009 年年度语言<br>2010 年 5 月：谷歌投入使用<br>2011 年 5 月 5 日：Google App Engine 支持 Go 语言</p>
+</blockquote>
+<ul>
+<li>语言主要特点  </li>
+</ul>
+<ol>
+<li>Go 语言使用静态类型，所以它是类型安全的一门语言  </li>
+<li>语言没有类和继承的概念，通过接口（interface）的概念来实现多态性  </li>
+<li>强类型语言，隐式的类型转换是不被允许</li>
+<li>运行速度快  <blockquote>
+<p>与JAVA速度对比  </p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang004.png" alt="image">  </p>
+<blockquote>
+<p>Go 和 Python 在一般开发的平均水平测试中，Go 要比 Python 3 快 25 倍左右，少占用三分之二的内存，但比 Python 大概多写一倍的代码  </p>
+<ol start="5">
+<li>快速编译<br>一般情况下构建一个程序的时间只需要数百毫秒到几秒,避免像 C++ 那样的静态语言漫长编译 </li>
+</ol>
+</blockquote>
+<blockquote>
+<p>同时Go 语言在执行速度方面也可以与 C/C++ 相提并论。  </p>
+</blockquote>
+<p><strong>2. Golang 环境安装与调试配置</strong>   </p>
+<blockquote>
+<p>环境：centos7、Go1.9.2 ,Gin </p>
+</blockquote>
+<p>2.1. 环境变量配置  </p>
+<blockquote>
+<p>$GOROOT 表示 Go 在电脑上的安装位置<br>$GOBIN 表示编译器和链接器的安装位置<br> $GOPATH  从Go1.1以上，必须分别包含三个规定的目录：src、pkg 和 bin，分别用于存放源码文件、包文件和可执行文件  </p>
+</blockquote>
+<p><strong>步骤：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim  .bashrc   </span><br><span class="line">export GOROOT=$HOME/go  </span><br><span class="line">export PATH=$PATH:$GOROOT/bin  </span><br><span class="line">export GOPATH=$HOME/Applications/Go  </span><br><span class="line">source  .bashrc</span><br></pre></td></tr></table></figure></p>
+<p>2.2. 安装Go1.9.2  </p>
+<ul>
+<li>注：安装1.9.2之前必须先安装1.4版本  </li>
+</ul>
+<p>安装过程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">wget https://storage.googleapis.com/golang/go1.4.src.tar.gz</span><br><span class="line">tar -zxvf go1.4.src.tar.gz</span><br><span class="line">mv go $GOROOT</span><br><span class="line">cd $GOROOT/src</span><br><span class="line"> ./all.bash</span><br><span class="line">```  </span><br><span class="line">检测是否安装成功:  </span><br><span class="line">&gt;go env，若有输出，则代表安装成功   </span><br><span class="line"></span><br><span class="line">升级成为1.9.2版本</span><br><span class="line">&gt;1. 把安装好的go项目（1.4版本）复制一份到/root/go1.4：  </span><br><span class="line">&gt;2. 重新下载Go1.9.2源码，重新./all.bash ,即可  </span><br><span class="line"></span><br><span class="line">Gin安装 </span><br><span class="line">&gt;go get -u github.com/gin-gonic/gin   </span><br><span class="line"></span><br><span class="line">检测是否安装成功:  </span><br><span class="line">&gt;编写一个test.go文件</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import “github.com/gin-gonic/gin”</p>
+<p>func main() {<br>    r := gin.Default()<br>    r.GET(“/ping”, func(c *gin.Context) {<br>        c.JSON(200, gin.H{<br>            “message”: “pong”,<br>        })<br>    })<br>    r.Run() // listen and serve on 0.0.0.0:8080<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;运行  go run test.go，然后访问$HOST:8080/ping，若返回&#123;&quot;message&quot;:&quot;pong&quot;&#125;则安装正确</span><br></pre></td></tr></table></figure></p>
+<p>curl 127.0.0.1:8080/ping<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2.2 调试环境配置  </span><br><span class="line"></span><br><span class="line">*安装调试工具*</span><br><span class="line">&gt; go get -u github.com/derekparker/delve/cmd/dlv  </span><br><span class="line"></span><br><span class="line">&gt;注：安装完成后，copy GoPath路径下bin/dlv 到GoRoot路径下的bin/dlv，dlv命令才可以使用  </span><br><span class="line"></span><br><span class="line">*IDE安装*  </span><br><span class="line">&gt; goland-2017.3.1</span><br><span class="line">```    </span><br><span class="line">    http://www.ddooo.com/softdown/112592.htm  </span><br><span class="line">    破解码：</span><br><span class="line">    http://intellij.mandroid.cn/ </span><br><span class="line">    http://idea.imsxm.com/ </span><br><span class="line">    http://idea.iteblog.com/key.php  </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- 配置远程连接：  </span><br><span class="line">    1.安装插件 Remote Hosts Access   </span><br><span class="line"></span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE1.png)  </span><br><span class="line">    </span><br><span class="line">    2 . 配置远程代码库信息</span><br><span class="line">    </span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE2.png)  </span><br><span class="line">    </span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE3.png)  </span><br><span class="line"></span><br><span class="line">*本地调试*</span><br></pre></td></tr></table></figure></p>
+<pre><code>dlv debug xx.go   
+编译、调试命令使用方法：
+以hello.go 为例
+设置断点
+b hello.go:5  -&gt;设置第5行一个断点
+查看断点
+bp
+打印变量
+p
+继续执行到下一个断点
+c
+下一行代码
+n
+
+打印堆栈信息:
+bt
+单步调试进入调用函数
+s
+跳出被调用函数
+stepout
+列出当前代码
+ls | l
+退出调试
+exit
+重新调试
+r
+打印函数参数
+args
+临时设置变量
+set  
+</code></pre><p><code>`</code></p>
+<p><em>远程调试</em>  </p>
+<ol>
+<li>远程服务器启动  <blockquote>
+<p>dlv debug –headless –listen=:2345 –api-version=2 main.go  </p>
+</blockquote>
+</li>
+<li>IDE打开debug模式运行,即可本地debug  <blockquote>
+<p>注：项目不同包中的.go文件不要命名为相同名称，否则debug 文件找不到</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>3. 文中其他参考引用</strong>  </p>
+<blockquote>
+<p><a href="https://blog.csdn.net/csdnnews/article/details/78293757" target="_blank" rel="noopener">https://blog.csdn.net/csdnnews/article/details/78293757</a><br><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/01.2.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/01.2.md</a>   </p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/24/Mysql慢查询/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1202,1244 +2328,11 @@ at:平均查询时间
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/10/django-session/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2019/03/10/django-session/" itemprop="url">django_session.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T16:49:23+08:00">
-                2019-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/django/" itemprop="url" rel="index">
-                    <span itemprop="name">django</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="redis保存session"><a href="#redis保存session" class="headerlink" title="redis保存session"></a>redis保存session</h2><p><strong>测试版本</strong>  </p>
-<blockquote>
-<p>django 1.11.5<br>django-redis-4.10.0<br>redis-3.2.0<br>django-redis-sessions</p>
-</blockquote>
-<blockquote>
-<p>session 信息可以存储为数据库、缓存、文件、cookie中  </p>
-<ul>
-<li>django 开启sesseion中间件–已默认开启  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MIDDLEWARE = [</span><br><span class="line">    &apos;django.contrib.sessions.middleware.SessionMiddleware&apos;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<p><strong>1. 数据库存储session</strong>  </p>
-<blockquote>
-<p>1&gt; 添加’django.contrib.sessions’ 到  INSTALLED_APPS<br>2&gt; python manage.py migrate 生成session数据库表  </p>
-</blockquote>
-<p><strong>2.文件存储session</strong>  </p>
-<blockquote>
-<p>设置<em>SESSION_ENGINE</em>为<em>django.contrib.sessions.backends.file</em><br>注： django 默认存储文件为/tmp  </p>
-</blockquote>
-<p><strong>3.缓存存储在Cookie</strong>  </p>
-<blockquote>
-<p>设置<em>SESSION_ENGINE</em>为<em>django.contrib.sessions.backends.signed_cookies</em>  </p>
-</blockquote>
-<p><strong>4. 缓存存储session</strong>  </p>
-<ul>
-<li>注：首先安装缓存数据库，可以本地安装，也可引用其他系统缓存  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &quot;default&quot;: &#123;</span><br><span class="line">        &quot;BACKEND&quot;: &quot;django_redis.cache.RedisCache&quot;,</span><br><span class="line">        &quot;LOCATION&quot;: &quot;redis://127.0.0.1:6379/1&quot;,</span><br><span class="line">        &quot;OPTIONS&quot;: &#123;</span><br><span class="line">            &quot;CLIENT_CLASS&quot;: &quot;django_redis.client.DefaultClient&quot;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">&gt; 当配置了缓存，你有俩种方式把数据存储到缓存中  </span><br><span class="line">&gt; 1&gt;. 数据只存储到到缓存中，数据不持久化到数据库中，当缓存满了或者重启后，数据将全部丢失  </span><br><span class="line">&gt; 2&gt;. 将数据持久保存到数据库中，*SESSION_ENGINE 为&quot;django.contrib.sessions.backends.cached_db&quot;.* 这样每次写数据到缓存，同时也会写入到数据库中，数据库中保持了状态，这种方式，还需要配置session存储数据库。  </span><br><span class="line"></span><br><span class="line">- 安装*django-redis*  </span><br><span class="line">&gt; pip install django-redis  </span><br><span class="line">- 配置缓存数据存储到redis</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>CACHES = {<br>    “default”: {<br>        “BACKEND”: “django_redis.cache.RedisCache”,<br>        “LOCATION”: “redis://127.0.0.1:6379/1”,<br>        “OPTIONS”: {<br>            “CLIENT_CLASS”: “django_redis.client.DefaultClient”,<br>        }<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 可以不同粒度的缓存数据到redis，一般缓存view或者整个网站</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>缓存view,整个页面</li>
-</ol>
-<p>from django.views.decorators.cache import cache_page</p>
-<pre><code>@cache_page(60 * 15)
-def index(request):
-    return HttpResponse(&apos;hello world&apos;)
-</code></pre><ol start="2">
-<li>全网站缓存<br>需要在settings.py文件中的MIDDLEWARE项添加相应的中间件：<br>MIDDLEWARE = [<br> ‘django.middleware.cache.UpdateCacheMiddleware’,  # 放在第一个<br> …其他中间件…<br> ‘django.middleware.cache.FetchFromCacheMiddleware’,  # 放在最后一个<br> ]</li>
-</ol>
-<h1 id="另外的配置项"><a href="#另外的配置项" class="headerlink" title="另外的配置项"></a>另外的配置项</h1><p>CACHE_MIDDLEWARE_SECONDS= 60     # 每个页面缓存的时间(单位:秒)<br>CACHE_MIDDLEWARE_ALIAS=’xxx’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- 存储session到redis中</span><br></pre></td></tr></table></figure></p>
-<p>SESSION_REDIS = {<br>    ‘host’: ‘localhost’,<br>    ‘port’: 6379,<br>    ‘db’: 0,<br>    ‘password’: ‘xx’,<br>    ‘prefix’: ‘session’,<br>    ‘socket_timeout’: 1<br>}</p>
-<h2 id="SESSION-ENGINE-‘redis-sessions-session’"><a href="#SESSION-ENGINE-‘redis-sessions-session’" class="headerlink" title="SESSION_ENGINE = ‘redis_sessions.session’"></a>SESSION_ENGINE = ‘redis_sessions.session’</h2><p>eg: </p>
-<p>def set_session(request):<br>      “”””保存session数据”””</p>
-<pre><code>request.session[&apos;username&apos;] = &apos;Django&apos;
-request.session[&apos;verify_code&apos;] = &apos;123456&apos;
-return HttpResponse(&apos;保存session数据成功&apos;)
-</code></pre><p>  def get_session(request):<br>      “””获取session数据”””</p>
-<pre><code>username = request.session.get(&apos;username&apos;)
-verify_code = request.session.get(&apos;verify_code&apos;)
-text = &apos;username=%s, verify_code=%s&apos; % (username, verify_code)
-return HttpResponse(text)
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 通过redis-cli客户端可以查看</span><br></pre></td></tr></table></figure>
-<p>127.0.0.1:6379&gt; select 4<br>OK<br>127.0.0.1:6379[4]&gt; keys *<br>1) “session:0bjyuegx0i5ivyuzpb8ezgo0b35u2z4v”<br><code>`</code><br><strong>参考</strong></p>
-<blockquote>
-<ol>
-<li><a href="https://docs.djangoproject.com/en/2.1/topics/http/sessions/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.1/topics/http/sessions/</a>  </li>
-<li><a href="https://django-redis-chs.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">https://django-redis-chs.readthedocs.io/zh_CN/latest/</a></li>
-<li><a href="https://blog.csdn.net/Enjolras_fuu/article/details/79661582" target="_blank" rel="noopener">https://blog.csdn.net/Enjolras_fuu/article/details/79661582</a>  </li>
-<li><a href="https://pypi.org/project/django-redis-sessions/" target="_blank" rel="noopener">https://pypi.org/project/django-redis-sessions/</a></li>
-</ol>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/02/28/go基础介绍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2019/02/28/go基础介绍/" itemprop="url">go基础介绍.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T22:04:44+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/Go/" itemprop="url" rel="index">
-                    <span itemprop="name">Go</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>参考文档<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.5.md</span><br><span class="line">2.http://tour.studygolang.com/welcome/1</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>Go 程序的基本结构和要素<br>示例hello_world.go<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	fmt.Println(&quot;hello, world&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>1.1 包的概念、导入与可见性<br>1&gt;每个程序都由包（通常简称为pkg）的概念组成，可以使用自身的包或者从其它包中导入内容<br>2&gt;每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成<br>3&gt;必须在源文件中非注释的第一行指明这个文件属于哪个包，如：package main,所有的包名都应该使用小写字母  </p>
-<p>引入多个包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &quot;fmt&quot;</span><br><span class="line">import &quot;os&quot;</span><br></pre></td></tr></table></figure></p>
-<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;fmt&quot;; import &quot;os&quot;</span><br></pre></td></tr></table></figure></p>
-<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import (</span><br><span class="line">   &quot;fmt&quot;</span><br><span class="line">   &quot;os&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>可见性规则<br>1&gt;当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：Group1，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）<br>2&gt;标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 private ）</p>
-<p>1.2. 函数<br>符合规范的函数一般写成如下的形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func functionName(parameter_list) (return_value_list) &#123;</span><br><span class="line">   …</span><br><span class="line">&#125;</span><br><span class="line">注：1.函数需要被外部包调用的时候使用大写字母开头，遵循骆驼命名法。</span><br><span class="line">    2.左大括号 &#123; 必须与方法的声明放在同一行，这是编译器的强制规定，否则你在使用 gofmt 时就会出现错误提示</span><br><span class="line">    `build-error: syntax error: unexpected semicolon or newline before &#123;`</span><br></pre></td></tr></table></figure></p>
-<p>1.3 函数返回值<br>函数可以拥有多返回值，返回类型之间需要使用逗号分割，并使用小括号 () 将它们括起来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func FunctionName (a typea, b typeb) (t1 type1, t2 type2)</span><br></pre></td></tr></table></figure></p>
-<p>1.4 注释<br>以 // 开头的单行注释<br>多行注释也叫块注释，均已以 /<em> 开头，并以 </em>/ 结尾<br>1.5 基本类型<br>int、float、bool、string；结构化的（复合的），如：struct、array、slice、map、channel；只描述类型行为，如：interface<br>结构化的类型没有真正的值，它使用 nil 作为默认值<br>1.6 类型转换<br> Go 语言不存在隐式类型转换，必须显式说明<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a := 5.0</span><br><span class="line">b := int(a)</span><br></pre></td></tr></table></figure></p>
-<p>1.5 变量<br>使用 var 关键字：var identifier type<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a, b *int</span><br><span class="line">var a int</span><br><span class="line">var b bool</span><br><span class="line">var str string</span><br><span class="line">或</span><br><span class="line">var (</span><br><span class="line">	a int</span><br><span class="line">	b bool</span><br><span class="line">	str string</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>赋值<br>a = 11<br>var c int = 12<br>:= 赋值操作符初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可以在变量的初始化时省略变量的类型而由系统自动推断  </span><br><span class="line">a := 50</span><br></pre></td></tr></table></figure></p>
-<p>1.6 init 函数<br>1&gt;一类非常特殊的函数，它不能够被人为调用，而是在每个包完成初始化后自动执行，并且执行优先级比 main 函数高<br>2&gt;每个源文件都只能包含一个 init 函数。初始化总是以单线程执行，并且按照包的依赖关系顺序执行  </p>
-<p>可能的用途：  变量初始化 init.go<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package trans</span><br><span class="line"></span><br><span class="line">import &quot;math&quot;</span><br><span class="line"></span><br><span class="line">var Pi float64</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">   Pi = 4 * math.Atan(1) // init() function computes Pi</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>1.7 指针<br>Go 语言为程序员提供了控制数据结构的指针的能力,不允许指针运算-&gt;移动指针位置<br>pointer.go<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var i1 = 5</span><br><span class="line">fmt.Printf(&quot;An integer: %d, it&apos;s location in memory: %p\n&quot;, i1, &amp;i1)</span><br><span class="line">-----------------------</span><br><span class="line">可能输出  </span><br><span class="line">An integer: 5, its location in memory: 0x6b0820</span><br></pre></td></tr></table></figure></p>
-<p>定义一个指针变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var intP *int</span><br><span class="line"></span><br><span class="line">*intP，将得到这个指针指向地址上所存储的值</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>函数<br> 函数是 Go 里面的基本代码块,Go 里面有三种类型的函数：<br>. 普通的带有名字的函数<br>. 匿名函数或者lambda函数<br>. 方法Methods<br>==注：除了main()、init()函数外，其它所有类型的函数都可以有参数与返回值。函数参数==、==返回值以及它们的类型被统称为函数签==名  </li>
-</ol>
-<p>2.1 按值传递、按引用传递<br>    1&gt;默认使用按值传递来传递参数，也就是传递参数的副本。函数接收参数副本之后，在使用变量的过程中可能对副本的值进行更改，但不会影响到原来的变量<br>    2&gt; 如果函数直接修改参数的值，而不是对参数的副本进行操作，需要按引用传递，即变量名前面添加&amp;符号<br>注：函数调用时，像切片（slice）、字典（map）、接口（interface）、通道（channel）这样的引用类型都是默认使用引用传递（即使没有显式的指出指针）</p>
-<p>2.2 传递变长参数<br>函数的最后一个参数是采用 …type 的形式，那么这个函数就可以处理一个变长的参数，这个长度可以为0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func myFunc(a, b, arg ...int) &#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.3  defer 函数<br>defer 语句会将函数推迟到外层函数返回之后执行<br>推迟调用的函数其参数会立即求值，但直到外层函数返回前该函数都不会被调用<br>==使用场景：一般用于释放某些已分配的资源==<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	defer fmt.Println(&quot;world&quot;)</span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br><span class="line">---------------------</span><br><span class="line">hello</span><br><span class="line">world</span><br></pre></td></tr></table></figure></p>
-<p>2.4 回调<br>函数可以作为其它函数的参数进行传递<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	callback(1, Add)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Add(a, b int) &#123;</span><br><span class="line">	fmt.Printf(&quot;The sum of %d and %d is: %d\n&quot;, a, b, a+b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func callback(y int, f func(int, int)) &#123;</span><br><span class="line">	f(y, 2) // this becomes Add(1, 2)</span><br><span class="line">&#125;</span><br><span class="line">-----------------------------------</span><br><span class="line">The sum of 1 and 2 is: 3</span><br></pre></td></tr></table></figure></p>
-<p>2.5 闭包<br>匿名函数被称之为闭包</p>
-<ol start="3">
-<li><p>数组、切片、Map<br>3.1. 数组的长度是其类型的一部分，因此数组不能改变大小</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">primes := [6]int&#123;2, 3, 5, 7, 11, 13&#125;</span><br></pre></td></tr></table></figure>
-<p>3.2. 切片：<br>切片（slice）是对数组一个连续片段的引用，切片则为数组元素提供动态大小</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">切片通过两个下标来界定，即一个上界和一个下界，二者以冒号分隔</span><br><span class="line"></span><br><span class="line">primes := [6]int&#123;2, 3, 5, 7, 11, 13&#125; --&gt;数组</span><br><span class="line">var s []int = primes[1:4]  -&gt;切片</span><br></pre></td></tr></table></figure>
-<p>3.3 maek 创建切片</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a := make([]int, 5)</span><br></pre></td></tr></table></figure>
-<p>3.3 切片文法<br>切片文法类似于没有长度的数组文法  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q := []int&#123;2, 3, 5, 7, 11, 13&#125;</span><br></pre></td></tr></table></figure>
-<p>3.4 for - range  </p>
-<p>for 循环的 range 形式可遍历切片或映射</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> for ix, value := range slice1 &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>当使用 for 循环遍历切片时，每次迭代都会返回两个值。第一个值为当前元素的下标，第二个值为该下标所对应元素的一份副本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">var pow = []int&#123;1, 2, 4, 8, 16, 32, 64, 128&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i, v := range pow &#123;</span><br><span class="line">		fmt.Printf(&quot;2**%d = %d\n&quot;, i, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">--------------------</span><br><span class="line">2**0 = 1</span><br><span class="line">2**1 = 2</span><br><span class="line">2**2 = 4</span><br></pre></td></tr></table></figure></p>
-<p>3.5 MAP使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var map1 map[keytype]valuetype</span><br><span class="line">var map1 map[string]int</span><br></pre></td></tr></table></figure></p>
-<p>测试键值对是否存在及删除元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val1, isPresent = map1[key1]</span><br><span class="line">isPresent 返回一个 bool 值：如果 key1 存在于 map1，val1 就是 key1 对应的 value 值，并且 isPresent为true；如果 key1 不存在，val1 就是一个空值，并且 isPresent 会返回 false</span><br><span class="line"></span><br><span class="line">如果你只是想判断某个 key 是否存在而不关心它对应的值</span><br><span class="line">_, ok := map1[key1] // 如果key1存在则ok == true，否则ok为false</span><br><span class="line">与if 混合使用</span><br><span class="line">if _, ok := map1[key1]; ok &#123;</span><br><span class="line">	// ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>for-range 的map配套用法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for key, value := range map1 &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果只关心值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for _, value := range map1 &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果只想获取 key，你可以这么使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for key := range map1 &#123;</span><br><span class="line">	fmt.Printf(&quot;key is: %d\n&quot;, key)</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">4. 控制结构</span><br><span class="line"></span><br><span class="line">4.1 if-else结构</span><br><span class="line"></span><br><span class="line">Go 完全省略了 if、switch 和 for 结构中条件语句两侧的括号，相比 Java、C++ 和 C# 中减少了很多视觉混乱的因素，同时也使你的代码更加简洁。</span><br></pre></td></tr></table></figure></p>
-<p>if condition {<br>    // do something<br>} else {<br>    // do something<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">关键字 if 和 else 之后的左大括号 &#123; 必须和关键字在同一行，如果你使用了 else-if 结构，则前段代码块的右大括号 &#125; 必须和 else-if 关键字在同一行。这两条规则都是被编译器强制规定的。</span><br><span class="line">非法的 Go 代码:</span><br></pre></td></tr></table></figure></p>
-<p>if x{<br>}<br>else {    // 无效的<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当 if 结构内有 break、continue、goto 或者 return 语句时，Go 代码的常见写法是省略 else 部分。无论满足哪个条件都会返回 x 或者 y 时，一般使用以下写法：</span><br></pre></td></tr></table></figure></p>
-<p>if condition {<br>    return x<br>}<br>return y<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4.2 switch结构</span><br><span class="line"></span><br><span class="line">相比较 C 和 Java 等其它语言而言，Go 语言中的 switch 结构使用上更加灵活。它接受任意形式的表达式：</span><br></pre></td></tr></table></figure></p>
-<p>switch var1 {<br>    case val1:<br>        …<br>    case val2:<br>        …<br>    default:<br>        …<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">4.3 for结构</span><br><span class="line"></span><br><span class="line">4.3.1 基于计数器的迭代</span><br><span class="line"></span><br><span class="line">基本形式为</span><br><span class="line">`for 初始化语句; 条件语句; 修饰语句 &#123;&#125;`</span><br><span class="line"></span><br><span class="line">4.3.2 基于条件判断</span><br><span class="line">基本形式为</span><br><span class="line">`for 条件语句 &#123;&#125;`</span><br><span class="line"></span><br><span class="line">4.3.3 无限循环</span><br><span class="line"></span><br><span class="line">条件语句被省略</span><br><span class="line"></span><br><span class="line">4.3.4 这里介绍 Go 特有的一种的for-range迭代结构</span><br></pre></td></tr></table></figure></p>
-<p>for ix, val := range coll { }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">要注意的是，val 始终为集合中对应索引的值拷贝，因此它一般只具有只读性质，对它所做的任何修改都不会影响到集合中原有的值</span><br><span class="line"></span><br><span class="line">4.4 break和continue  </span><br><span class="line"></span><br><span class="line">break被用于任何形式的for循环以及switch或select语句，continue只能被用于for循环  </span><br><span class="line"></span><br><span class="line">5. 结构struct与方法method  </span><br><span class="line"></span><br><span class="line">5.1 结构体定义的一般方式如下：</span><br></pre></td></tr></table></figure></p>
-<p>type identifier struct {<br>    field1 type1<br>    field2 type2<br>    …<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5.2 使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)</span><br><span class="line">访问结构体变量或赋值</span><br></pre></td></tr></table></figure></p>
-<p>structname.fieldname<br>structname.fieldname = value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5.3 匿名字段和内嵌结构体  </span><br><span class="line">结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</span><br></pre></td></tr></table></figure></p>
-<p>package main</p>
-<p>import “fmt”</p>
-<p>type A struct {<br>    ax, ay int<br>}</p>
-<p>type B struct {<br>    A<br>    bx, by float32<br>}</p>
-<p>func main() {<br>    b := B{A{1, 2}, 3.0, 4.0}<br>    fmt.Println(b.ax, b.ay, b.bx, b.by)<br>    fmt.Println(b.A)</p>
-<h2 id><a href="#" class="headerlink" title="}"></a>}</h2><p>1 2 3 4<br>{1 2}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">5.4 方法  </span><br><span class="line">结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  </span><br><span class="line">定义方法的一般格式如下：</span><br></pre></td></tr></table></figure></p>
-<p>func (recv receiver_type) methodName(parameter_list) (return_value_list) { … }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">示例：method .go</span><br></pre></td></tr></table></figure></p>
-<p>package main</p>
-<p>import “fmt”</p>
-<p>type TwoInts struct {<br>    a int<br>    b int<br>}</p>
-<p>func main() {<br>    two1 := new(TwoInts)<br>    two1.a = 12<br>    two1.b = 10</p>
-<pre><code>fmt.Printf(&quot;The sum is: %d\n&quot;, two1.AddThem())
-fmt.Printf(&quot;Add them to the param: %d\n&quot;, two1.AddToParam(20))
-
-two2 := TwoInts{3, 4}
-fmt.Printf(&quot;The sum is: %d\n&quot;, two2.AddThem())
-</code></pre><p>}</p>
-<p>func (tn *TwoInts) AddThem() int {<br>    return tn.a + tn.b<br>}</p>
-<p>func (tn *TwoInts) AddToParam(param int) int {<br>    return tn.a + tn.b + param<br>}</p>
-<hr>
-<p>The sum is: 22<br>Add them to the param: 42<br>The sum is: 7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">内嵌类型的方法和继承  </span><br><span class="line">当一个匿名类型被内嵌在结构体中时，匿名类型的可见方法也同样被内嵌，这在效果上等同于外层类型继承了这些方法  </span><br><span class="line">示例：method3.go</span><br></pre></td></tr></table></figure></p>
-<p>package main</p>
-<p>import (<br>    “fmt”<br>    “math”<br>)</p>
-<p>type Point struct {<br>    x, y float64<br>}</p>
-<p>func (p <em>Point) Abs() float64 {<br>    return math.Sqrt(p.x</em>p.x + p.y*p.y)<br>}</p>
-<p>type NamedPoint struct {<br>    Point<br>    name string<br>}</p>
-<p>func main() {<br>    n := &amp;NamedPoint{Point{3, 4}, “Pythagoras”}<br>    fmt.Println(n.Abs()) // 打印5<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">6. 接口（interface）与反射（reflection）  </span><br><span class="line">接口提供了一种方式来 说明 对象的行为，接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量</span><br><span class="line">5.1 一般定义为</span><br></pre></td></tr></table></figure></p>
-<p>type Namer interface {<br>    Method1(param_list) return_type<br>    Method2(param_list) return_type<br>    …<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">示例 interfaces.go:</span><br></pre></td></tr></table></figure></p>
-<p>package main</p>
-<p>import “fmt”</p>
-<p>type Shaper interface {<br>    Area() float32<br>}</p>
-<p>type Square struct {<br>    side float32<br>}</p>
-<p>func (sq <em>Square) Area() float32 {<br>    return sq.side </em> sq.side<br>}</p>
-<p>func main() {<br>    sq1 := new(Square)<br>    sq1.side = 5</p>
-<pre><code>var areaIntf Shaper
-areaIntf = sq1
-// shorter,without separate declaration:
-// areaIntf := Shaper(sq1)
-// or even:
-// areaIntf := sq1
-fmt.Printf(&quot;The square has area: %f\n&quot;, areaIntf.Area())
-</code></pre><p>}<br>注：接口变量包含一个指向 Square 变量的引用，通过它可以调用 Square 上的方法 Area()，接口变量里包含了接收者实例的值和指向对应方法表的指针</p>
-<h2 id="当前示例即是Go-版本的多态，同一种类型在不同的实例上似乎表现出不同的行为"><a href="#当前示例即是Go-版本的多态，同一种类型在不同的实例上似乎表现出不同的行为" class="headerlink" title="当前示例即是Go 版本的多态，同一种类型在不同的实例上似乎表现出不同的行为"></a>当前示例即是Go 版本的多态，同一种类型在不同的实例上似乎表现出不同的行为</h2><p>The square has area: 25.000000</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6.2 接口嵌套  </span><br><span class="line">一个接口可以包含一个或多个其他的接口，相当于直接将这些内嵌接口的方法列举在外层接口中一样</span><br></pre></td></tr></table></figure>
-<p>type ReadWrite interface {<br>    Read(b Buffer) bool<br>    Write(b Buffer) bool<br>}</p>
-<p>type Lock interface {<br>    Lock()<br>    Unlock()<br>}</p>
-<p>type File interface {<br>    ReadWrite<br>    Lock<br>    Close()<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">6.3 反射  </span><br><span class="line">反射是用程序检查其所拥有的结构，尤其是类型的一种能力，反射可以在运行时检查类型和变量，例如它的大小、方法和 动态 的调用这些方法  </span><br><span class="line">reflect.TypeOf 和 reflect.ValueOf，返回被检查对象的类型和值</span><br><span class="line">示例 reflect1.go</span><br></pre></td></tr></table></figure></p>
-<p>// blog: Laws of Reflection<br>package main</p>
-<p>import (<br>    “fmt”<br>    “reflect”<br>)</p>
-<p>func main() {<br>    var x float64 = 3.4<br>    fmt.Println(“type:”, reflect.TypeOf(x))<br>    v := reflect.ValueOf(x)<br>    fmt.Println(“value:”, v)<br>    fmt.Println(“type:”, v.Type())<br>    fmt.Println(“kind:”, v.Kind())<br>    fmt.Println(“value:”, v.Float())<br>    fmt.Println(v.Interface())<br>    fmt.Printf(“value is %5.2e\n”, v.Interface())<br>    y := v.Interface().(float64)<br>    fmt.Println(y)</p>
-<h2 id="-1"><a href="#-1" class="headerlink" title="}"></a>}</h2><p>type: float64<br>value: 3.4<br>type: float64<br>kind: float64<br>value: 3.4<br>3.4<br>value is 3.40e+00<br>3.4<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">7. 错误处理  </span><br><span class="line">7.1. 抛出错误</span><br><span class="line">1&gt;Go 运行时会触发运行时 panic，伴随着程序的崩溃抛出一个 runtime.Error 接口类型的值。这个错误值有个 RuntimeError() 方法用于区别普通错误</span><br><span class="line">2&gt;panic 接收一个做任意类型的参数，通常是字符串，在程序死亡时被打印出来</span><br><span class="line">示例 panic.go</span><br></pre></td></tr></table></figure></p>
-<p>package main</p>
-<p>import “fmt”</p>
-<p>func main() {<br>    fmt.Println(“Starting the program”)<br>    panic(“A severe error occurred: stopping the program!”)<br>    fmt.Println(“Ending the program”)</p>
-<h2 id="-2"><a href="#-2" class="headerlink" title="}"></a>}</h2><p>Starting the program<br>panic: A severe error occurred: stopping the program!<br>panic PC=0x4f3038<br>runtime.panic+0x99 /go/src/pkg/runtime/proc.c:1032<br>       runtime.panic(0x442938, 0x4f08e8)<br>main.main+0xa5 E:/Go/GoBoek/code examples/chapter 13/panic.go:8<br>       main.main()<br>runtime.mainstart+0xf 386/asm.s:84<br>       runtime.mainstart()<br>runtime.goexit /go/src/pkg/runtime/proc.c:148<br>       runtime.goexit()<br>—- Error run E:/Go/GoBoek/code examples/chapter 13/panic.exe with code Crashed<br>—- Program exited with code -1073741783<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">7.2 从 panic 中恢复（Recover）  </span><br><span class="line">（recover）内建函数被用于从 panic 或 错误场景中恢复：让程序可以从 panicking 重新获得控制权，停止终止过程进而恢复正常执行  </span><br><span class="line">使用方式：  </span><br><span class="line">recover 只能在 defer 修饰的函数中使用：用于取得 panic 调用中传递过来的错误值，如果是正常执行，调用 recover 会返回 nil  </span><br><span class="line">示例： recover.go</span><br></pre></td></tr></table></figure></p>
-<p>func protect(g func()) {<br>    defer func() {<br>        log.Println(“done”)<br>        // Println executes normally even if there is a panic<br>        if err := recover(); err != nil {<br>        log.Printf(“run time panic: %v”, err)<br>        }<br>    }()<br>    log.Println(“start”)<br>    g() //   possible runtime-error<br>}<br>注：类似于java 等catch操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">8. 协程（goroutine）与通道（channel）  </span><br><span class="line">    goroutine这个概念类似于轻量级线程，运行时管理的轻量级线程</span><br></pre></td></tr></table></figure></p>
-<p>go f(x, y, z)  启动一个新的 Go 程并执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8.1 changel</span><br></pre></td></tr></table></figure></p>
-<p>ch &lt;- v    // 将 v 发送至信道 ch。<br>v := &lt;-ch  // 从 ch 接收值并赋予 v。</p>
-<p>必须先创建changel<br>ch := make(chan int)<br>默认情况下，发送和接收操作在另一端准备好之前都会阻塞。这使得 Go 程可以在没有显式的锁或竞态变量的情况下进行同步<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8.2 带缓冲区changel</span><br></pre></td></tr></table></figure></p>
-<p>ch := make(chan int, 100)<br>仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">8.3 range 和 close  </span><br><span class="line">发送者可通过 close 关闭一个信道来表示没有需要发送的值了。接收者可以通过为接收表达式分配第二个参数来测试信道是否被关闭：若没有值可以接收且信道已被关闭，那么在执行完</span><br></pre></td></tr></table></figure></p>
-<p>v, ok := &lt;-ch<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">之后 ok 会被设置为 false  </span><br><span class="line">循环 for i := range c  会不断从信道接收值，直到它被关闭</span><br></pre></td></tr></table></figure></p>
-<p><em>注意：</em> 只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。</p>
-<p><em>还要注意：</em> 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有值需要发送的时候才有必要关闭，例如终止一个 range 循环<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">8.4 sync.Mutex  </span><br><span class="line">Go 标准库中提供了 sync.Mutex 互斥锁类型及其两个方法：Lock 、Unlock  </span><br><span class="line">也可以用 defer 语句来保证互斥锁一定会被解锁</span><br></pre></td></tr></table></figure></p>
-<p>package main</p>
-<p>import (<br>    “fmt”<br>    “sync”<br>    “time”<br>)</p>
-<p>// SafeCounter 的并发使用是安全的。<br>type SafeCounter struct {<br>    v   map[string]int<br>    mux sync.Mutex<br>}</p>
-<p>// Inc 增加给定 key 的计数器的值。<br>func (c *SafeCounter) Inc(key string) {<br>    c.mux.Lock()<br>    // Lock 之后同一时刻只有一个 goroutine 能访问 c.v<br>    c.v[key]++<br>    c.mux.Unlock()<br>}</p>
-<p>// Value 返回给定 key 的计数器的当前值。<br>func (c *SafeCounter) Value(key string) int {<br>    c.mux.Lock()<br>    // Lock 之后同一时刻只有一个 goroutine 能访问 c.v<br>    defer c.mux.Unlock()<br>    return c.v[key]<br>}</p>
-<p>func main() {<br>    c := SafeCounter{v: make(map[string]int)}<br>    for i := 0; i &lt; 1000; i++ {<br>        go c.Inc(“somekey”)<br>    }</p>
-<pre><code>time.Sleep(time.Second)
-fmt.Println(c.Value(&quot;somekey&quot;))
-</code></pre><p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">9. 与oop分析对比  </span><br><span class="line">封装，继承，和多态   </span><br><span class="line">封装：可以把struct看成一个类，可以看成对struct的封装</span><br></pre></td></tr></table></figure>
-<p>type struct1 struct {<br>    i1  int<br>    f1  float32<br>    str string<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">继承:</span><br><span class="line">结构体的嵌套模拟继承</span><br></pre></td></tr></table></figure></p>
-<p>type A struct{ //父类<br>    name string<br>    age int<br>}<br>type B struct{//子类<br>    a A // 模拟聚合关系    …..}</p>
-<p>type C struct{//子类<br>    A // 模拟继承<br>}</p>
-<p>b := B{}<br>b.a.name<br>c := C{}<br>b.name</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">多态：  </span><br><span class="line">接口的所有方法的任何类型都表示隐式实现该接口。类型接口的变量可以保存实现该接口的任何值</span><br></pre></td></tr></table></figure>
-<pre><code>package main
-
-import (
-    &quot;fmt&quot;
-)
-
-type Person interface {
-    SayHello()
-}
-
-type Girl struct {
-    Sex string
-}
-
-type Boy struct {
-    Sex string
-}
-
-func (this *Girl) SayHello() {
-    fmt.Println(&quot;Hi, I am a &quot; + this.Sex)
-}
-
-func (this *Boy) SayHello() {
-    fmt.Println(&quot;Hi, I am a &quot; + this.Sex)
-}
-
-func main() {
-    g := &amp;Girl{&quot;girl&quot;}
-    b := &amp;Boy{&quot;boy&quot;}
-
-    p := map[int]Person{}
-    p[0] = g
-    p[1] = b
-
-    for _, v := range p {
-        v.SayHello()
-    } 
-}
-</code></pre><hr>
-<pre><code>Hi, I am a boy
-Hi, I am a gir
-</code></pre><p><code>`</code></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/02/25/session-cookie-token-md/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2019/02/25/session-cookie-token-md/" itemprop="url">session_cookie_token.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-25T13:36:42+08:00">
-                2019-02-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/http/" itemprop="url" rel="index">
-                    <span itemprop="name">http</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Sesssion &amp;&amp;  Cookie  &amp;&amp; Token 理解</p>
-<p>问题  </p>
-<ul>
-<li>Q1. 为何会同时有Cookie、Seesion、Token概念  </li>
-<li>Session、Cookie工作流程</li>
-</ul>
-<blockquote>
-<p> A1:当用户向浏览器发送一个请求，web系统需要确定该用户请求接口的合法性。接口请求之前，可以通过用户名，密码向后台数据库进行校验来判断；如果通过这种方式，不仅繁琐，账号信息通过网络传输。有很大危险。</p>
-</blockquote>
-<blockquote>
-<p>那么更好的处理方式是每次访问，客户端能携带过来能证明身份的信息即可，即Cookie。Cookie首次通过用户名密码登录系统，服务端会响应的时候会通过set-cookie响应头将生成的认证信息带给客户端，下次浏览器即可携带Cookie信息来证明身份。  </p>
-</blockquote>
-<blockquote>
-<p>有Cookie 可以进行认证，为何又出现session技术，相对比与客户端Cookie的解决方案，服务器的session方案更安全。原因：1.cookie 存在客户端，可以获得，容易篡改。2.客户端不宜存储敏感信息如，用户名、密码等。Sessio存储在服务器端，客户端只需存储sessionId即可，其他信息可以通过sessionId从服务器读取  </p>
-</blockquote>
-<blockquote>
-<p>Token的出现是为了解决服务扩展、无法存储大量session信息。当用户激增，每个用户，服务器会保存一份seesion信息，这样服务器会消耗大量资源。比如有服务A，服务B，需要负载均衡，用户A请求了服务A，sessionId保存在服务A上，又如何能负载到B服务上呢，可以做session 的复制<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/token/token1.png?q-sign-algorithm=sha1&amp;q-ak=AKIDaCp0ZXTZcX4pxy6kSaJOhjWw9ZUBo7Xz&amp;q-sign-time=1551591189;1551592989&amp;q-key-time=1551591189;1551592989&amp;q-header-list=&amp;q-url-param-list=&amp;q-signature=e1c6127b14300a673a7e234b1e51fd7eaaaf5f57&amp;x-cos-security-token=0e5f773163a5a8382b608fcb0f6076df9494738d10001" alt="image"></p>
-</blockquote>
-<blockquote>
-<p>把sessionId在两个机器之间复制，这样显然不是一个好的解决方案。也有个其他方案，利用Memcached把sessionId 集中存储到一个地方， 所有的机器都来访问这个地方的数据， 这样就不用复制了,但是增加了单点故障可能性.<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/token/token2.png?q-sign-algorithm=sha1&amp;q-ak=AKIDzbZuzH6BP04OAEQ59t5y2tGRfZwcJkCy&amp;q-sign-time=1551591232;1551593032&amp;q-key-time=1551591232;1551593032&amp;q-header-list=&amp;q-url-param-list=&amp;q-signature=699dda1f0af8e8551231729eee300c17586e880a&amp;x-cos-security-token=9fb77749c83aced46c32d4a16e72fba5a524f89b10001" alt="image"><br>既然服务器扩展，session不好处理，那么可不可以不保存session呢，有其他的认证方式呢？token（令牌），记入用户A登录系统， 系统发一个令牌(token)给用户A， 里边包含了A用户 user id，下次用户A再次通过Http 请求访问系统时， 把这个token 通过Http header 带过来就可以。<br>那么如何防止token伪造呢？可以对数据做一个签名， 比如用HMAC-SHA256算法，加上一个私钥，  对数据做一个签名， 把这签名和数据一起作为token ，由于私钥别人不知道， 就无法伪造token了.token 值系统不保存.  </p>
-</blockquote>
-<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/token/token3.png?q-sign-algorithm=sha1&amp;q-ak=AKIDUy1cOerHDCswq0UQxreQ0QpJEQ7tA2sX&amp;q-sign-time=1551591288;1551593088&amp;q-key-time=1551591288;1551593088&amp;q-header-list=&amp;q-url-param-list=&amp;q-signature=fd31afa6a65a8ef85c441b50aad3d61c98084a5e&amp;x-cos-security-token=42cfdb65096e2c651eafa269f9adf2bfd88fd94010001" alt="image"> </p>
-<blockquote>
-<p>当用户A把这个token 给携带过来时，系统用同样的HMAC-SHA256 算法和同样的密钥，对数据再计算一次签名，和token 中签名比较， 如果相同，说明请求合法，如果不同， 数据部分肯定被人篡改过，系统发送认证失败。这样的方式避免了服务器端存储认证数据。机器集群就可以轻松地做水平扩展， 当用户访问量增大， 直接加机器就行  </p>
-</blockquote>
-<ul>
-<li>基于Token的验证原理</li>
-</ul>
-<p>基于Token的身份验证是无状态的，我们不将用户信息存在服务器或Session中。这种概念解决了在服务端存储信息时的许多问题</p>
-<pre><code>NoSession意味着你的程序可以根据需要去增减机器，而不用去担心用户是否登录。
-</code></pre><ul>
-<li>基于Token的身份验证的过程如下:</li>
-</ul>
-<ol>
-<li><p>用户通过用户名和密码发送请求。</p>
-</li>
-<li><p>程序验证。</p>
-</li>
-<li><p>程序返回一个签名的token 给客户端。</p>
-</li>
-<li><p>客户端储存token,并且每次用于每次发送请求。</p>
-</li>
-<li><p>服务端验证token并返回数据。</p>
-</li>
-</ol>
-<blockquote>
-<p>Q2  1.ookie执行流程</p>
-</blockquote>
-<blockquote>
-<p>用户访问系统时候,服务器设置一个cookie，在做响应的时候会通过set-cookie响应头将cookie带给浏览器。<br>浏览器会将此数据保存起来,然后再次去访问服务器的时候,浏览器通过cookie将数据带到到服务器,服务器通过这些数据便得知用户是谁了，这些数据一般都是token。</p>
-<ol start="2">
-<li>session执行流程</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>浏览器发起一个请求到服务器,服务器先检查是否携带了一个叫做JSESSIONID的cookie。<br>如果有携带，会将此cookie的值取出来（比如为aaa123），然后从服务器的session池中找到ID为aaa123的session返回给调用者。<br>如果没有携带这个JSESSIONID的cookie，那么服务器将会自动创建一个session对象并且生成一个随机字符串（如aaa123）作为此session的ID保存到session池中。在服务器为客户端浏览器作响应的时候自动创建一个键为“JSESSIONID” 值为“aaa123”的cookie对象让浏览器储存起来以便下次再访问的时候带过来。</p>
-</blockquote>
-<p><strong>引用：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/IT_zhang81/article/d</span><br><span class="line">https://www.cnblogs.com/moyand/p/9047978.html</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/02/11/postman集成测试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2019/02/11/postman集成测试/" itemprop="url">postman集成测试</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-11T21:37:29+08:00">
-                2019-02-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/测试/" itemprop="url" rel="index">
-                    <span itemprop="name">测试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="postman-集成测试"><a href="#postman-集成测试" class="headerlink" title="postman 集成测试"></a>postman 集成测试</h2><p>变量可以分为全局变量、环境变量、集合变量  </p>
-<ol>
-<li>collection variable 集合变量，只在所属集合下生效  </li>
-<li>environment variable 环境变量，只在变量所属环境下生效  </li>
-<li>global variable 全局变量，在所有环境下都生效(即使环境为No Environment)  </li>
-</ol>
-<h3 id="Pre-Request-Script-amp-Tests-Script"><a href="#Pre-Request-Script-amp-Tests-Script" class="headerlink" title="Pre-Request-Script &amp; Tests-Script"></a>Pre-Request-Script &amp; Tests-Script</h3><ol>
-<li>在发送请求之前，编写Pre-Request-Script，为请求参数进行加密处理、参数化等处理</li>
-<li>接收到请求响应后，编写Tests-Script，制定响应断言、处理返回的数据  </li>
-</ol>
-<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman4.png" alt="image"></p>
-<ul>
-<li>设置环境变量<br>分为当前环境、全局环境，当前环境局部有效，全局环境全局有效<br>环境配置，右上角点击眼睛<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman1.png" alt="image"><br>配置环境变量<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman2.png" alt="image"></li>
-<li>配置cooKie<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman3.png" alt="image">    </li>
-<li>引用环境变量host,预设置参数值-初始化<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman5.png" alt="image"></li>
-<li>返回数据处理，断言或者关联变量设置<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman7.png" alt="image"></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/01/26/uwsgi-nginx-multipulweb环境配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2019/01/26/uwsgi-nginx-multipulweb环境配置/" itemprop="url">uwsgi+nginx+multipulweb环境配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T22:24:46+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/环境搭建/" itemprop="url" rel="index">
-                    <span itemprop="name">环境搭建</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Nginx+ uWSGI+django    </p>
-<p>请求顺序  the web client <-> the web server <-> the socket <-> uWSGI <-> Python  </-></-></-></-></p>
-<p>环境：  </p>
-<ul>
-<li>Linux: centos-release-7-3.1611.el7.centos.x86_64  </li>
-<li>Python 2.7.5  </li>
-<li>注：全部以root执行<br>步骤：  </li>
-</ul>
-<ol>
-<li>nginx 安装  </li>
-</ol>
-<p>1&gt;安装编译工具及库文件<br> yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel  </p>
-<p>安装 PCRE ( Nginx 支持 Rewrite 功能)<br>2&gt;下载 PCRE 安装包，下载地址 <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz</a><br>[root@bogon src]# wget  <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz</a><br>注：wget方式可能下载文件缺失、导致解压失败。可能需离线下载、移动到指定文件夹。 </p>
-<p>3&gt;解压安装包:<br>[root@bogon opt]# tar zxvf pcre-8.35.tar.gz  </p>
-<p>进入安装包目录<br>[root@bogon opt]# cd pcre-8.35  </p>
-<p>4&gt;编译安装<br>[root@bogon pcre-8.35]# ./configure<br>[root@bogon pcre-8.35]# make &amp;&amp; make install  </p>
-<p>5&gt;查看pcre版本<br>[root@bogon pcre-8.35]# pcre-config –version  </p>
-<p>6&gt;下载 Nginx，下载地址：<a href="http://nginx.org/download/nginx-1.6.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.6.2.tar.gz</a><br>[root@bogon opt]# wget <a href="http://nginx.org/download/nginx-1.6.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.6.2.tar.gz</a>  </p>
-<p>7&gt;解压安装包<br>[root@bogon opt]# tar zxvf nginx-1.6.2.tar.gz  </p>
-<p>9&gt;进入安装包目录<br>[root@bogon opt]# cd nginx-1.6.2</p>
-<p>10&gt;编译安装<br>[root@bogon nginx-1.6.2]# ./configure –prefix=/usr/local/nginx –with-http_stub_status_module –with-http_ssl_module –with-pcre=/opt/pcre-8.35<br>注：–with-pcre 指向pcre解压文件  –with-pcre   随便指定路径<br>[root@bogon nginx-1.6.2]# make<br>[root@bogon nginx-1.6.2]# make install  </p>
-<p>11&gt;查看nginx版本</p>
-<p>[root@bogon nginx-1.6.2]# /usr/local/nginx/sbin/nginx -v  </p>
-<p>12&gt;Nginx 配置   </p>
-<p>12.1&gt;创建 Nginx 运行使用的用户 www：<br>12.2&gt;配置nginx.conf ，将/usr/local/nginx/conf/nginx.conf修改首行为:  </p>
-<h5 id="user-root-root"><a href="#user-root-root" class="headerlink" title="user root root;"></a>user root root;</h5><p>12.3&gt;检查配置文件ngnix.conf的正确性命令：<br>/usr/local/nginx/sbin/nginx -t<br>12.4&gt;启动 Nginx<br>/usr/local//nginx/sbin/nginx<br>12.5&gt;访问测试nginx   </p>
-<p>13&gt;安装uwsgi<br>注：yum install 安装成功，启动失败，建议pip 安装<br>Pip安装可能失败 -先安装python-devel：先安装python-devel<br>13.1&gt;安装uwsgi<br>Pip install uwsgi<br>13.2&gt;测试 uwsgi 是否正常<br>新建 test.py 文件，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def application(env, start_response):  </span><br><span class="line">    start_response(&apos;200 OK&apos;, [(&apos;Content-Type&apos;,&apos;text/html&apos;)])</span><br><span class="line">    return &quot;Hello World&quot;</span><br></pre></td></tr></table></figure></p>
-<p>然后在终端运行：<br>uwsgi –http :8001 –wsgi-file test.py<br>在浏览器内输入：<a href="http://127.0.0.1:8001，查看是否有&quot;Hello" target="_blank" rel="noopener">http://127.0.0.1:8001，查看是否有&quot;Hello</a> World”输出，若没有输出，请检查你的安装过程。<br>注：报错 –http xx ambiguous等,因为python与uwsgi问题，安装python-devel即可<br>14&gt;安装 Django<br>pip install django<br>注：可能报错，报错原因django版本问题，可指定安装版本。测试版本django 1.11.5<br>14.1&gt;测试 django 是否正常，运行：<br>django-admin.py startproject demosite<br>cd demosite<br>python2.7 manage.py runserver 0.0.0.0:8002<br>在浏览器内输入：<a href="http://127.0.0.1:8002，检查django是否运行正常" target="_blank" rel="noopener">http://127.0.0.1:8002，检查django是否运行正常</a><br>15.Nginx+uwsgi+Django<br>Django创建ncss项目时，在子目录ncssplatform下已经帮我们生成的 wsgi.py文件。所以，我们只需要再创建ncssplatform_uwsgi.ini配置文件即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># ncssplatform_uwsgi.ini file</span><br><span class="line">[uwsgi]</span><br><span class="line"></span><br><span class="line"># Django-related settings</span><br><span class="line"></span><br><span class="line">socket = :8000</span><br><span class="line"></span><br><span class="line"># the base directory (full path)</span><br><span class="line">chdir           = /opt/ncss</span><br><span class="line"></span><br><span class="line"># Django s wsgi file</span><br><span class="line">module          = ncssplatform.wsgi</span><br><span class="line"></span><br><span class="line"># process-related settings</span><br><span class="line"># master</span><br><span class="line">master          = true</span><br><span class="line"></span><br><span class="line"># maximum number of worker processes</span><br><span class="line">processes       = 4</span><br><span class="line"></span><br><span class="line"># ... with appropriate permissions - may be needed</span><br><span class="line"># chmod-socket    = 664</span><br><span class="line"># clear environment on exit</span><br><span class="line">vacuum          = true</span><br></pre></td></tr></table></figure></p>
-<p>注：<br>socket  指定项目执行的端口号。</p>
-<p>chdir   指定项目的目录。</p>
-<p>module  myweb.wsgi ，可以这么来理解，对于myweb_uwsgi.ini文件来说，与它的平级的有一个myweb目录，这个目录下有一个wsgi.py文件。  </p>
-<ol start="16">
-<li><p>修改nginx.conf配置文件。打开/etc/nginx/nginx.conf文件，添加如下内容  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       8080;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        </span><br><span class="line">        location / &#123;            </span><br><span class="line">            include  uwsgi_params;</span><br><span class="line">            uwsgi_pass  127.0.0.1:8000;              //必须和uwsgi中的设置一致</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">            client_max_body_size 35m;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>17.最终启动<br>uwsgi –ini ncssplatform_uwsgi.ini  &amp; /usr/local/nginx/sbin/nginx<br>18.测试<br>访问<a href="http://127.0.0.1:8080,显示django" target="_blank" rel="noopener">http://127.0.0.1:8080,显示django</a> work -ok  </p>
-</li>
-</ol>
-<h3 id="多个project部署在nginx-uwsgi"><a href="#多个project部署在nginx-uwsgi" class="headerlink" title="多个project部署在nginx,uwsgi"></a>多个project部署在nginx,uwsgi</h3><p>1.新建目录uwsgi_conf，目录下创建文件<br>op_platform.ini、tenant_platfrom.ini<br>内容添加为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line">#plugins = python</span><br><span class="line">#virtualenv = /Django/cmdb/env/</span><br><span class="line">chdir =/opt/nsfocus/ncss_platform/op_platform</span><br><span class="line">#touch-reload = /Django/cmdb/env/CMDB/</span><br><span class="line">module = op_platform.wsgi</span><br><span class="line">socket = 127.0.0.1:9000</span><br><span class="line">vhost = false</span><br><span class="line">chmod-socket = 664</span><br><span class="line">master = true</span><br><span class="line">enable-threads = true</span><br><span class="line">workers = 4</span><br><span class="line">threads = 2</span><br><span class="line">vacuum = true</span><br><span class="line">max-requests = 6000</span><br><span class="line">#pidfile = /var/log/uwsgi/cmdb.pid</span><br><span class="line">#daemonize = /var/log/uwsgi/cmdb.log</span><br><span class="line">#touch-logreopen = /var/log/module/.touchforlogrotat</span><br><span class="line">~</span><br></pre></td></tr></table></figure></p>
-<p>tenant_platfrom类似，端口修改即可<br>2.修改nginx配置文件nginx.conf<br>增加内容为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">      listen      8888;</span><br><span class="line">      server_name  localhost;</span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          include  uwsgi_params;</span><br><span class="line">          uwsgi_pass  127.0.0.1:8000;</span><br><span class="line">          #index  index.html index.htm;</span><br><span class="line">          client_max_body_size 35m;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> server &#123;</span><br><span class="line">      listen       9999;</span><br><span class="line">      server_name  localhost;</span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          include  uwsgi_params;</span><br><span class="line">          uwsgi_pass  127.0.0.1:9000;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>启动、测试<br>uwsgi –emperor uwsgi_conf/ ，然启动nginx -s reload</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2018/09/10/django多种view使用方式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2018/09/10/django多种view使用方式/" itemprop="url">django多种view使用方式.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T21:31:52+08:00">
-                2018-09-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/django/" itemprop="url" rel="index">
-                    <span itemprop="name">django</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="django-多种视图view继承方式"><a href="#django-多种视图view继承方式" class="headerlink" title="django 多种视图view继承方式"></a>django 多种视图view继承方式</h2><p><strong>1. APIVIEW</strong>  </p>
-<blockquote>
-<p>继承django view，基于类视图，区别与基于方法视图  </p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">from rest_framework.views import APIView</span><br><span class="line">from rest_framework.response import Response</span><br><span class="line">from django.contrib.auth.models import User</span><br><span class="line"></span><br><span class="line">class ListUsers(APIView):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    View to list all users in the system.</span><br><span class="line"></span><br><span class="line">    * Requires token authentication.</span><br><span class="line">    * Only admin users are able to access this view.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def get(self, request, format=None):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        Return a list of all users.</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        usernames = [user.username for user in User.objects.all()]</span><br><span class="line">        return Response(usernames)</span><br><span class="line">    </span><br><span class="line">    def put((self, request, format=None):</span><br><span class="line">        pass</span><br></pre></td></tr></table></figure>
-<p><strong>2. GenericAPIView</strong>  </p>
-<blockquote>
-<p>继承于APIVIEW,继承自APIVIew，增加了对于列表视图和详情视图可能用到的通用支持方法。通常使用时，可搭配一个或多个Mixin扩展类   </p>
-</blockquote>
-<blockquote>
-<p>子类:<br>. CreateAPIView<br>. ListAPIView<br>. RetrieveAPIView<br>. DestroyAPIView<br>. UpdateAPIView<br>…</p>
-</blockquote>
-<blockquote>
-<p>支持定义的属性：</p>
-</blockquote>
-<blockquote>
-<p>列表视图与详情视图通用<br>queryset 列表视图的查询集<br>serializer_class 视图使用的序列化器</p>
-</blockquote>
-<ul>
-<li>列表视图使用：<br>pagination_class 分页控制类<br>filter_backends 过滤控制后端</li>
-<li>详情页视图使用：<br>lookup_field 查询单一数据库对象时使用的条件字段，默认为’pk’<br>lookup_url_kwarg 查询单一数据时URL中的参数关键字名称，默认与look_field相同<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">from rest_framework.mixins import ListModelMixin</span><br><span class="line">from django_filters.rest_framework import DjangoFilterBackend</span><br><span class="line"></span><br><span class="line">class LargeResultsSetPagination(PageNumberPagination):</span><br><span class="line">    page_size = 1000</span><br><span class="line">    page_size_query_param = &apos;page_size&apos;</span><br><span class="line">    max_page_size = 10000</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">class BookView(ListModelMixin,mixins.CreateModelMixin, GenericAPIView):</span><br><span class="line"></span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line">    filter_backends = filter_backends = (DjangoFilterBackend,)</span><br><span class="line">    filter_fields = (&apos;category&apos;, &apos;in_stock&apos;)</span><br><span class="line">    #或者查询</span><br><span class="line">    search_fields = (&apos;username&apos;, &apos;email&apos;)</span><br><span class="line">    #分页</span><br><span class="line">    pagination_class = LargeResultsSetPagination</span><br><span class="line"></span><br><span class="line">    def get(self, request):</span><br><span class="line">        return self.list(request)</span><br><span class="line">        </span><br><span class="line">    def post(self, request, *args, **kwargs):</span><br><span class="line">        return self.create(request, *args, **kwargs)</span><br><span class="line">        </span><br><span class="line">---------------------------------------------------------</span><br><span class="line">url(r&quot;books/$&quot;,views.BookView.as_view()),</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>3. Mixins</strong>  </p>
-<ul>
-<li>ListModelMixin  </li>
-<li><p>CreateModelMixin </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class BookDetailView(RetrieveModelMixin, GenericAPIView):</span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line"> </span><br><span class="line">    def get(self, request, pk):</span><br><span class="line">        return self.retrieve(request)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>RetrieveModelMixin  </p>
-</li>
-<li>UpdateModelMixin  </li>
-<li>DestroyModelMixin</li>
-</ul>
-<p><strong>4. viewset</strong><br>ViewSet视图集类不再实现get()、post()等方法，而是实现动作 action 如 list() 、create() 等通过as_view<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">class UserViewSet(viewsets.ViewSet):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Example empty viewset demonstrating the standard</span><br><span class="line">    actions that will be handled by a router class.</span><br><span class="line"></span><br><span class="line">    If you&apos;re using format suffixes, make sure to also include</span><br><span class="line">    the `format=None` keyword argument for each action.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def list(self, request):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def create(self, request):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def retrieve(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def update(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def partial_update(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    def destroy(self, request, pk=None):</span><br><span class="line">        pass</span><br><span class="line">----------------------------------</span><br><span class="line">url 设置</span><br><span class="line"></span><br><span class="line">user_list = UserViewSet.as_view(&#123;&apos;get&apos;: &apos;list&apos;&#125;)</span><br><span class="line">user_detail = UserViewSet.as_view(&#123;&apos;get&apos;: &apos;retrieve&apos;&#125;)</span><br><span class="line">或者</span><br><span class="line">from myapp.views import UserViewSet</span><br><span class="line">from rest_framework.routers import DefaultRouter</span><br><span class="line"></span><br><span class="line">router = DefaultRouter()</span><br><span class="line">router.register(r&apos;users&apos;, UserViewSet, base_name=&apos;user&apos;)</span><br><span class="line">urlpatterns = router.urls</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/gollumhome.github.io/page/2/">2</a><a class="extend next" rel="next" href="/gollumhome.github.io/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/gollumhome.github.io/page/2/">2</a><a class="page-number" href="/gollumhome.github.io/page/3/">3</a><a class="extend next" rel="next" href="/gollumhome.github.io/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2487,7 +2380,7 @@ Hi, I am a gir
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

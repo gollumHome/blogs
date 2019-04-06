@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/gollumhome.github.io/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/gollumhome.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/gollumhome.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/gollumhome.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/gollumhome.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/gollumhome.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/gollumhome.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Golang 初步介绍Golang主要学习资料     https://tour.go-zh.org/concurrency/11https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md    1. Golang 初认识    吉祥物(囊地鼠Gopher)    2. Golang使用范围    引用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go介绍与安装调试">
+<meta property="og:url" content="https://gollumhome.github.io/2019/04/06/go介绍与安装调试/index.html">
+<meta property="og:site_name" content="openstack">
+<meta property="og:description" content="Golang 初步介绍Golang主要学习资料     https://tour.go-zh.org/concurrency/11https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md    1. Golang 初认识    吉祥物(囊地鼠Gopher)    2. Golang使用范围    引用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang002.jpg">
+<meta property="og:image" content="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang001.png">
+<meta property="og:image" content="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang003.png">
+<meta property="og:image" content="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang004.png">
+<meta property="og:updated_time" content="2019-04-06T14:15:12.147Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go介绍与安装调试">
+<meta name="twitter:description" content="Golang 初步介绍Golang主要学习资料     https://tour.go-zh.org/concurrency/11https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md    1. Golang 初认识    吉祥物(囊地鼠Gopher)    2. Golang使用范围    引用">
+<meta name="twitter:image" content="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang002.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/gollumhome.github.io/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://gollumhome.github.io/2019/04/06/go介绍与安装调试/">
+
+
+
+
+
+  <title>go介绍与安装调试 | openstack</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/gollumhome.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">openstack</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/gollumhome.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/gollumhome.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/gollumhome.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/gollumhome.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go介绍与安装调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">go介绍与安装调试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T22:12:21+08:00">
+                2019-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/Golang/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Golang-初步介绍"><a href="#Golang-初步介绍" class="headerlink" title="Golang 初步介绍"></a>Golang 初步介绍</h2><p><strong>Golang主要学习资料</strong>   </p>
+<blockquote>
+<p><a href="https://tour.go-zh.org/concurrency/11" target="_blank" rel="noopener">https://tour.go-zh.org/concurrency/11</a><br><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md</a>  </p>
+</blockquote>
+<p><strong>1. Golang 初认识</strong>  </p>
+<ul>
+<li>吉祥物(囊地鼠Gopher)<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang002.jpg" alt="image">  </li>
+</ul>
+<p><strong>2. Golang使用范围</strong>  </p>
+<blockquote>
+<p><a href="https://studygolang.com/articles/4047" target="_blank" rel="noopener">引用自Golang中文社区</a>  </p>
+</blockquote>
+<blockquote>
+<p>1、服务器编程，以前你如果使用C或者C++做的那些事情，用Go来做很合适，例如处理日志、数据打包、虚拟机处理、文件系统等。</p>
+</blockquote>
+<blockquote>
+<p>2、分布式系统，数据库代理器等。</p>
+</blockquote>
+<blockquote>
+<p>3、网络编程，这一块目前应用最广，包括Web应用、API应用、下载应用。</p>
+</blockquote>
+<blockquote>
+<p>4、内存数据库，前一段时间google开发的groupcache，couchbase的部分组建。</p>
+</blockquote>
+<blockquote>
+<p>5、云平台，目前国外很多云平台在采用Go开发，CloudFoundy的部分组建，前VMare的技术总监自己出来搞的apcera云平台。</p>
+</blockquote>
+<blockquote>
+<p>6、游戏服务端的开发   </p>
+</blockquote>
+<blockquote>
+<p>其他介绍- Go语言适合做什么？<br><a href="https://blog.csdn.net/lmseo5hy/article/details/79654098" target="_blank" rel="noopener">https://blog.csdn.net/lmseo5hy/article/details/79654098</a><br><a href="https://www.zhihu.com/question/21409296" target="_blank" rel="noopener">https://www.zhihu.com/question/21409296</a></p>
+<ul>
+<li>Golang 只是图谱<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang001.png" alt="image"><br><strong>3. 语言发展介绍与特点</strong>  </li>
+<li>起源与发展<br>Go 语言起源 2007 年，并于 2009 年正式对外发布,该项目的三位领导者：Robert Griesemer，参与开发 Java HotSpot 虚拟机；Rob Pike，贝尔实验室 Unix 团队成员；Ken Thompson，贝尔实验室 Unix 团队成员等<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang003.png" alt="image"><br>Go 语言设计者：Griesemer、Thompson 和 Pike  </li>
+</ul>
+</blockquote>
+<blockquote>
+<p>发展时间轴   </p>
+</blockquote>
+<blockquote>
+<p>2007 年 9 月 21 日：雏形设计<br>2009 年 11 月 10日：首次公开发布<br>2010 年 1 月 8 日：当选 2009 年年度语言<br>2010 年 5 月：谷歌投入使用<br>2011 年 5 月 5 日：Google App Engine 支持 Go 语言</p>
+</blockquote>
+<ul>
+<li>语言主要特点  </li>
+</ul>
+<ol>
+<li>Go 语言使用静态类型，所以它是类型安全的一门语言  </li>
+<li>语言没有类和继承的概念，通过接口（interface）的概念来实现多态性  </li>
+<li>强类型语言，隐式的类型转换是不被允许</li>
+<li>运行速度快  <blockquote>
+<p>与JAVA速度对比  </p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang004.png" alt="image">  </p>
+<blockquote>
+<p>Go 和 Python 在一般开发的平均水平测试中，Go 要比 Python 3 快 25 倍左右，少占用三分之二的内存，但比 Python 大概多写一倍的代码  </p>
+<ol start="5">
+<li>快速编译<br>一般情况下构建一个程序的时间只需要数百毫秒到几秒,避免像 C++ 那样的静态语言漫长编译 </li>
+</ol>
+</blockquote>
+<blockquote>
+<p>同时Go 语言在执行速度方面也可以与 C/C++ 相提并论。  </p>
+</blockquote>
+<p><strong>2. Golang 环境安装与调试配置</strong>   </p>
+<blockquote>
+<p>环境：centos7、Go1.9.2 ,Gin </p>
+</blockquote>
+<p>2.1. 环境变量配置  </p>
+<blockquote>
+<p>$GOROOT 表示 Go 在电脑上的安装位置<br>$GOBIN 表示编译器和链接器的安装位置<br> $GOPATH  从Go1.1以上，必须分别包含三个规定的目录：src、pkg 和 bin，分别用于存放源码文件、包文件和可执行文件  </p>
+</blockquote>
+<p><strong>步骤：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim  .bashrc   </span><br><span class="line">export GOROOT=$HOME/go  </span><br><span class="line">export PATH=$PATH:$GOROOT/bin  </span><br><span class="line">export GOPATH=$HOME/Applications/Go  </span><br><span class="line">source  .bashrc</span><br></pre></td></tr></table></figure></p>
+<p>2.2. 安装Go1.9.2  </p>
+<ul>
+<li>注：安装1.9.2之前必须先安装1.4版本  </li>
+</ul>
+<p>安装过程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">wget https://storage.googleapis.com/golang/go1.4.src.tar.gz</span><br><span class="line">tar -zxvf go1.4.src.tar.gz</span><br><span class="line">mv go $GOROOT</span><br><span class="line">cd $GOROOT/src</span><br><span class="line"> ./all.bash</span><br><span class="line">```  </span><br><span class="line">检测是否安装成功:  </span><br><span class="line">&gt;go env，若有输出，则代表安装成功   </span><br><span class="line"></span><br><span class="line">升级成为1.9.2版本</span><br><span class="line">&gt;1. 把安装好的go项目（1.4版本）复制一份到/root/go1.4：  </span><br><span class="line">&gt;2. 重新下载Go1.9.2源码，重新./all.bash ,即可  </span><br><span class="line"></span><br><span class="line">Gin安装 </span><br><span class="line">&gt;go get -u github.com/gin-gonic/gin   </span><br><span class="line"></span><br><span class="line">检测是否安装成功:  </span><br><span class="line">&gt;编写一个test.go文件</span><br></pre></td></tr></table></figure></p>
+<p>package main</p>
+<p>import “github.com/gin-gonic/gin”</p>
+<p>func main() {<br>    r := gin.Default()<br>    r.GET(“/ping”, func(c *gin.Context) {<br>        c.JSON(200, gin.H{<br>            “message”: “pong”,<br>        })<br>    })<br>    r.Run() // listen and serve on 0.0.0.0:8080<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;运行  go run test.go，然后访问$HOST:8080/ping，若返回&#123;&quot;message&quot;:&quot;pong&quot;&#125;则安装正确</span><br></pre></td></tr></table></figure></p>
+<p>curl 127.0.0.1:8080/ping<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2.2 调试环境配置  </span><br><span class="line"></span><br><span class="line">*安装调试工具*</span><br><span class="line">&gt; go get -u github.com/derekparker/delve/cmd/dlv  </span><br><span class="line"></span><br><span class="line">&gt;注：安装完成后，copy GoPath路径下bin/dlv 到GoRoot路径下的bin/dlv，dlv命令才可以使用  </span><br><span class="line"></span><br><span class="line">*IDE安装*  </span><br><span class="line">&gt; goland-2017.3.1</span><br><span class="line">```    </span><br><span class="line">    http://www.ddooo.com/softdown/112592.htm  </span><br><span class="line">    破解码：</span><br><span class="line">    http://intellij.mandroid.cn/ </span><br><span class="line">    http://idea.imsxm.com/ </span><br><span class="line">    http://idea.iteblog.com/key.php  </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- 配置远程连接：  </span><br><span class="line">    1.安装插件 Remote Hosts Access   </span><br><span class="line"></span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE1.png)  </span><br><span class="line">    </span><br><span class="line">    2 . 配置远程代码库信息</span><br><span class="line">    </span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE2.png)  </span><br><span class="line">    </span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE3.png)  </span><br><span class="line"></span><br><span class="line">*本地调试*</span><br></pre></td></tr></table></figure></p>
+<pre><code>dlv debug xx.go   
+编译、调试命令使用方法：
+以hello.go 为例
+设置断点
+b hello.go:5  -&gt;设置第5行一个断点
+查看断点
+bp
+打印变量
+p
+继续执行到下一个断点
+c
+下一行代码
+n
+
+打印堆栈信息:
+bt
+单步调试进入调用函数
+s
+跳出被调用函数
+stepout
+列出当前代码
+ls | l
+退出调试
+exit
+重新调试
+r
+打印函数参数
+args
+临时设置变量
+set  
+</code></pre><p><code>`</code></p>
+<p><em>远程调试</em>  </p>
+<ol>
+<li>远程服务器启动  <blockquote>
+<p>dlv debug –headless –listen=:2345 –api-version=2 main.go  </p>
+</blockquote>
+</li>
+<li>IDE打开debug模式运行,即可本地debug  <blockquote>
+<p>注：项目不同包中的.go文件不要命名为相同名称，否则debug 文件找不到</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>3. 文中其他参考引用</strong>  </p>
+<blockquote>
+<p><a href="https://blog.csdn.net/csdnnews/article/details/78293757" target="_blank" rel="noopener">https://blog.csdn.net/csdnnews/article/details/78293757</a><br><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/01.2.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/01.2.md</a>   </p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/gollumhome.github.io/2019/03/24/Mysql慢查询/" rel="next" title="Mysql慢查询">
+                <i class="fa fa-chevron-left"></i> Mysql慢查询
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/gollumhome.github.io/2019/04/06/基础介绍/" rel="prev" title="基础介绍">
+                基础介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/gollumhome.github.io/images/avatar.png" alt="Shuai Guo">
+            
+              <p class="site-author-name" itemprop="name">Shuai Guo</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/gollumhome.github.io/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/gollumhome.github.io/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/gollumhome.github.io/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gollumHome" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1025951714@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-qq"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/cleaner_xiaoqiang" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-csdn"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.douban.com/people/170183273/" target="_blank" title="豆瓣">
+                      
+                        <i class="fa fa-fw fa-豆瓣"></i>豆瓣</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Golang-初步介绍"><span class="nav-number">1.</span> <span class="nav-text">Golang 初步介绍</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shuai Guo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/gollumhome.github.io/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/gollumhome.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/gollumhome.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
