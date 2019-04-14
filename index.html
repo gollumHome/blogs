@@ -249,6 +249,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/14/ldap入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/04/14/ldap入门/" itemprop="url">ldap入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T16:47:43+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/database/" itemprop="url" rel="index">
+                    <span itemprop="name">database</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>LDAP 入门</p>
+<ul>
+<li><p>参考  </p>
+<p>  <a href="https://segmentfault.com/a/1190000014683418" target="_blank" rel="noopener">https://segmentfault.com/a/1190000014683418</a><br>  <a href="https://darklipeng.iteye.com/blog/583615" target="_blank" rel="noopener">https://darklipeng.iteye.com/blog/583615</a><br>  官方文档:<br>  <a href="http://www.openldap.org/doc/admin24/guide.html#Configuring%20slapd" target="_blank" rel="noopener">http://www.openldap.org/doc/admin24/guide.html#Configuring%20slapd</a><br>  <a href="https://www.server-world.info/en/note?os=CentOS_7&amp;p=openldap&amp;f=1" target="_blank" rel="noopener">https://www.server-world.info/en/note?os=CentOS_7&amp;p=openldap&amp;f=1</a></p>
+</li>
+</ul>
+<p>1.ldap是什么</p>
+<pre><code>ldap 是为查询、浏览和搜索而优化的专业分布式数据库，它呈树状结构组织数据。LDAP 中的信息按照目录信息树结构组织，树中的一个节点称之为条目（Entry），条目包含了该节点的属性及属性值。条目都可以通过识别名 dn 来全局的唯一确定，可以类比于关系型数据库中的主键。比如 dn 为 uid=ada,ou=People,dc=xinhua,dc=org 的条目表示在组织中一个名字叫做 Ada Catherine 的员工  
+</code></pre><ul>
+<li>特点<br>LDAP的结构用树来表示<br>查询快，写慢<br>LDAP提供了静态数据的快速查询方式<br>Client/server模型，Server 用于存储数据，Client提供操作目录信息树的工具<br>这些工具可以将数据库的内容以文本格式（LDAP 数据交换格式，LDIF）呈现</li>
+<li>使用场景<br>比如说你公司要安装一个项目管理工具，那么这个工具几乎必然支持LDAP协议，你公司要安装一个bug管理工具，这工具必然也支持LDAP协议，你公司要安装一套软件版本管理工具，这工具也必然支持LDAP协议。LDAP协议的好处就是你公司的所有员工在所有这些工具里共享同一套用户名和密码，来人的时候新增一个用户就能自动访问所有系统，走人的时候一键删除就取消了他对所有系统的访问权限，这就是LDAP  </li>
+</ul>
+<p>2.ldap 概念介绍</p>
+<ul>
+<li>关键字介绍<br>dn：一条记录的位置<br>dc：一条记录所属区域<br>ou：一条记录所属组织<br>cn/uid：一条记录的名字/ID</li>
+<li>通过Mysql 对比理解ldap   </li>
+</ul>
+<p>引用自 <a href="https://darklipeng.iteye.com/blog/583615" target="_blank" rel="noopener">https://darklipeng.iteye.com/blog/583615</a>    </p>
+<pre><code>MYSQL用“表”储存数据，LDAP用“树”
+
+MYSQL指定一条记录要3个条件：DB、TABLE、ROW。
+
+LDAP却更自由，为什么呢？因为LDAP数据是“树”状的，而且这棵树是可以无限延伸的，假设你要树上的一个苹果（一条记录），你怎么告诉园丁它的位置 呢？当然首先要说明是哪一棵树（dc，相当于MYSQL的DB），然后是从树根到那个苹果所经过的所有“分叉”（ou，呵呵MYSQL里面好象没有这 DD），最后就是这个苹果的名字（uid，记得我们设计MYSQL或其它数据库表时，通常为了方便管理而加上一个‘id’字段吗？）。好了！这时我们可以 清晰的指明这个苹果的位置了，就是那棵“歪脖树”的东边那个分叉上的靠西边那个分叉的再靠北边的分叉上的半红半绿的……，晕了！你直接爬上去吧！我还是说 说LDAP里要怎么定义一个字段的位置吧，树（dc=waibo,dc=com)，分叉（ou=bei,ou=xi,ou=dong），苹果 （cn=honglv），好了！位置出来了：
+</code></pre><p>dn:cn=honglv,ou=bei,ou=xi,ou=dong,dc=waibo,dc=com  </p>
+<ul>
+<li>ldap 基本元素构成  </li>
+</ul>
+<ol>
+<li>entry<br>条目，是LDAP中的基本单元。通常对LDAP的添加、删除、更改、检索都是以条目为基本对象的。<br>dn：每一个条目都有一个唯一的标识名（distinguished Name ，DN），如上图中一个 dn：”cn=baby,ou=marketing,ou=people,dc=mydomain,dc=org” 。通过DN的层次型语法结构，可以方便地表示出条目在LDAP树中的位置，通常用于检索  </li>
+<li>attribute<br>每个条目都可以有很多属性（Attribute），比如常见的人都有姓名、地址、电话等属性。每个属性都有名称及对应的值，属性值可以有单个、多个，比如你有多个邮箱  </li>
+<li>ObjectClass<br>对象类是属性的集合，LDAP预想了很多人员组织机构中常见的对象，并将其封装成对象类。比如人员（person）含有姓（sn）、名（cn）、电话(telephoneNumber)、密码(userPassword)等属性，单位职工(organizationalPerson)是人员(person)的继承类，通过对象类可以方便的定义条目类型。每个条目可以直接继承多个对象类。</li>
+<li>Schema<br>schema类似关系数据库的字段说明，包括字段名，数据类型，数据长度等等。系统有一些默认的schema。对象类（ObjectClass）、属性类型（AttributeType）、语法（Syntax）分别约定了条目、属性、值，他们之间的关系如下图所示。所以这些构成了模式(Schema)——对象类的集合。条目数据在导入时通常需要接受模式检查，它确保了目录中所有的条目数据结构都是一致的</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/04/06/go面向对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2253,169 +2427,6 @@ at:平均查询时间
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/10/django缓存/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2019/03/10/django缓存/" itemprop="url">django缓存.md</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-10T21:59:39+08:00">
-                2019-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/django/" itemprop="url" rel="index">
-                    <span itemprop="name">django</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="django-缓存"><a href="#django-缓存" class="headerlink" title="django 缓存"></a>django 缓存</h2><p><strong>参考rul</strong>  </p>
-<blockquote>
-<p><a href="https://docs.djangoproject.com/en/2.1/topics/cache/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.1/topics/cache/</a><br><a href="https://django-redis-chs.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">https://django-redis-chs.readthedocs.io/zh_CN/latest/</a></p>
-</blockquote>
-<p><strong>测试版本</strong>  </p>
-<blockquote>
-<p>django 1.11.5<br>django-redis-4.10.0<br>redis-3.2.0</p>
-</blockquote>
-<p><strong>官网介绍：</strong>  </p>
-<blockquote>
-<p>项目的setting.py里面可以通过CACHES配置缓存，django中可用的缓存系统有Memcached、数据库、文件、本地内存等  </p>
-</blockquote>
-<p><strong>1.内存数据库Memcached</strong>  </p>
-<blockquote>
-<p>安装memcached后，还需安装数据库的  </p>
-</blockquote>
-<p><strong>2.利用文件系统来缓存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.filebased.FileBasedCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;/var/tmp/django_cache&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>3.数据库来缓存</strong> </p>
-<blockquote>
-<p>首先创建缓存数据库表<br>python manage.py createcachetable<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.db.DatabaseCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;my_cache_table&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p><strong>4. 本地的内存来当缓存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.locmem.LocMemCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;unique-snowflake&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2468,7 +2479,7 @@ at:平均查询时间
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
