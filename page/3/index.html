@@ -249,6 +249,157 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2018/05/06/Splinter环境配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2018/05/06/Splinter环境配置/" itemprop="url">Splinter环境配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T16:09:36+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/环境搭建/" itemprop="url" rel="index">
+                    <span itemprop="name">环境搭建</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="mac-Splinter环境配置"><a href="#mac-Splinter环境配置" class="headerlink" title="mac Splinter环境配置"></a>mac Splinter环境配置</h1><p>注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等  </p>
+<ol>
+<li>pip install Splinter<br>测试是否安装成功,python环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from splinter.browser import Browser</span><br><span class="line">&gt;&gt;&gt; b = Browser()</span><br><span class="line">&gt;&gt;&gt;b.visit(&quot;http://www.baidu.com/&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果正常打开浏览器页面则成功，如果报错如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;splinter/browser.py&quot;, line 63, in Browser</span><br><span class="line">    return driver(*args, **kwargs)</span><br><span class="line">  File &quot;splinter/driver/webdriver/firefox.py&quot;, line 39, in __init__</span><br><span class="line">self.driver = Firefox(firefox_profile)</span><br><span class="line">……</span><br></pre></td></tr></table></figure></p>
+<p>说明： splinter默认支持Firefox，如果没有安装相应版本则报错，如果是chrome，需要安装chrome的驱动。<br>2.安装chromedriver<br>mac 安装 brew install chromedriver 报错超时，只能手动下载安装  </p>
+<p>1&gt; 不能FQ，国内下载的网站<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://chromedriver.storage.googleapis.com/index.html</span><br></pre></td></tr></table></figure></p>
+<p>2&gt;查看浏览器版本，下载对应的chromedriver<br>3&gt;解压拷贝到usr/local/bin 下即可<br>测试是否成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from splinter.browser import Browser</span><br><span class="line">&gt;&gt;&gt; b = Browser(&quot;chrome&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>正常打开即ok</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2018/04/29/mac-python虚拟环境配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1344,7 +1495,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1355,7 +1506,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
