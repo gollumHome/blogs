@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="redis保存session测试版本    django 1.11.5django-redis-4.10.0redis-3.2.0django-redis-sessions   session 信息可以存储为数据库、缓存、文件、cookie中    django 开启sesseion中间件–已默认开启  123MIDDLEWARE = [    &amp;apos;django.contrib.sessi">
+<meta name="description" content="redis保存session 测试版本  django 1.11.5 django-redis-4.10.0 redis-3.2.0 django-redis-sessions   session 信息可以存储为数据库、缓存、文件、cookie中   django 开启sesseion中间件–已默认开启  123MIDDLEWARE = [    &amp;apos;django.contrib.ses">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django_session.md">
 <meta property="og:url" content="https://gollumhome.github.io/2019/03/10/django-session/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="redis保存session测试版本    django 1.11.5django-redis-4.10.0redis-3.2.0django-redis-sessions   session 信息可以存储为数据库、缓存、文件、cookie中    django 开启sesseion中间件–已默认开启  123MIDDLEWARE = [    &amp;apos;django.contrib.sessi">
+<meta property="og:description" content="redis保存session 测试版本  django 1.11.5 django-redis-4.10.0 redis-3.2.0 django-redis-sessions   session 信息可以存储为数据库、缓存、文件、cookie中   django 开启sesseion中间件–已默认开启  123MIDDLEWARE = [    &amp;apos;django.contrib.ses">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-03-11T14:56:42.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django_session.md">
-<meta name="twitter:description" content="redis保存session测试版本    django 1.11.5django-redis-4.10.0redis-3.2.0django-redis-sessions   session 信息可以存储为数据库、缓存、文件、cookie中    django 开启sesseion中间件–已默认开启  123MIDDLEWARE = [    &amp;apos;django.contrib.sessi">
+<meta name="twitter:description" content="redis保存session 测试版本  django 1.11.5 django-redis-4.10.0 redis-3.2.0 django-redis-sessions   session 信息可以存储为数据库、缓存、文件、cookie中   django 开启sesseion中间件–已默认开启  123MIDDLEWARE = [    &amp;apos;django.contrib.ses">
 
 
 
@@ -341,67 +341,108 @@
       
 
       
-        <h2 id="redis保存session"><a href="#redis保存session" class="headerlink" title="redis保存session"></a>redis保存session</h2><p><strong>测试版本</strong>  </p>
+        <h2 id="redis保存session"><a class="markdownIt-Anchor" href="#redis保存session"></a> redis保存session</h2>
+<p><strong>测试版本</strong></p>
 <blockquote>
-<p>django 1.11.5<br>django-redis-4.10.0<br>redis-3.2.0<br>django-redis-sessions</p>
+<p>django 1.11.5<br>
+django-redis-4.10.0<br>
+redis-3.2.0<br>
+django-redis-sessions</p>
 </blockquote>
 <blockquote>
-<p>session 信息可以存储为数据库、缓存、文件、cookie中  </p>
+<p>session 信息可以存储为数据库、缓存、文件、cookie中</p>
+</blockquote>
 <ul>
-<li>django 开启sesseion中间件–已默认开启  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MIDDLEWARE = [</span><br><span class="line">    &apos;django.contrib.sessions.middleware.SessionMiddleware&apos;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-</li>
+<li>django 开启sesseion中间件–已默认开启</li>
 </ul>
-</blockquote>
-<p><strong>1. 数据库存储session</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MIDDLEWARE = [</span><br><span class="line">    &apos;django.contrib.sessions.middleware.SessionMiddleware&apos;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>1. 数据库存储session</strong></p>
 <blockquote>
-<p>1&gt; 添加’django.contrib.sessions’ 到  INSTALLED_APPS<br>2&gt; python manage.py migrate 生成session数据库表  </p>
+<p>1&gt; 添加’django.contrib.sessions’ 到  INSTALLED_APPS<br>
+2&gt; python <a href="http://manage.py" target="_blank" rel="noopener">manage.py</a> migrate 生成session数据库表</p>
 </blockquote>
-<p><strong>2.文件存储session</strong>  </p>
+<p><strong>2.文件存储session</strong></p>
 <blockquote>
-<p>设置<em>SESSION_ENGINE</em>为<em>django.contrib.sessions.backends.file</em><br>注： django 默认存储文件为/tmp  </p>
+<p>设置<em>SESSION_ENGINE</em>为<em>django.contrib.sessions.backends.file</em><br>
+注： django 默认存储文件为/tmp</p>
 </blockquote>
-<p><strong>3.缓存存储在Cookie</strong>  </p>
+<p><strong>3.缓存存储在Cookie</strong></p>
 <blockquote>
-<p>设置<em>SESSION_ENGINE</em>为<em>django.contrib.sessions.backends.signed_cookies</em>  </p>
+<p>设置<em>SESSION_ENGINE</em>为<em>django.contrib.sessions.backends.signed_cookies</em></p>
 </blockquote>
-<p><strong>4. 缓存存储session</strong>  </p>
+<p><strong>4. 缓存存储session</strong></p>
 <ul>
-<li>注：首先安装缓存数据库，可以本地安装，也可引用其他系统缓存  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &quot;default&quot;: &#123;</span><br><span class="line">        &quot;BACKEND&quot;: &quot;django_redis.cache.RedisCache&quot;,</span><br><span class="line">        &quot;LOCATION&quot;: &quot;redis://127.0.0.1:6379/1&quot;,</span><br><span class="line">        &quot;OPTIONS&quot;: &#123;</span><br><span class="line">            &quot;CLIENT_CLASS&quot;: &quot;django_redis.client.DefaultClient&quot;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">&gt; 当配置了缓存，你有俩种方式把数据存储到缓存中  </span><br><span class="line">&gt; 1&gt;. 数据只存储到到缓存中，数据不持久化到数据库中，当缓存满了或者重启后，数据将全部丢失  </span><br><span class="line">&gt; 2&gt;. 将数据持久保存到数据库中，*SESSION_ENGINE 为&quot;django.contrib.sessions.backends.cached_db&quot;.* 这样每次写数据到缓存，同时也会写入到数据库中，数据库中保持了状态，这种方式，还需要配置session存储数据库。  </span><br><span class="line"></span><br><span class="line">- 安装*django-redis*  </span><br><span class="line">&gt; pip install django-redis  </span><br><span class="line">- 配置缓存数据存储到redis</span><br></pre></td></tr></table></figure>
-</li>
+<li>注：首先安装缓存数据库，可以本地安装，也可引用其他系统缓存</li>
 </ul>
-<p>CACHES = {<br>    “default”: {<br>        “BACKEND”: “django_redis.cache.RedisCache”,<br>        “LOCATION”: “redis://127.0.0.1:6379/1”,<br>        “OPTIONS”: {<br>            “CLIENT_CLASS”: “django_redis.client.DefaultClient”,<br>        }<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 可以不同粒度的缓存数据到redis，一般缓存view或者整个网站</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &quot;default&quot;: &#123;</span><br><span class="line">        &quot;BACKEND&quot;: &quot;django_redis.cache.RedisCache&quot;,</span><br><span class="line">        &quot;LOCATION&quot;: &quot;redis://127.0.0.1:6379/1&quot;,</span><br><span class="line">        &quot;OPTIONS&quot;: &#123;</span><br><span class="line">            &quot;CLIENT_CLASS&quot;: &quot;django_redis.client.DefaultClient&quot;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">&gt; 当配置了缓存，你有俩种方式把数据存储到缓存中  </span><br><span class="line">&gt; 1&gt;. 数据只存储到到缓存中，数据不持久化到数据库中，当缓存满了或者重启后，数据将全部丢失  </span><br><span class="line">&gt; 2&gt;. 将数据持久保存到数据库中，*SESSION_ENGINE 为&quot;django.contrib.sessions.backends.cached_db&quot;.* 这样每次写数据到缓存，同时也会写入到数据库中，数据库中保持了状态，这种方式，还需要配置session存储数据库。  </span><br><span class="line"></span><br><span class="line">- 安装*django-redis*  </span><br><span class="line">&gt; pip install django-redis  </span><br><span class="line">- 配置缓存数据存储到redis</span><br></pre></td></tr></table></figure>
+<p>CACHES = {<br>
+“default”: {<br>
+“BACKEND”: “django_redis.cache.RedisCache”,<br>
+“LOCATION”: “redis://127.0.0.1:6379/1”,<br>
+“OPTIONS”: {<br>
+“CLIENT_CLASS”: “django_redis.client.DefaultClient”,<br>
+}<br>
+}<br>
+}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 可以不同粒度的缓存数据到redis，一般缓存view或者整个网站</span><br></pre></td></tr></table></figure>
 <ol>
 <li>缓存view,整个页面</li>
 </ol>
 <p>from django.views.decorators.cache import cache_page</p>
 <pre><code>@cache_page(60 * 15)
 def index(request):
-    return HttpResponse(&apos;hello world&apos;)
-</code></pre><ol start="2">
-<li>全网站缓存<br>需要在settings.py文件中的MIDDLEWARE项添加相应的中间件：<br>MIDDLEWARE = [<br> ‘django.middleware.cache.UpdateCacheMiddleware’,  # 放在第一个<br> …其他中间件…<br> ‘django.middleware.cache.FetchFromCacheMiddleware’,  # 放在最后一个<br> ]</li>
+    return HttpResponse('hello world')
+</code></pre>
+<ol start="2">
+<li>全网站缓存<br>
+需要在settings.py文件中的MIDDLEWARE项添加相应的中间件：<br>
+MIDDLEWARE = [<br>
+‘django.middleware.cache.UpdateCacheMiddleware’,  # 放在第一个<br>
+…其他中间件…<br>
+‘django.middleware.cache.FetchFromCacheMiddleware’,  # 放在最后一个<br>
+]</li>
 </ol>
-<h1 id="另外的配置项"><a href="#另外的配置项" class="headerlink" title="另外的配置项"></a>另外的配置项</h1><p>CACHE_MIDDLEWARE_SECONDS= 60     # 每个页面缓存的时间(单位:秒)<br>CACHE_MIDDLEWARE_ALIAS=’xxx’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- 存储session到redis中</span><br></pre></td></tr></table></figure></p>
-<p>SESSION_REDIS = {<br>    ‘host’: ‘localhost’,<br>    ‘port’: 6379,<br>    ‘db’: 0,<br>    ‘password’: ‘xx’,<br>    ‘prefix’: ‘session’,<br>    ‘socket_timeout’: 1<br>}</p>
-<h2 id="SESSION-ENGINE-‘redis-sessions-session’"><a href="#SESSION-ENGINE-‘redis-sessions-session’" class="headerlink" title="SESSION_ENGINE = ‘redis_sessions.session’"></a>SESSION_ENGINE = ‘redis_sessions.session’</h2><p>eg: </p>
-<p>def set_session(request):<br>      “”””保存session数据”””</p>
-<pre><code>request.session[&apos;username&apos;] = &apos;Django&apos;
-request.session[&apos;verify_code&apos;] = &apos;123456&apos;
-return HttpResponse(&apos;保存session数据成功&apos;)
-</code></pre><p>  def get_session(request):<br>      “””获取session数据”””</p>
-<pre><code>username = request.session.get(&apos;username&apos;)
-verify_code = request.session.get(&apos;verify_code&apos;)
-text = &apos;username=%s, verify_code=%s&apos; % (username, verify_code)
-return HttpResponse(text)
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 通过redis-cli客户端可以查看</span><br></pre></td></tr></table></figure>
-<p>127.0.0.1:6379&gt; select 4<br>OK<br>127.0.0.1:6379[4]&gt; keys *<br>1) “session:0bjyuegx0i5ivyuzpb8ezgo0b35u2z4v”<br><code>`</code><br><strong>参考</strong></p>
-<blockquote>
+<h1 id="另外的配置项"><a class="markdownIt-Anchor" href="#另外的配置项"></a> 另外的配置项</h1>
+<p>CACHE_MIDDLEWARE_SECONDS= 60     # 每个页面缓存的时间(单位:秒)<br>
+CACHE_MIDDLEWARE_ALIAS=‘xxx’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- 存储session到redis中</span><br></pre></td></tr></table></figure>
+<h2 id="session_redis-host-localhostport-6379db-0password-xxprefix-sessionsocket_timeout-1session_engine-redis_sessionssession"><a class="markdownIt-Anchor" href="#session_redis-host-localhostport-6379db-0password-xxprefix-sessionsocket_timeout-1session_engine-redis_sessionssession"></a> SESSION_REDIS = {<br>
+‘host’: ‘localhost’,<br>
+‘port’: 6379,<br>
+‘db’: 0,<br>
+‘password’: ‘xx’,<br>
+‘prefix’: ‘session’,<br>
+‘socket_timeout’: 1<br>
+}<br>
+SESSION_ENGINE = ‘redis_sessions.session’</h2>
+<p>eg:</p>
+<p>def set_session(request):<br>
+“”&quot;“保存session数据”&quot;&quot;</p>
+<pre><code>  request.session['username'] = 'Django'
+  request.session['verify_code'] = '123456'
+  return HttpResponse('保存session数据成功')
+</code></pre>
+<p>def get_session(request):<br>
+“”“获取session数据”&quot;&quot;</p>
+<pre><code>  username = request.session.get('username')
+  verify_code = request.session.get('verify_code')
+  text = 'username=%s, verify_code=%s' % (username, verify_code)
+  return HttpResponse(text)
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 通过redis-cli客户端可以查看</span><br></pre></td></tr></table></figure>
+<p>127.0.0.1:6379&gt; select 4<br>
+OK<br>
+127.0.0.1:6379[4]&gt; keys *</p>
 <ol>
-<li><a href="https://docs.djangoproject.com/en/2.1/topics/http/sessions/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.1/topics/http/sessions/</a>  </li>
-<li><a href="https://django-redis-chs.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">https://django-redis-chs.readthedocs.io/zh_CN/latest/</a></li>
-<li><a href="https://blog.csdn.net/Enjolras_fuu/article/details/79661582" target="_blank" rel="noopener">https://blog.csdn.net/Enjolras_fuu/article/details/79661582</a>  </li>
-<li><a href="https://pypi.org/project/django-redis-sessions/" target="_blank" rel="noopener">https://pypi.org/project/django-redis-sessions/</a></li>
+<li>“session:0bjyuegx0i5ivyuzpb8ezgo0b35u2z4v”</li>
 </ol>
-</blockquote>
+<pre class="highlight"><code class>**参考**
+&gt; 1. https://docs.djangoproject.com/en/2.1/topics/http/sessions/  
+&gt; 2. https://django-redis-chs.readthedocs.io/zh_CN/latest/
+&gt; 3. https://blog.csdn.net/Enjolras_fuu/article/details/79661582  
+&gt; 4. https://pypi.org/project/django-redis-sessions/
+
+</code></pre>
 
       
     </div>
@@ -517,7 +558,7 @@ return HttpResponse(text)
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -528,7 +569,7 @@ return HttpResponse(text)
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -600,7 +641,15 @@ return HttpResponse(text)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis保存session"><span class="nav-number">1.</span> <span class="nav-text">redis保存session</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#另外的配置项"><span class="nav-number"></span> <span class="nav-text">另外的配置项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SESSION-ENGINE-‘redis-sessions-session’"><span class="nav-number">1.</span> <span class="nav-text">SESSION_ENGINE = ‘redis_sessions.session’</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis保存session"><span class="nav-number">1.</span> <span class="nav-text"> redis保存session</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#另外的配置项"><span class="nav-number"></span> <span class="nav-text"> 另外的配置项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#session_redis-host-localhostport-6379db-0password-xxprefix-sessionsocket_timeout-1session_engine-redis_sessionssession"><span class="nav-number">1.</span> <span class="nav-text"> SESSION_REDIS = {
+‘host’: ‘localhost’,
+‘port’: 6379,
+‘db’: 0,
+‘password’: ‘xx’,
+‘prefix’: ‘session’,
+‘socket_timeout’: 1
+}
+SESSION_ENGINE = ‘redis_sessions.session’</span></a></li></ol></li></div>
             
 
           </div>

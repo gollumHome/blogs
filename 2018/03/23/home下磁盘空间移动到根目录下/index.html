@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="一、目的在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -hFilesystem      Size Used Avail Use% Mounted on/dev/mapper/vg_centos-lv_ro">
+<meta name="description" content="一、目的 在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -h Filesystem      Size Used Avail Use% Mounted on /dev/mapper/vg_centos-l">
 <meta property="og:type" content="article">
 <meta property="og:title" content="home下磁盘空间移动到根目录">
 <meta property="og:url" content="https://gollumhome.github.io/2018/03/23/home下磁盘空间移动到根目录下/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="一、目的在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -hFilesystem      Size Used Avail Use% Mounted on/dev/mapper/vg_centos-lv_ro">
+<meta property="og:description" content="一、目的 在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -h Filesystem      Size Used Avail Use% Mounted on /dev/mapper/vg_centos-l">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-04-06T13:28:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="home下磁盘空间移动到根目录">
-<meta name="twitter:description" content="一、目的在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -hFilesystem      Size Used Avail Use% Mounted on/dev/mapper/vg_centos-lv_ro">
+<meta name="twitter:description" content="一、目的 在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况： [root@CentOS-78 /]# df -h Filesystem      Size Used Avail Use% Mounted on /dev/mapper/vg_centos-l">
 
 
 
@@ -341,37 +341,130 @@
       
 
       
-        <h2 id="一、目的"><a href="#一、目的" class="headerlink" title="一、目的"></a>一、目的</h2><p>在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况：</p>
-<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           404G 670M 382G  1% /home<br>下面的详细步骤部分将从vg_centos-lv_home分区下取出100G的空间添加到/vg_centos-lv_root分区上去。</p>
-<h2 id="二、详细步骤"><a href="#二、详细步骤" class="headerlink" title="二、详细步骤"></a>二、详细步骤</h2><ol>
+        <h2 id="一-目的"><a class="markdownIt-Anchor" href="#一-目的"></a> 一、目的</h2>
+<p>在使用CentOS6.3版本Linux系统的时候，发现根目录(/)的空间不是很充足，而其他目录空间有很大的空闲，所以本文主要是针对现在已有的空间进行调整。首先，先来查看一下系统的空间分配情况：</p>
+<p>[root@CentOS-78 /]# df -h<br>
+Filesystem      Size Used Avail Use% Mounted on<br>
+/dev/mapper/vg_centos-lv_root<br>
+50G  14G  34G 30% /<br>
+tmpfs         1.9G   0 1.9G  0% /dev/shm<br>
+/dev/sda1       485M  37M 423M  8% /boot<br>
+/dev/mapper/vg_centos-lv_home<br>
+404G 670M 382G  1% /home<br>
+下面的详细步骤部分将从vg_centos-lv_home分区下取出100G的空间添加到/vg_centos-lv_root分区上去。</p>
+<h2 id="二-详细步骤"><a class="markdownIt-Anchor" href="#二-详细步骤"></a> 二、详细步骤</h2>
+<ol>
 <li>卸载vg_centos-lv_home分区</li>
 </ol>
-<p>[root@CentOS-78 /]# umount /home<br>此时在用df命令查看将会发现/home目录已经看不见了，如下所示：</p>
-<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot </p>
-<ol start="2">
-<li>从新设定vg_home-lv_home的大小</li>
-</ol>
-<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_home 282G<br>resize2fs 1.41.12 (17-May-2010)<br>Please run ‘e2fsck -f /dev/mapper/vg_centos-lv_home’ first.<br>这一步设定vg_home-lv_home大小没有成功，系统提示我们先运行下面的命令，操作如下：</p>
-<p>[root@CentOS-78 /]# e2fsck -f /dev/mapper/vg_centos-lv_home<br>e2fsck 1.41.12 (17-May-2010)<br>Pass 1: Checking inodes, blocks, and sizes<br>Pass 2: Checking directory structure<br>Pass 3: Checking directory connectivity<br>Pass 4: Checking reference counts<br>Pass 5: Checking group summary information<br>/dev/mapper/vg_centos-lv_home: 1386/26836992 files (0.9% non-contiguous), 1855856/107344896 blocks<br>从新设定vg_home-lv_home的大小：</p>
-<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_home 282G<br>resize2fs 1.41.12 (17-May-2010)<br>Resizing the filesystem on /dev/mapper/vg_centos-lv_home to 73924608 (4k) blocks.<br>Begin pass 2 (max = 43)<br>Relocating blocks       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>Begin pass 3 (max = 3276)<br>Scanning inode table     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>Begin pass 4 (max = 266)<br>Updating inode references   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>The filesystem on /dev/mapper/vg_centos-lv_home is now 73924608 blocks long.<br>检查是否成功：</p>
-<p>[root@CentOS-78 /]# mount /home<br>[root@CentOS-78 /]#<br>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>            50G  14G  34G 30% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           278G 663M 263G  1% /home<br>[root@CentOS-78 /]# </p>
-<ol start="3">
-<li>将lv_home逻辑分区减小到指定大小</li>
-</ol>
-<p>[root@CentOS-78 /]# lvreduce -L 282G /dev/mapper/vg_centos-lv_home<br> WARNING: Reducing active and open logical volume to 282.00 GiB<br> THIS MAY DESTROY YOUR DATA (filesystem etc.)<br>Do you really want to reduce lv_home? [y/n]: y<br> Reducing logical volume lv_home to 282.00 GiB<br> Logical volume lv_home successfully resized<br>[root@CentOS-78 /]#<br>我认为这个命令是将已经减少的100G空间拿到系统公共的区域，可以被其他分区加载和利用。<br>查询卷组的信息：</p>
-<p>[root@CentOS-78 /]# vgdisplay<br> — Volume group —<br> VG Name        vg_centos<br> System ID<br> Format        lvm2<br> Metadata Areas    1<br> Metadata Sequence No 5<br> VG Access       read/write<br> VG Status       resizable<br> MAX LV        0<br> Cur LV        3<br> Open LV        3<br> Max PV        0<br> Cur PV        1<br> Act PV        1<br> VG Size        465.27 GiB<br> PE Size        4.00 MiB<br> Total PE       119109<br> Alloc PE / Size    86472 / 337.78 GiB<br> Free PE / Size    32637 / 127.49 GiB<br> VG UUID        1k4ooN-RFV9-uyf1-uMYf-aERG-YaGs-ZNoSD6<br>Free PE / Size指定的应该是现在可在分配的空间。</p>
+<p>[root@CentOS-78 /]# umount /home<br>
+此时在用df命令查看将会发现/home目录已经看不见了，如下所示：</p>
+<p>[root@CentOS-78 /]# df -h<br>
+Filesystem      Size Used Avail Use% Mounted on<br>
+/dev/mapper/vg_centos-lv_root<br>
+50G  14G  34G 30% /<br>
+tmpfs         1.9G   0 1.9G  0% /dev/shm<br>
+/dev/sda1       485M  37M 423M  8% /boot<br>
+2. 从新设定vg_home-lv_home的大小</p>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_home 282G<br>
+resize2fs 1.41.12 (17-May-2010)<br>
+Please run ‘e2fsck -f /dev/mapper/vg_centos-lv_home’ first.<br>
+这一步设定vg_home-lv_home大小没有成功，系统提示我们先运行下面的命令，操作如下：</p>
+<p>[root@CentOS-78 /]# e2fsck -f /dev/mapper/vg_centos-lv_home<br>
+e2fsck 1.41.12 (17-May-2010)<br>
+Pass 1: Checking inodes, blocks, and sizes<br>
+Pass 2: Checking directory structure<br>
+Pass 3: Checking directory connectivity<br>
+Pass 4: Checking reference counts<br>
+Pass 5: Checking group summary information<br>
+/dev/mapper/vg_centos-lv_home: 1386/26836992 files (0.9% non-contiguous), 1855856/107344896 blocks<br>
+从新设定vg_home-lv_home的大小：</p>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_home 282G<br>
+resize2fs 1.41.12 (17-May-2010)<br>
+Resizing the filesystem on /dev/mapper/vg_centos-lv_home to 73924608 (4k) blocks.<br>
+Begin pass 2 (max = 43)<br>
+Relocating blocks       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+Begin pass 3 (max = 3276)<br>
+Scanning inode table     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+Begin pass 4 (max = 266)<br>
+Updating inode references   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>
+The filesystem on /dev/mapper/vg_centos-lv_home is now 73924608 blocks long.<br>
+检查是否成功：</p>
+<p>[root@CentOS-78 /]# mount /home<br>
+[root@CentOS-78 /]#<br>
+[root@CentOS-78 /]# df -h<br>
+Filesystem      Size Used Avail Use% Mounted on<br>
+/dev/mapper/vg_centos-lv_root<br>
+50G  14G  34G 30% /<br>
+tmpfs         1.9G   0 1.9G  0% /dev/shm<br>
+/dev/sda1       485M  37M 423M  8% /boot<br>
+/dev/mapper/vg_centos-lv_home<br>
+278G 663M 263G  1% /home<br>
+[root@CentOS-78 /]#<br>
+3. 将lv_home逻辑分区减小到指定大小</p>
+<p>[root@CentOS-78 /]# lvreduce -L 282G /dev/mapper/vg_centos-lv_home<br>
+WARNING: Reducing active and open logical volume to 282.00 GiB<br>
+THIS MAY DESTROY YOUR DATA (filesystem etc.)<br>
+Do you really want to reduce lv_home? [y/n]: y<br>
+Reducing logical volume lv_home to 282.00 GiB<br>
+Logical volume lv_home successfully resized<br>
+[root@CentOS-78 /]#<br>
+我认为这个命令是将已经减少的100G空间拿到系统公共的区域，可以被其他分区加载和利用。<br>
+查询卷组的信息：</p>
+<p>[root@CentOS-78 /]# vgdisplay<br>
+— Volume group —<br>
+VG Name        vg_centos<br>
+System ID<br>
+Format        lvm2<br>
+Metadata Areas    1<br>
+Metadata Sequence No 5<br>
+VG Access       read/write<br>
+VG Status       resizable<br>
+MAX LV        0<br>
+Cur LV        3<br>
+Open LV        3<br>
+Max PV        0<br>
+Cur PV        1<br>
+Act PV        1<br>
+VG Size        465.27 GiB<br>
+PE Size        4.00 MiB<br>
+Total PE       119109<br>
+Alloc PE / Size    86472 / 337.78 GiB<br>
+Free PE / Size    32637 / 127.49 GiB<br>
+VG UUID        1k4ooN-RFV9-uyf1-uMYf-aERG-YaGs-ZNoSD6<br>
+Free PE / Size指定的应该是现在可在分配的空间。</p>
 <ol start="4">
-<li>增加vg_centos-lv_root分区的大小<br>将可用的空间添加到vg_centos-lv_root分区上面：</li>
+<li>增加vg_centos-lv_root分区的大小<br>
+将可用的空间添加到vg_centos-lv_root分区上面：</li>
 </ol>
-<p>[root@CentOS-78 /]# lvextend -L +127.40G /dev/mapper/vg_centos-lv_root<br> Rounding up size to full physical extent 127.40 GiB<br> Extending logical volume lv_root to 177.40 GiB<br> Logical volume lv_root successfully resized<br>[root@CentOS-78 /]#<br>从新设定该分区的大小：</p>
-<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_root<br>resize2fs 1.41.12 (17-May-2010)<br>Filesystem at /dev/mapper/vg_centos-lv_root is mounted on /; on-line resizing required<br>old desc_blocks = 4, new_desc_blocks = 12<br>Performing an on-line resize of /dev/mapper/vg_centos-lv_root to 46504960 (4k) blocks.<br>The filesystem on /dev/mapper/vg_centos-lv_root is now 46504960 blocks long. </p>
-<ol start="5">
-<li>再次查看分区大小</li>
-</ol>
-<p>[root@CentOS-78 /]# df -h<br>Filesystem      Size Used Avail Use% Mounted on<br>/dev/mapper/vg_centos-lv_root<br>           175G  14G 153G  9% /<br>tmpfs         1.9G   0 1.9G  0% /dev/shm<br>/dev/sda1       485M  37M 423M  8% /boot<br>/dev/mapper/vg_centos-lv_home<br>           278G 663M 263G  1% /home<br>我们发现vg_centos-lv_root分区的空间已经增加了125G，之所以比lv_home减少的空间要多25G主要是由于我们把系统所有的可用的空间都加在了lv_root分区。</p>
-<h2 id="三、所遇到的问题"><a href="#三、所遇到的问题" class="headerlink" title="三、所遇到的问题"></a>三、所遇到的问题</h2><p>1、在卸载/home目录的时候失败</p>
+<p>[root@CentOS-78 /]# lvextend -L +127.40G /dev/mapper/vg_centos-lv_root<br>
+Rounding up size to full physical extent 127.40 GiB<br>
+Extending logical volume lv_root to 177.40 GiB<br>
+Logical volume lv_root successfully resized<br>
+[root@CentOS-78 /]#<br>
+从新设定该分区的大小：</p>
+<p>[root@CentOS-78 /]# resize2fs -p /dev/mapper/vg_centos-lv_root<br>
+resize2fs 1.41.12 (17-May-2010)<br>
+Filesystem at /dev/mapper/vg_centos-lv_root is mounted on /; on-line resizing required<br>
+old desc_blocks = 4, new_desc_blocks = 12<br>
+Performing an on-line resize of /dev/mapper/vg_centos-lv_root to 46504960 (4k) blocks.<br>
+The filesystem on /dev/mapper/vg_centos-lv_root is now 46504960 blocks long.<br>
+5. 再次查看分区大小</p>
+<p>[root@CentOS-78 /]# df -h<br>
+Filesystem      Size Used Avail Use% Mounted on<br>
+/dev/mapper/vg_centos-lv_root<br>
+175G  14G 153G  9% /<br>
+tmpfs         1.9G   0 1.9G  0% /dev/shm<br>
+/dev/sda1       485M  37M 423M  8% /boot<br>
+/dev/mapper/vg_centos-lv_home<br>
+278G 663M 263G  1% /home<br>
+我们发现vg_centos-lv_root分区的空间已经增加了125G，之所以比lv_home减少的空间要多25G主要是由于我们把系统所有的可用的空间都加在了lv_root分区。</p>
+<h2 id="三-所遇到的问题"><a class="markdownIt-Anchor" href="#三-所遇到的问题"></a> 三、所遇到的问题</h2>
+<p>1、在卸载/home目录的时候失败</p>
 <p>可先执行如下fuser命令，然后再umount即可：</p>
-<p>[root@CentOS-78 /]# fuser -m /home<br>[root@CentOS-78 /]#<br>2、设定完lv_home的大小，再次mount该分区时，发现用df命令无法看到给分区，此时只要在mount一次即可<br>3、在设定lv_root的大小时，不要把Free PE / Size的空间全部都用上，这很可能会出现Free PE空间不足的现象，建议保留一点Free PE的空间。</p>
+<p>[root@CentOS-78 /]# fuser -m /home<br>
+[root@CentOS-78 /]#<br>
+2、设定完lv_home的大小，再次mount该分区时，发现用df命令无法看到给分区，此时只要在mount一次即可<br>
+3、在设定lv_root的大小时，不要把Free PE / Size的空间全部都用上，这很可能会出现Free PE空间不足的现象，建议保留一点Free PE的空间。</p>
 
       
     </div>
@@ -487,7 +580,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -498,7 +591,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -570,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、目的"><span class="nav-number">1.</span> <span class="nav-text">一、目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、详细步骤"><span class="nav-number">2.</span> <span class="nav-text">二、详细步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、所遇到的问题"><span class="nav-number">3.</span> <span class="nav-text">三、所遇到的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-目的"><span class="nav-number">1.</span> <span class="nav-text"> 一、目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-详细步骤"><span class="nav-number">2.</span> <span class="nav-text"> 二、详细步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-所遇到的问题"><span class="nav-number">3.</span> <span class="nav-text"> 三、所遇到的问题</span></a></li></ol></div>
             
 
           </div>

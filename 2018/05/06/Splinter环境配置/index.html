@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="mac Splinter环境配置注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等    pip install Splinter测试是否安装成功,python环境123&amp;gt;&amp;gt;&amp;gt; from splinter.browser import Browser&amp;gt;&amp;gt;&amp;gt; b = Browser()&amp;gt;&amp;gt;&amp;gt;b.visit(&amp;quot">
+<meta name="description" content="mac Splinter环境配置 注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等  pip install Splinter 测试是否安装成功,python环境  123&amp;gt;&amp;gt;&amp;gt; from splinter.browser import Browser&amp;gt;&amp;gt;&amp;gt; b = Browser()&amp;gt;&amp;gt;&amp;gt;b.visit(&amp;q">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Splinter环境配置">
 <meta property="og:url" content="https://gollumhome.github.io/2018/05/06/Splinter环境配置/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="mac Splinter环境配置注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等    pip install Splinter测试是否安装成功,python环境123&amp;gt;&amp;gt;&amp;gt; from splinter.browser import Browser&amp;gt;&amp;gt;&amp;gt; b = Browser()&amp;gt;&amp;gt;&amp;gt;b.visit(&amp;quot">
+<meta property="og:description" content="mac Splinter环境配置 注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等  pip install Splinter 测试是否安装成功,python环境  123&amp;gt;&amp;gt;&amp;gt; from splinter.browser import Browser&amp;gt;&amp;gt;&amp;gt; b = Browser()&amp;gt;&amp;gt;&amp;gt;b.visit(&amp;q">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-06T08:11:53.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Splinter环境配置">
-<meta name="twitter:description" content="mac Splinter环境配置注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等    pip install Splinter测试是否安装成功,python环境123&amp;gt;&amp;gt;&amp;gt; from splinter.browser import Browser&amp;gt;&amp;gt;&amp;gt; b = Browser()&amp;gt;&amp;gt;&amp;gt;b.visit(&amp;quot">
+<meta name="twitter:description" content="mac Splinter环境配置 注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等  pip install Splinter 测试是否安装成功,python环境  123&amp;gt;&amp;gt;&amp;gt; from splinter.browser import Browser&amp;gt;&amp;gt;&amp;gt; b = Browser()&amp;gt;&amp;gt;&amp;gt;b.visit(&amp;q">
 
 
 
@@ -341,15 +341,24 @@
       
 
       
-        <h1 id="mac-Splinter环境配置"><a href="#mac-Splinter环境配置" class="headerlink" title="mac Splinter环境配置"></a>mac Splinter环境配置</h1><p>注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等  </p>
+        <h1 id="mac-splinter环境配置"><a class="markdownIt-Anchor" href="#mac-splinter环境配置"></a> mac Splinter环境配置</h1>
+<p>注： Splinter主要用于自动化测试，模拟浏览器的行为，应用场景秒杀，抢票等</p>
 <ol>
-<li>pip install Splinter<br>测试是否安装成功,python环境<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from splinter.browser import Browser</span><br><span class="line">&gt;&gt;&gt; b = Browser()</span><br><span class="line">&gt;&gt;&gt;b.visit(&quot;http://www.baidu.com/&quot;)</span><br></pre></td></tr></table></figure>
-</li>
+<li>pip install Splinter<br>
+测试是否安装成功,python环境</li>
 </ol>
-<p>如果正常打开浏览器页面则成功，如果报错如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;splinter/browser.py&quot;, line 63, in Browser</span><br><span class="line">    return driver(*args, **kwargs)</span><br><span class="line">  File &quot;splinter/driver/webdriver/firefox.py&quot;, line 39, in __init__</span><br><span class="line">self.driver = Firefox(firefox_profile)</span><br><span class="line">……</span><br></pre></td></tr></table></figure></p>
-<p>说明： splinter默认支持Firefox，如果没有安装相应版本则报错，如果是chrome，需要安装chrome的驱动。<br>2.安装chromedriver<br>mac 安装 brew install chromedriver 报错超时，只能手动下载安装  </p>
-<p>1&gt; 不能FQ，国内下载的网站<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://chromedriver.storage.googleapis.com/index.html</span><br></pre></td></tr></table></figure></p>
-<p>2&gt;查看浏览器版本，下载对应的chromedriver<br>3&gt;解压拷贝到usr/local/bin 下即可<br>测试是否成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from splinter.browser import Browser</span><br><span class="line">&gt;&gt;&gt; b = Browser(&quot;chrome&quot;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from splinter.browser import Browser</span><br><span class="line">&gt;&gt;&gt; b = Browser()</span><br><span class="line">&gt;&gt;&gt;b.visit(&quot;http://www.baidu.com/&quot;)</span><br></pre></td></tr></table></figure>
+<p>如果正常打开浏览器页面则成功，如果报错如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;splinter/browser.py&quot;, line 63, in Browser</span><br><span class="line">    return driver(*args, **kwargs)</span><br><span class="line">  File &quot;splinter/driver/webdriver/firefox.py&quot;, line 39, in __init__</span><br><span class="line">self.driver = Firefox(firefox_profile)</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<p>说明： splinter默认支持Firefox，如果没有安装相应版本则报错，如果是chrome，需要安装chrome的驱动。<br>
+2.安装chromedriver<br>
+mac 安装 brew install chromedriver 报错超时，只能手动下载安装</p>
+<p>1&gt; 不能FQ，国内下载的网站</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://chromedriver.storage.googleapis.com/index.html</span><br></pre></td></tr></table></figure>
+<p>2&gt;查看浏览器版本，下载对应的chromedriver<br>
+3&gt;解压拷贝到usr/local/bin 下即可<br>
+测试是否成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from splinter.browser import Browser</span><br><span class="line">&gt;&gt;&gt; b = Browser(&quot;chrome&quot;)</span><br></pre></td></tr></table></figure>
 <p>正常打开即ok</p>
 
       
@@ -466,7 +475,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -477,7 +486,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -549,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mac-Splinter环境配置"><span class="nav-number">1.</span> <span class="nav-text">mac Splinter环境配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mac-splinter环境配置"><span class="nav-number">1.</span> <span class="nav-text"> mac Splinter环境配置</span></a></li></ol></div>
             
 
           </div>

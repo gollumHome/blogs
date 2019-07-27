@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="mac 搭建Python 虚拟环境原因：不想高混淆本的的mac运行环境步骤:  sudo pip install virtualenv   建立一个工作目录 12mkdir workcd work  创建一个虚拟环境env1 1virtualenv env1  安装virtualenvwrapper注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新增，删除，复制，">
+<meta name="description" content="mac 搭建Python 虚拟环境 原因：不想高混淆本的的mac运行环境 步骤:   sudo pip install virtualenv   建立一个工作目录   12mkdir workcd work  创建一个虚拟环境env1  1virtualenv env1  安装virtualenvwrapper 注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mac_python虚拟环境配置">
 <meta property="og:url" content="https://gollumhome.github.io/2018/04/29/mac-python虚拟环境配置/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="mac 搭建Python 虚拟环境原因：不想高混淆本的的mac运行环境步骤:  sudo pip install virtualenv   建立一个工作目录 12mkdir workcd work  创建一个虚拟环境env1 1virtualenv env1  安装virtualenvwrapper注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新增，删除，复制，">
+<meta property="og:description" content="mac 搭建Python 虚拟环境 原因：不想高混淆本的的mac运行环境 步骤:   sudo pip install virtualenv   建立一个工作目录   12mkdir workcd work  创建一个虚拟环境env1  1virtualenv env1  安装virtualenvwrapper 注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-04-29T14:45:19.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac_python虚拟环境配置">
-<meta name="twitter:description" content="mac 搭建Python 虚拟环境原因：不想高混淆本的的mac运行环境步骤:  sudo pip install virtualenv   建立一个工作目录 12mkdir workcd work  创建一个虚拟环境env1 1virtualenv env1  安装virtualenvwrapper注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新增，删除，复制，">
+<meta name="twitter:description" content="mac 搭建Python 虚拟环境 原因：不想高混淆本的的mac运行环境 步骤:   sudo pip install virtualenv   建立一个工作目录   12mkdir workcd work  创建一个虚拟环境env1  1virtualenv env1  安装virtualenvwrapper 注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新">
 
 
 
@@ -341,36 +341,73 @@
       
 
       
-        <h2 id="mac-搭建Python-虚拟环境"><a href="#mac-搭建Python-虚拟环境" class="headerlink" title="mac 搭建Python 虚拟环境"></a>mac 搭建Python 虚拟环境</h2><p>原因：不想高混淆本的的mac运行环境<br>步骤:</p>
+        <h2 id="mac-搭建python-虚拟环境"><a class="markdownIt-Anchor" href="#mac-搭建python-虚拟环境"></a> mac 搭建Python 虚拟环境</h2>
+<p>原因：不想高混淆本的的mac运行环境<br>
+步骤:</p>
 <ol>
-<li><p>sudo pip install virtualenv </p>
+<li>
+<p>sudo pip install virtualenv</p>
 </li>
-<li><p>建立一个工作目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir work</span><br><span class="line">cd work</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建一个虚拟环境env1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装virtualenvwrapper<br>注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新增，删除，复制，切换虚拟环境。<br>命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo easy_install virtualenvwrapper</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建一个文件夹，存放所有的虚拟环境·</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/workspaces</span><br><span class="line">cd ~/workspaces</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置环境变量  </p>
+<li>
+<p>建立一个工作目录</p>
 </li>
 </ol>
-<p>6.1 查看python 安装位置<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">whick virtualenvwrapper.sh</span><br><span class="line">which python</span><br><span class="line">```  </span><br><span class="line">6.2 编辑文件</span><br></pre></td></tr></table></figure></p>
-<p>  vi ~/.bash_profile  增加<br>  export WORKON_HOME=’~/.virtualenvs’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir work</span><br><span class="line">cd work</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建一个虚拟环境env1</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env1</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>安装virtualenvwrapper<br>
+注：Virtaulenvwrapper是virtualenv的扩展包，可以更方便地新增，删除，复制，切换虚拟环境。<br>
+命令</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo easy_install virtualenvwrapper</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>创建一个文件夹，存放所有的虚拟环境·</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/workspaces</span><br><span class="line">cd ~/workspaces</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>配置环境变量</li>
+</ol>
+<p>6.1 查看python 安装位置</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">whick virtualenvwrapper.sh</span><br><span class="line">which python</span><br><span class="line">```  </span><br><span class="line">6.2 编辑文件</span><br></pre></td></tr></table></figure>
+<p>vi ~/.bash_profile  增加<br>
+export WORKON_HOME=’~/.virtualenvs’</p>
 <p>export VIRTUALENVWRAPPER_PYTHON=’/Users/mac/anaconda/bin/python3’</p>
 <p>source /Users/mac/anaconda/bin/virtualenvwrapper.sh</p>
-<p>退出，执行 source ~/.bash_profile<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后就可以基于virtualenvwrapper创建多个虚拟环境了 evn1,2nv2</span><br></pre></td></tr></table></figure></p>
-<p> mkvirtualenv env1<br>成功后，当前路径前面就会有 (env1)<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基础操作命令：列出虚拟环境：</span><br></pre></td></tr></table></figure></p>
-<p>$ lsvirtualenv -b<br>env1<br>env2<br>切换虚拟环境：<br>$ workon env1<br>查看环境里安装了哪些包：<br>$ lssitepackages<br>进入当前环境：<br>$ cdvirtualenv<br>进入当前环境的site-packages：<br>$ cdsitepackages<br>$ cdsitepackages pip<br>复制虚拟环境：<br>$ cpvirtualenv env1 env3<br>Copying env1 as env3…<br>退出虚拟环境：<br>$ deactivate<br>删除虚拟环境：<br>$ rmvirtualenv env2<br>Removing env2…</p>
+<p>退出，执行 source ~/.bash_profile</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后就可以基于virtualenvwrapper创建多个虚拟环境了 evn1,2nv2</span><br></pre></td></tr></table></figure>
+<p>mkvirtualenv env1<br>
+成功后，当前路径前面就会有 (env1)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基础操作命令：列出虚拟环境：</span><br></pre></td></tr></table></figure>
+<p>$ lsvirtualenv -b<br>
+env1<br>
+env2<br>
+切换虚拟环境：<br>
+$ workon env1<br>
+查看环境里安装了哪些包：<br>
+$ lssitepackages<br>
+进入当前环境：<br>
+$ cdvirtualenv<br>
+进入当前环境的site-packages：<br>
+$ cdsitepackages<br>
+$ cdsitepackages pip<br>
+复制虚拟环境：<br>
+$ cpvirtualenv env1 env3<br>
+Copying env1 as env3…<br>
+退出虚拟环境：<br>
+$ deactivate<br>
+删除虚拟环境：<br>
+$ rmvirtualenv env2<br>
+Removing env2…</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安装 Numpy，Scipy，Matplotlib 等</span><br><span class="line">接下来安装Python的各种包，就比较顺畅了，比如安在env1上：</span><br></pre></td></tr></table></figure>
-<p>$ workon env1<br>安装numpy<br>pip install numpy</p>
-<p>安装scipy<br>$ pip install scipy</p>
-<p><code>`</code></p>
+<p>$ workon env1<br>
+安装numpy<br>
+pip install numpy</p>
+<p>安装scipy<br>
+$ pip install scipy</p>
+<pre class="highlight"><code class></code></pre>
 
       
     </div>
@@ -486,7 +523,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -497,7 +534,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -569,7 +606,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mac-搭建Python-虚拟环境"><span class="nav-number">1.</span> <span class="nav-text">mac 搭建Python 虚拟环境</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mac-搭建python-虚拟环境"><span class="nav-number">1.</span> <span class="nav-text"> mac 搭建Python 虚拟环境</span></a></li></ol></div>
             
 
           </div>

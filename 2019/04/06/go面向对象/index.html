@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="3. 与oop分析对比3.1 封装：    可以把struct看成一个类，可以看成对struct的封装12345type struct1 struct &amp;#123;    i1  int    f1  float32    str string&amp;#125;  3.2继承:  结构体的嵌套模拟继承12345678910111213141516type A struct&amp;#123; //父类    n">
+<meta name="description" content="3. 与oop分析对比 3.1 封装：  可以把struct看成一个类，可以看成对struct的封装  12345type struct1 struct &amp;#123;    i1  int    f1  float32    str string&amp;#125; 3.2继承:  结构体的嵌套模拟继承  12345678910111213141516type A struct&amp;#123; //父类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go面向对象">
 <meta property="og:url" content="https://gollumhome.github.io/2019/04/06/go面向对象/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="3. 与oop分析对比3.1 封装：    可以把struct看成一个类，可以看成对struct的封装12345type struct1 struct &amp;#123;    i1  int    f1  float32    str string&amp;#125;  3.2继承:  结构体的嵌套模拟继承12345678910111213141516type A struct&amp;#123; //父类    n">
+<meta property="og:description" content="3. 与oop分析对比 3.1 封装：  可以把struct看成一个类，可以看成对struct的封装  12345type struct1 struct &amp;#123;    i1  int    f1  float32    str string&amp;#125; 3.2继承:  结构体的嵌套模拟继承  12345678910111213141516type A struct&amp;#123; //父类">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-04-06T14:37:22.364Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go面向对象">
-<meta name="twitter:description" content="3. 与oop分析对比3.1 封装：    可以把struct看成一个类，可以看成对struct的封装12345type struct1 struct &amp;#123;    i1  int    f1  float32    str string&amp;#125;  3.2继承:  结构体的嵌套模拟继承12345678910111213141516type A struct&amp;#123; //父类    n">
+<meta name="twitter:description" content="3. 与oop分析对比 3.1 封装：  可以把struct看成一个类，可以看成对struct的封装  12345type struct1 struct &amp;#123;    i1  int    f1  float32    str string&amp;#125; 3.2继承:  结构体的嵌套模拟继承  12345678910111213141516type A struct&amp;#123; //父类">
 
 
 
@@ -341,18 +341,22 @@
       
 
       
-        <h3 id="3-与oop分析对比"><a href="#3-与oop分析对比" class="headerlink" title="3. 与oop分析对比"></a>3. 与oop分析对比</h3><p>3.1 封装：  </p>
+        <h3 id="3-与oop分析对比"><a class="markdownIt-Anchor" href="#3-与oop分析对比"></a> 3. 与oop分析对比</h3>
+<p>3.1 封装：</p>
 <blockquote>
-<p>可以把struct看成一个类，可以看成对struct的封装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type struct1 struct &#123;</span><br><span class="line">    i1  int</span><br><span class="line">    f1  float32</span><br><span class="line">    str string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以把struct看成一个类，可以看成对struct的封装</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type struct1 struct &#123;</span><br><span class="line">    i1  int</span><br><span class="line">    f1  float32</span><br><span class="line">    str string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>3.2继承:</p>
 <blockquote>
-<p>结构体的嵌套模拟继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">type A struct&#123; //父类</span><br><span class="line">    name string	</span><br><span class="line">    age int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct&#123;//子类	</span><br><span class="line">    a A // 模拟聚合关系	.....</span><br><span class="line"></span><br><span class="line">type C struct&#123;//子类</span><br><span class="line">    A // 模拟继承</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b := B&#123;&#125;</span><br><span class="line">b.a.name</span><br><span class="line">c := C&#123;&#125;</span><br><span class="line">b.name</span><br></pre></td></tr></table></figure></p>
+<p>结构体的嵌套模拟继承</p>
 </blockquote>
-<p>3.3 多态：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">type A struct&#123; //父类</span><br><span class="line">    name string	</span><br><span class="line">    age int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct&#123;//子类	</span><br><span class="line">    a A // 模拟聚合关系	.....</span><br><span class="line"></span><br><span class="line">type C struct&#123;//子类</span><br><span class="line">    A // 模拟继承</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b := B&#123;&#125;</span><br><span class="line">b.a.name</span><br><span class="line">c := C&#123;&#125;</span><br><span class="line">b.name</span><br></pre></td></tr></table></figure>
+<p>3.3 多态：</p>
 <blockquote>
-<p>接口的所有方法的任何类型都表示隐式实现该接口。类型接口的变量可以保存实现该接口的任何值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    package main</span><br><span class="line">     </span><br><span class="line">    import (</span><br><span class="line">    	&quot;fmt&quot;</span><br><span class="line">    )</span><br><span class="line">     </span><br><span class="line">    type Person interface &#123;</span><br><span class="line">    	SayHello()</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Girl struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Boy struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Girl) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Boy) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func main() &#123;</span><br><span class="line">    	g := &amp;Girl&#123;&quot;girl&quot;&#125;</span><br><span class="line">    	b := &amp;Boy&#123;&quot;boy&quot;&#125;</span><br><span class="line">    	p := map[int]Person&#123;&#125;</span><br><span class="line">    	p[0] = g</span><br><span class="line">    	p[1] = b</span><br><span class="line">     </span><br><span class="line">    	for _, v := range p &#123;</span><br><span class="line">    		v.SayHello()</span><br><span class="line">    	&#125; </span><br><span class="line">    &#125;</span><br><span class="line">-------------------</span><br><span class="line">    Hi, I am a boy</span><br><span class="line">    Hi, I am a gir</span><br></pre></td></tr></table></figure></p>
+<p>接口的所有方法的任何类型都表示隐式实现该接口。类型接口的变量可以保存实现该接口的任何值</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    package main</span><br><span class="line">     </span><br><span class="line">    import (</span><br><span class="line">    	&quot;fmt&quot;</span><br><span class="line">    )</span><br><span class="line">     </span><br><span class="line">    type Person interface &#123;</span><br><span class="line">    	SayHello()</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Girl struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Boy struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Girl) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Boy) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func main() &#123;</span><br><span class="line">    	g := &amp;Girl&#123;&quot;girl&quot;&#125;</span><br><span class="line">    	b := &amp;Boy&#123;&quot;boy&quot;&#125;</span><br><span class="line">    	p := map[int]Person&#123;&#125;</span><br><span class="line">    	p[0] = g</span><br><span class="line">    	p[1] = b</span><br><span class="line">     </span><br><span class="line">    	for _, v := range p &#123;</span><br><span class="line">    		v.SayHello()</span><br><span class="line">    	&#125; </span><br><span class="line">    &#125;</span><br><span class="line">-------------------</span><br><span class="line">    Hi, I am a boy</span><br><span class="line">    Hi, I am a gir</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -468,7 +472,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -479,7 +483,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -551,7 +555,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-与oop分析对比"><span class="nav-number">1.</span> <span class="nav-text">3. 与oop分析对比</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-与oop分析对比"><span class="nav-number">1.</span> <span class="nav-text"> 3. 与oop分析对比</span></a></li></ol></div>
             
 
           </div>

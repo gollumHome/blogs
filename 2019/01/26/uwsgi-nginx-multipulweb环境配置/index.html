@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Nginx+ uWSGI+django     请求顺序  the web client  the web server  the socket  uWSGI  Python   环境：    Linux: centos-release-7-3.1611.el7.centos.x86_64   Python 2.7.5   注：全部以root执行步骤：     nginx 安装    1&amp;gt;安">
+<meta name="description" content="Nginx+ uWSGI+django 请求顺序  the web client &amp;lt;-&amp;gt; the web server &amp;lt;-&amp;gt; the socket &amp;lt;-&amp;gt; uWSGI &amp;lt;-&amp;gt; Python 环境：  Linux: centos-release-7-3.1611.el7.centos.x86_64 Python 2.7.5 注：全部以root执行 步">
 <meta property="og:type" content="article">
 <meta property="og:title" content="uwsgi+nginx+multipulweb环境配置">
 <meta property="og:url" content="https://gollumhome.github.io/2019/01/26/uwsgi-nginx-multipulweb环境配置/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="Nginx+ uWSGI+django     请求顺序  the web client  the web server  the socket  uWSGI  Python   环境：    Linux: centos-release-7-3.1611.el7.centos.x86_64   Python 2.7.5   注：全部以root执行步骤：     nginx 安装    1&amp;gt;安">
+<meta property="og:description" content="Nginx+ uWSGI+django 请求顺序  the web client &amp;lt;-&amp;gt; the web server &amp;lt;-&amp;gt; the socket &amp;lt;-&amp;gt; uWSGI &amp;lt;-&amp;gt; Python 环境：  Linux: centos-release-7-3.1611.el7.centos.x86_64 Python 2.7.5 注：全部以root执行 步">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-02-27T14:27:47.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="uwsgi+nginx+multipulweb环境配置">
-<meta name="twitter:description" content="Nginx+ uWSGI+django     请求顺序  the web client  the web server  the socket  uWSGI  Python   环境：    Linux: centos-release-7-3.1611.el7.centos.x86_64   Python 2.7.5   注：全部以root执行步骤：     nginx 安装    1&amp;gt;安">
+<meta name="twitter:description" content="Nginx+ uWSGI+django 请求顺序  the web client &amp;lt;-&amp;gt; the web server &amp;lt;-&amp;gt; the socket &amp;lt;-&amp;gt; uWSGI &amp;lt;-&amp;gt; Python 环境：  Linux: centos-release-7-3.1611.el7.centos.x86_64 Python 2.7.5 注：全部以root执行 步">
 
 
 
@@ -341,47 +341,100 @@
       
 
       
-        <p>Nginx+ uWSGI+django    </p>
-<p>请求顺序  the web client <-> the web server <-> the socket <-> uWSGI <-> Python  </-></-></-></-></p>
-<p>环境：  </p>
+        <p>Nginx+ uWSGI+django</p>
+<p>请求顺序  the web client &lt;-&gt; the web server &lt;-&gt; the socket &lt;-&gt; uWSGI &lt;-&gt; Python</p>
+<p>环境：</p>
 <ul>
-<li>Linux: centos-release-7-3.1611.el7.centos.x86_64  </li>
-<li>Python 2.7.5  </li>
-<li>注：全部以root执行<br>步骤：  </li>
+<li>Linux: centos-release-7-3.1611.el7.centos.x86_64</li>
+<li>Python 2.7.5</li>
+<li>注：全部以root执行<br>
+步骤：</li>
 </ul>
 <ol>
-<li>nginx 安装  </li>
+<li>nginx 安装</li>
 </ol>
-<p>1&gt;安装编译工具及库文件<br> yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel  </p>
-<p>安装 PCRE ( Nginx 支持 Rewrite 功能)<br>2&gt;下载 PCRE 安装包，下载地址 <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz</a><br>[root@bogon src]# wget  <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz</a><br>注：wget方式可能下载文件缺失、导致解压失败。可能需离线下载、移动到指定文件夹。 </p>
-<p>3&gt;解压安装包:<br>[root@bogon opt]# tar zxvf pcre-8.35.tar.gz  </p>
-<p>进入安装包目录<br>[root@bogon opt]# cd pcre-8.35  </p>
-<p>4&gt;编译安装<br>[root@bogon pcre-8.35]# ./configure<br>[root@bogon pcre-8.35]# make &amp;&amp; make install  </p>
-<p>5&gt;查看pcre版本<br>[root@bogon pcre-8.35]# pcre-config –version  </p>
-<p>6&gt;下载 Nginx，下载地址：<a href="http://nginx.org/download/nginx-1.6.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.6.2.tar.gz</a><br>[root@bogon opt]# wget <a href="http://nginx.org/download/nginx-1.6.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.6.2.tar.gz</a>  </p>
-<p>7&gt;解压安装包<br>[root@bogon opt]# tar zxvf nginx-1.6.2.tar.gz  </p>
-<p>9&gt;进入安装包目录<br>[root@bogon opt]# cd nginx-1.6.2</p>
-<p>10&gt;编译安装<br>[root@bogon nginx-1.6.2]# ./configure –prefix=/usr/local/nginx –with-http_stub_status_module –with-http_ssl_module –with-pcre=/opt/pcre-8.35<br>注：–with-pcre 指向pcre解压文件  –with-pcre   随便指定路径<br>[root@bogon nginx-1.6.2]# make<br>[root@bogon nginx-1.6.2]# make install  </p>
+<p>1&gt;安装编译工具及库文件<br>
+yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel</p>
+<p>安装 PCRE ( Nginx 支持 Rewrite 功能)<br>
+2&gt;下载 PCRE 安装包，下载地址 <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz</a><br>
+[root@bogon src]# wget  <a href="http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/project/pcre/pcre/8.35/pcre-8.35.tar.gz</a><br>
+注：wget方式可能下载文件缺失、导致解压失败。可能需离线下载、移动到指定文件夹。</p>
+<p>3&gt;解压安装包:<br>
+[root@bogon opt]# tar zxvf pcre-8.35.tar.gz</p>
+<p>进入安装包目录<br>
+[root@bogon opt]# cd pcre-8.35</p>
+<p>4&gt;编译安装<br>
+[root@bogon pcre-8.35]# ./configure<br>
+[root@bogon pcre-8.35]# make &amp;&amp; make install</p>
+<p>5&gt;查看pcre版本<br>
+[root@bogon pcre-8.35]# pcre-config --version</p>
+<p>6&gt;下载 Nginx，下载地址：<a href="http://nginx.org/download/nginx-1.6.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.6.2.tar.gz</a><br>
+[root@bogon opt]# wget <a href="http://nginx.org/download/nginx-1.6.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.6.2.tar.gz</a></p>
+<p>7&gt;解压安装包<br>
+[root@bogon opt]# tar zxvf nginx-1.6.2.tar.gz</p>
+<p>9&gt;进入安装包目录<br>
+[root@bogon opt]# cd nginx-1.6.2</p>
+<p>10&gt;编译安装<br>
+[root@bogon nginx-1.6.2]# ./configure --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/opt/pcre-8.35<br>
+注：–with-pcre 指向pcre解压文件  --with-pcre   随便指定路径<br>
+[root@bogon nginx-1.6.2]# make<br>
+[root@bogon nginx-1.6.2]# make install</p>
 <p>11&gt;查看nginx版本</p>
-<p>[root@bogon nginx-1.6.2]# /usr/local/nginx/sbin/nginx -v  </p>
-<p>12&gt;Nginx 配置   </p>
-<p>12.1&gt;创建 Nginx 运行使用的用户 www：<br>12.2&gt;配置nginx.conf ，将/usr/local/nginx/conf/nginx.conf修改首行为:  </p>
-<h5 id="user-root-root"><a href="#user-root-root" class="headerlink" title="user root root;"></a>user root root;</h5><p>12.3&gt;检查配置文件ngnix.conf的正确性命令：<br>/usr/local/nginx/sbin/nginx -t<br>12.4&gt;启动 Nginx<br>/usr/local//nginx/sbin/nginx<br>12.5&gt;访问测试nginx   </p>
-<p>13&gt;安装uwsgi<br>注：yum install 安装成功，启动失败，建议pip 安装<br>Pip安装可能失败 -先安装python-devel：先安装python-devel<br>13.1&gt;安装uwsgi<br>Pip install uwsgi<br>13.2&gt;测试 uwsgi 是否正常<br>新建 test.py 文件，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def application(env, start_response):  </span><br><span class="line">    start_response(&apos;200 OK&apos;, [(&apos;Content-Type&apos;,&apos;text/html&apos;)])</span><br><span class="line">    return &quot;Hello World&quot;</span><br></pre></td></tr></table></figure></p>
-<p>然后在终端运行：<br>uwsgi –http :8001 –wsgi-file test.py<br>在浏览器内输入：<a href="http://127.0.0.1:8001，查看是否有&quot;Hello" target="_blank" rel="noopener">http://127.0.0.1:8001，查看是否有&quot;Hello</a> World”输出，若没有输出，请检查你的安装过程。<br>注：报错 –http xx ambiguous等,因为python与uwsgi问题，安装python-devel即可<br>14&gt;安装 Django<br>pip install django<br>注：可能报错，报错原因django版本问题，可指定安装版本。测试版本django 1.11.5<br>14.1&gt;测试 django 是否正常，运行：<br>django-admin.py startproject demosite<br>cd demosite<br>python2.7 manage.py runserver 0.0.0.0:8002<br>在浏览器内输入：<a href="http://127.0.0.1:8002，检查django是否运行正常" target="_blank" rel="noopener">http://127.0.0.1:8002，检查django是否运行正常</a><br>15.Nginx+uwsgi+Django<br>Django创建ncss项目时，在子目录ncssplatform下已经帮我们生成的 wsgi.py文件。所以，我们只需要再创建ncssplatform_uwsgi.ini配置文件即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># ncssplatform_uwsgi.ini file</span><br><span class="line">[uwsgi]</span><br><span class="line"></span><br><span class="line"># Django-related settings</span><br><span class="line"></span><br><span class="line">socket = :8000</span><br><span class="line"></span><br><span class="line"># the base directory (full path)</span><br><span class="line">chdir           = /opt/ncss</span><br><span class="line"></span><br><span class="line"># Django s wsgi file</span><br><span class="line">module          = ncssplatform.wsgi</span><br><span class="line"></span><br><span class="line"># process-related settings</span><br><span class="line"># master</span><br><span class="line">master          = true</span><br><span class="line"></span><br><span class="line"># maximum number of worker processes</span><br><span class="line">processes       = 4</span><br><span class="line"></span><br><span class="line"># ... with appropriate permissions - may be needed</span><br><span class="line"># chmod-socket    = 664</span><br><span class="line"># clear environment on exit</span><br><span class="line">vacuum          = true</span><br></pre></td></tr></table></figure></p>
-<p>注：<br>socket  指定项目执行的端口号。</p>
+<p>[root@bogon nginx-1.6.2]# /usr/local/nginx/sbin/nginx -v</p>
+<p>12&gt;Nginx 配置</p>
+<p>12.1&gt;创建 Nginx 运行使用的用户 www：<br>
+12.2&gt;配置nginx.conf ，将/usr/local/nginx/conf/nginx.conf修改首行为:</p>
+<h5 id="user-root-root"><a class="markdownIt-Anchor" href="#user-root-root"></a> user root root;</h5>
+<p>12.3&gt;检查配置文件ngnix.conf的正确性命令：<br>
+/usr/local/nginx/sbin/nginx -t<br>
+12.4&gt;启动 Nginx<br>
+/usr/local//nginx/sbin/nginx<br>
+12.5&gt;访问测试nginx</p>
+<p>13&gt;安装uwsgi<br>
+注：yum install 安装成功，启动失败，建议pip 安装<br>
+Pip安装可能失败 -先安装python-devel：先安装python-devel<br>
+13.1&gt;安装uwsgi<br>
+Pip install uwsgi<br>
+13.2&gt;测试 uwsgi 是否正常<br>
+新建 <a href="http://test.py" target="_blank" rel="noopener">test.py</a> 文件，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def application(env, start_response):  </span><br><span class="line">    start_response(&apos;200 OK&apos;, [(&apos;Content-Type&apos;,&apos;text/html&apos;)])</span><br><span class="line">    return &quot;Hello World&quot;</span><br></pre></td></tr></table></figure>
+<p>然后在终端运行：<br>
+uwsgi --http :8001 --wsgi-file <a href="http://test.py" target="_blank" rel="noopener">test.py</a><br>
+在浏览器内输入：<a href="http://127.0.0.1:8001" target="_blank" rel="noopener">http://127.0.0.1:8001</a>，查看是否有&quot;Hello World&quot;输出，若没有输出，请检查你的安装过程。<br>
+注：报错 --http xx ambiguous等,因为python与uwsgi问题，安装python-devel即可<br>
+14&gt;安装 Django<br>
+pip install django<br>
+注：可能报错，报错原因django版本问题，可指定安装版本。测试版本django 1.11.5<br>
+14.1&gt;测试 django 是否正常，运行：<br>
+<a href="http://django-admin.py" target="_blank" rel="noopener">django-admin.py</a> startproject demosite<br>
+cd demosite<br>
+python2.7 <a href="http://manage.py" target="_blank" rel="noopener">manage.py</a> runserver 0.0.0.0:8002<br>
+在浏览器内输入：<a href="http://127.0.0.1:8002" target="_blank" rel="noopener">http://127.0.0.1:8002</a>，检查django是否运行正常<br>
+15.Nginx+uwsgi+Django<br>
+Django创建ncss项目时，在子目录ncssplatform下已经帮我们生成的 wsgi.py文件。所以，我们只需要再创建ncssplatform_uwsgi.ini配置文件即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># ncssplatform_uwsgi.ini file</span><br><span class="line">[uwsgi]</span><br><span class="line"></span><br><span class="line"># Django-related settings</span><br><span class="line"></span><br><span class="line">socket = :8000</span><br><span class="line"></span><br><span class="line"># the base directory (full path)</span><br><span class="line">chdir           = /opt/ncss</span><br><span class="line"></span><br><span class="line"># Django s wsgi file</span><br><span class="line">module          = ncssplatform.wsgi</span><br><span class="line"></span><br><span class="line"># process-related settings</span><br><span class="line"># master</span><br><span class="line">master          = true</span><br><span class="line"></span><br><span class="line"># maximum number of worker processes</span><br><span class="line">processes       = 4</span><br><span class="line"></span><br><span class="line"># ... with appropriate permissions - may be needed</span><br><span class="line"># chmod-socket    = 664</span><br><span class="line"># clear environment on exit</span><br><span class="line">vacuum          = true</span><br></pre></td></tr></table></figure>
+<p>注：<br>
+socket  指定项目执行的端口号。</p>
 <p>chdir   指定项目的目录。</p>
-<p>module  myweb.wsgi ，可以这么来理解，对于myweb_uwsgi.ini文件来说，与它的平级的有一个myweb目录，这个目录下有一个wsgi.py文件。  </p>
-<ol start="16">
-<li><p>修改nginx.conf配置文件。打开/etc/nginx/nginx.conf文件，添加如下内容  </p>
+<p>module  myweb.wsgi ，可以这么来理解，对于myweb_uwsgi.ini文件来说，与它的平级的有一个myweb目录，这个目录下有一个wsgi.py文件。<br>
+16. 修改nginx.conf配置文件。打开/etc/nginx/nginx.conf文件，添加如下内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       8080;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        </span><br><span class="line">        location / &#123;            </span><br><span class="line">            include  uwsgi_params;</span><br><span class="line">            uwsgi_pass  127.0.0.1:8000;              //必须和uwsgi中的设置一致</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">            client_max_body_size 35m;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>17.最终启动<br>uwsgi –ini ncssplatform_uwsgi.ini  &amp; /usr/local/nginx/sbin/nginx<br>18.测试<br>访问<a href="http://127.0.0.1:8080,显示django" target="_blank" rel="noopener">http://127.0.0.1:8080,显示django</a> work -ok  </p>
-</li>
-</ol>
-<h3 id="多个project部署在nginx-uwsgi"><a href="#多个project部署在nginx-uwsgi" class="headerlink" title="多个project部署在nginx,uwsgi"></a>多个project部署在nginx,uwsgi</h3><p>1.新建目录uwsgi_conf，目录下创建文件<br>op_platform.ini、tenant_platfrom.ini<br>内容添加为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line">#plugins = python</span><br><span class="line">#virtualenv = /Django/cmdb/env/</span><br><span class="line">chdir =/opt/nsfocus/ncss_platform/op_platform</span><br><span class="line">#touch-reload = /Django/cmdb/env/CMDB/</span><br><span class="line">module = op_platform.wsgi</span><br><span class="line">socket = 127.0.0.1:9000</span><br><span class="line">vhost = false</span><br><span class="line">chmod-socket = 664</span><br><span class="line">master = true</span><br><span class="line">enable-threads = true</span><br><span class="line">workers = 4</span><br><span class="line">threads = 2</span><br><span class="line">vacuum = true</span><br><span class="line">max-requests = 6000</span><br><span class="line">#pidfile = /var/log/uwsgi/cmdb.pid</span><br><span class="line">#daemonize = /var/log/uwsgi/cmdb.log</span><br><span class="line">#touch-logreopen = /var/log/module/.touchforlogrotat</span><br><span class="line">~</span><br></pre></td></tr></table></figure></p>
-<p>tenant_platfrom类似，端口修改即可<br>2.修改nginx配置文件nginx.conf<br>增加内容为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">      listen      8888;</span><br><span class="line">      server_name  localhost;</span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          include  uwsgi_params;</span><br><span class="line">          uwsgi_pass  127.0.0.1:8000;</span><br><span class="line">          #index  index.html index.htm;</span><br><span class="line">          client_max_body_size 35m;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> server &#123;</span><br><span class="line">      listen       9999;</span><br><span class="line">      server_name  localhost;</span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          include  uwsgi_params;</span><br><span class="line">          uwsgi_pass  127.0.0.1:9000;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></p>
+<p>17.最终启动<br>
+uwsgi --ini ncssplatform_uwsgi.ini  &amp; /usr/local/nginx/sbin/nginx<br>
+18.测试<br>
+访问http://127.0.0.1:8080,显示django work -ok</p>
+<h3 id="多个project部署在nginxuwsgi"><a class="markdownIt-Anchor" href="#多个project部署在nginxuwsgi"></a> 多个project部署在nginx,uwsgi</h3>
+<p>1.新建目录uwsgi_conf，目录下创建文件<br>
+op_platform.ini、tenant_platfrom.ini<br>
+内容添加为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line">#plugins = python</span><br><span class="line">#virtualenv = /Django/cmdb/env/</span><br><span class="line">chdir =/opt/nsfocus/ncss_platform/op_platform</span><br><span class="line">#touch-reload = /Django/cmdb/env/CMDB/</span><br><span class="line">module = op_platform.wsgi</span><br><span class="line">socket = 127.0.0.1:9000</span><br><span class="line">vhost = false</span><br><span class="line">chmod-socket = 664</span><br><span class="line">master = true</span><br><span class="line">enable-threads = true</span><br><span class="line">workers = 4</span><br><span class="line">threads = 2</span><br><span class="line">vacuum = true</span><br><span class="line">max-requests = 6000</span><br><span class="line">#pidfile = /var/log/uwsgi/cmdb.pid</span><br><span class="line">#daemonize = /var/log/uwsgi/cmdb.log</span><br><span class="line">#touch-logreopen = /var/log/module/.touchforlogrotat</span><br><span class="line">~</span><br></pre></td></tr></table></figure>
+<p>tenant_platfrom类似，端口修改即可<br>
+2.修改nginx配置文件nginx.conf<br>
+增加内容为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">      listen      8888;</span><br><span class="line">      server_name  localhost;</span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          include  uwsgi_params;</span><br><span class="line">          uwsgi_pass  127.0.0.1:8000;</span><br><span class="line">          #index  index.html index.htm;</span><br><span class="line">          client_max_body_size 35m;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> server &#123;</span><br><span class="line">      listen       9999;</span><br><span class="line">      server_name  localhost;</span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          include  uwsgi_params;</span><br><span class="line">          uwsgi_pass  127.0.0.1:9000;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
 <ol start="3">
-<li>启动、测试<br>uwsgi –emperor uwsgi_conf/ ，然启动nginx -s reload</li>
+<li>启动、测试<br>
+uwsgi --emperor uwsgi_conf/ ，然启动nginx -s reload</li>
 </ol>
 
       
@@ -498,7 +551,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -509,7 +562,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -581,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#user-root-root"><span class="nav-number">1.</span> <span class="nav-text">user root root;</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#多个project部署在nginx-uwsgi"><span class="nav-number"></span> <span class="nav-text">多个project部署在nginx,uwsgi</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#user-root-root"><span class="nav-number">1.</span> <span class="nav-text"> user root root;</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#多个project部署在nginxuwsgi"><span class="nav-number"></span> <span class="nav-text"> 多个project部署在nginx,uwsgi</span></a></li></div>
             
 
           </div>

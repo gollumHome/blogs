@@ -350,43 +350,120 @@
 
 field2 type2
 ...
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)</span><br><span class="line">    访问结构体变量或赋值</span><br></pre></td></tr></table></figure></p>
+</code></pre>
+<p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)</span><br><span class="line">    访问结构体变量或赋值</span><br></pre></td></tr></table></figure>
 <p>structname.fieldname</p>
-<p>structname.fieldname = value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 匿名字段和内嵌结构体  </span><br><span class="line">    结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</span><br></pre></td></tr></table></figure></p>
+<p>structname.fieldname = value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 匿名字段和内嵌结构体  </span><br><span class="line">    结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</span><br></pre></td></tr></table></figure>
 <p>package main</p>
 <p>import “fmt”</p>
-<p>type A struct {<br>    ax, ay int<br>}</p>
-<p>type B struct {<br>    A<br>    bx, by float32<br>}</p>
-<p>func main() {<br>    b := B{A{1, 2}, 3.0, 4.0}<br>    fmt.Println(b.ax, b.ay, b.bx, b.by)<br>    fmt.Println(b.A)<br>}</p>
+<p>type A struct {<br>
+ax, ay int<br>
+}</p>
+<p>type B struct {<br>
+A<br>
+bx, by float32<br>
+}</p>
+<p>func main() {<br>
+b := B{A{1, 2}, 3.0, 4.0}<br>
+fmt.Println(<a href="http://b.ax" target="_blank" rel="noopener">b.ax</a>, b.ay, b.bx, <a href="http://b.by" target="_blank" rel="noopener">b.by</a>)<br>
+fmt.Println(b.A)<br>
+}</p>
 <p>1 2 3 4</p>
-<p>{1 2}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.1 方法  </span><br><span class="line">    结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  </span><br><span class="line">    定义方法的一般格式如下：</span><br></pre></td></tr></table></figure></p>
-<p>func (recv receiver_type) methodName(parameter_list) (return_value_list) { … }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 示例method .go</span><br></pre></td></tr></table></figure></p>
+<p>{1 2}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.1 方法  </span><br><span class="line">    结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  </span><br><span class="line">    定义方法的一般格式如下：</span><br></pre></td></tr></table></figure>
+<p>func (recv receiver_type) methodName(parameter_list) (return_value_list) { … }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 示例method .go</span><br></pre></td></tr></table></figure>
 <p>package main</p>
 <p>import “fmt”</p>
-<p>type TwoInts struct {<br>    a int<br>    b int<br>}</p>
-<p>func main() {<br>    two1 := new(TwoInts)<br>    two1.a = 12<br>    two1.b = 10<br>    fmt.Printf(“The sum is: %d\n”, two1.AddThem())<br>    fmt.Printf(“Add them to the param: %d\n”, two1.AddToParam(20))<br>    two2 := TwoInts{3, 4}<br>    fmt.Printf(“The sum is: %d\n”, two2.AddThem())<br>}</p>
-<p>func (tn *TwoInts) AddThem() int {<br>    return tn.a + tn.b<br>}</p>
-<p>func (tn *TwoInts) AddToParam(param int) int {<br>    return tn.a + tn.b + param<br>}</p>
+<p>type TwoInts struct {<br>
+a int<br>
+b int<br>
+}</p>
+<p>func main() {<br>
+two1 := new(TwoInts)<br>
+two1.a = 12<br>
+two1.b = 10<br>
+fmt.Printf(“The sum is: %d\n”, two1.AddThem())<br>
+fmt.Printf(“Add them to the param: %d\n”, two1.AddToParam(20))<br>
+two2 := TwoInts{3, 4}<br>
+fmt.Printf(“The sum is: %d\n”, two2.AddThem())<br>
+}</p>
+<p>func (tn *TwoInts) AddThem() int {<br>
+return tn.a + tn.b<br>
+}</p>
+<p>func (tn *TwoInts) AddToParam(param int) int {<br>
+return tn.a + tn.b + param<br>
+}</p>
 <hr>
 <p>The sum is: 22</p>
 <p>Add them to the param: 42</p>
-<p>The sum is: 7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.2内嵌类型的方法和继承  </span><br><span class="line">    当一个匿名类型被内嵌在结构体中时，匿名类型的可见方法也同样被内嵌，这在效果上等同于外层类型继承了这些方法  </span><br><span class="line">&gt;示例：method3.go</span><br></pre></td></tr></table></figure></p>
+<p>The sum is: 7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.2内嵌类型的方法和继承  </span><br><span class="line">    当一个匿名类型被内嵌在结构体中时，匿名类型的可见方法也同样被内嵌，这在效果上等同于外层类型继承了这些方法  </span><br><span class="line">&gt;示例：method3.go</span><br></pre></td></tr></table></figure>
 <p>package main</p>
-<p>import (<br>    “fmt”<br>    “math”<br>)</p>
-<p>type Point struct {<br>    x, y float64<br>}</p>
-<p>func (p *Point) Abs() float64 {<br>    return math.Sqrt(p.xp.x + p.yp.y)<br>}</p>
-<p>type NamedPoint struct {<br>    Point<br>    name string<br>}</p>
-<p>func main() {<br>    n := &amp;NamedPoint{Point{3, 4}, “Pythagoras”}<br>    fmt.Println(n.Abs()) // 打印5<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.3接口（interface）</span><br><span class="line">      接口提供了一种方式来 说明 对象的行为，接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量  </span><br><span class="line">      1 一般定义为</span><br></pre></td></tr></table></figure></p>
-<p>type Namer interface {<br>    Method1(param_list) return_type<br>    Method2(param_list) return_type<br>    …<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;示例 interfaces.go:</span><br></pre></td></tr></table></figure></p>
+<p>import (<br>
+“fmt”<br>
+“math”<br>
+)</p>
+<p>type Point struct {<br>
+x, y float64<br>
+}</p>
+<p>func (p *Point) Abs() float64 {<br>
+return math.Sqrt(p.xp.x + p.yp.y)<br>
+}</p>
+<p>type NamedPoint struct {<br>
+Point<br>
+name string<br>
+}</p>
+<p>func main() {<br>
+n := &amp;NamedPoint{Point{3, 4}, “Pythagoras”}<br>
+fmt.Println(n.Abs()) // 打印5<br>
+}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.3接口（interface）</span><br><span class="line">      接口提供了一种方式来 说明 对象的行为，接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量  </span><br><span class="line">      1 一般定义为</span><br></pre></td></tr></table></figure>
+<p>type Namer interface {<br>
+Method1(param_list) return_type<br>
+Method2(param_list) return_type<br>
+…<br>
+}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;示例 interfaces.go:</span><br></pre></td></tr></table></figure>
 <p>package main</p>
 <p>import “fmt”</p>
-<p>type Shaper interface {<br>    Area() float32<br>}</p>
-<p>type Square struct {<br>    side float32<br>}</p>
-<p>func (sq <em>Square) Area() float32 {<br>    return sq.side </em> sq.side<br>}</p>
-<p>func main() {<br>    sq1 := new(Square)<br>    sq1.side = 5<br>    var areaIntf Shaper<br>    areaIntf = sq1<br>    // shorter,without separate declaration:<br>    // areaIntf := Shaper(sq1)<br>    // or even:<br>    // areaIntf := sq1<br>    fmt.Printf(“The square has area: %f\n”, areaIntf.Area())<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">注：接口变量包含一个指向 Square 变量的引用，通过它可以调用 Square 上的方法 Area()，接口变量里包含了接收者实例的值和指向对应方法表的指针</span><br><span class="line"></span><br><span class="line">当前示例即是Go 版本的多态，同一种类型在不同的实例上似乎表现出不同的行为</span><br><span class="line"></span><br><span class="line">The square has area: 25.000000</span><br><span class="line"></span><br><span class="line">#### 2.4 接口嵌套  </span><br><span class="line">    一个接口可以包含一个或多个其他的接口，相当于直接将这些内嵌接口的方法列举在外层接口中一样</span><br></pre></td></tr></table></figure></p>
-<p>type ReadWrite interface {<br>    Read(b Buffer) bool<br>    Write(b Buffer) bool<br>}</p>
-<p>type Lock interface {<br>    Lock()<br>    Unlock()<br>}</p>
-<p>type File interface {<br>    ReadWrite<br>    Lock<br>    Close()<br>    }<br><code>`</code></p>
+<p>type Shaper interface {<br>
+Area() float32<br>
+}</p>
+<p>type Square struct {<br>
+side float32<br>
+}</p>
+<p>func (sq *Square) Area() float32 {<br>
+return sq.side * sq.side<br>
+}</p>
+<p>func main() {<br>
+sq1 := new(Square)<br>
+sq1.side = 5<br>
+var areaIntf Shaper<br>
+areaIntf = sq1<br>
+// shorter,without separate declaration:<br>
+// areaIntf := Shaper(sq1)<br>
+// or even:<br>
+// areaIntf := sq1<br>
+fmt.Printf(“The square has area: %f\n”, areaIntf.Area())<br>
+}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">注：接口变量包含一个指向 Square 变量的引用，通过它可以调用 Square 上的方法 Area()，接口变量里包含了接收者实例的值和指向对应方法表的指针</span><br><span class="line"></span><br><span class="line">当前示例即是Go 版本的多态，同一种类型在不同的实例上似乎表现出不同的行为</span><br><span class="line"></span><br><span class="line">The square has area: 25.000000</span><br><span class="line"></span><br><span class="line">#### 2.4 接口嵌套  </span><br><span class="line">    一个接口可以包含一个或多个其他的接口，相当于直接将这些内嵌接口的方法列举在外层接口中一样</span><br></pre></td></tr></table></figure>
+<p>type ReadWrite interface {<br>
+Read(b Buffer) bool<br>
+Write(b Buffer) bool<br>
+}</p>
+<p>type Lock interface {<br>
+Lock()<br>
+Unlock()<br>
+}</p>
+<p>type File interface {<br>
+ReadWrite<br>
+Lock<br>
+Close()<br>
+}</p>
+<pre class="highlight"><code class></code></pre>
 
       
     </div>
@@ -493,7 +570,7 @@ field2 type2
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -504,7 +581,7 @@ field2 type2
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

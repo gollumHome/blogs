@@ -249,6 +249,388 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/07/24/xss-stored-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/07/24/xss-stored-md/" itemprop="url">xss_stored.md</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T23:33:35+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/security/" itemprop="url" rel="index">
+                    <span itemprop="name">security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>声明： 抄录自dvwa与互联网</p>
+<h2 id="2-存储型xss"><a class="markdownIt-Anchor" href="#2-存储型xss"></a> 2. 存储型xss</h2>
+<ul>
+<li>low</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &apos;btnSign&apos; ] ) ) &#123; </span><br><span class="line">    // Get input </span><br><span class="line">    $message = trim( $_POST[ &apos;mtxMessage&apos; ] ); </span><br><span class="line">    $name    = trim( $_POST[ &apos;txtName&apos; ] ); </span><br><span class="line"></span><br><span class="line">    // Sanitize message input </span><br><span class="line">    $message = stripslashes( $message ); </span><br><span class="line">    $message = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;)); </span><br><span class="line"></span><br><span class="line">    // Sanitize name input </span><br><span class="line">    $name = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;)); </span><br><span class="line"></span><br><span class="line">    // Update database </span><br><span class="line">    $query  = &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &apos;$message&apos;, &apos;$name&apos; );&quot;; </span><br><span class="line">    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &apos;&lt;pre&gt;&apos; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &apos;&lt;/pre&gt;&apos; );</span><br><span class="line"></span><br><span class="line">    //mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注解:</strong><br>
+trim(string,charlist)</p>
+<blockquote>
+<p>函数移除字符串两侧的空白字符或其他预定义字符，预定义字符包括、\t、\n、\x0B、\r以及空格，可选参数charlist支持添加额外需要删除的字符。</p>
+</blockquote>
+<p>mysql_real_escape_string(string,connection)</p>
+<blockquote>
+<p>函数会对字符串中的特殊符号（\x00，\n，\r，\，‘，“，\x1a）进行转义。</p>
+</blockquote>
+<p>stripslashes(string)</p>
+<blockquote>
+<p>函数删除字符串中的反斜杠。</p>
+</blockquote>
+<p>对输入并没有做XSS方面的过滤与检查，且存储在数据库中，因此存在明显的存储型XSS漏洞</p>
+<p><strong>漏洞利用</strong></p>
+<p><code>&lt;script&gt;alert(/xss/)&lt;/script&gt;</code></p>
+<ul>
+<li>medium</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &apos;btnSign&apos; ] ) ) &#123; </span><br><span class="line">    // Get input </span><br><span class="line">    $message = trim( $_POST[ &apos;mtxMessage&apos; ] ); </span><br><span class="line">    $name    = trim( $_POST[ &apos;txtName&apos; ] ); </span><br><span class="line"></span><br><span class="line">    // Sanitize message input </span><br><span class="line">    $message = strip_tags( addslashes( $message ) ); </span><br><span class="line">    $message = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;)); </span><br><span class="line">    $message = htmlspecialchars( $message ); </span><br><span class="line"></span><br><span class="line">    // Sanitize name input </span><br><span class="line">    $name = str_replace( &apos;&lt;script&gt;&apos;, &apos;&apos;, $name ); </span><br><span class="line">    $name = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;)); </span><br><span class="line"></span><br><span class="line">    // Update database </span><br><span class="line">    $query  = &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &apos;$message&apos;, &apos;$name&apos; );&quot;; </span><br><span class="line">    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &apos;&lt;pre&gt;&apos; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &apos;&lt;/pre&gt;&apos; );</span><br><span class="line"></span><br><span class="line">    //mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注解</strong><br>
+strip_tags()</p>
+<blockquote>
+<p>函数剥去字符串中的 HTML、XML 以及 PHP 的标签，但允许使用<b>标签。</b></p>
+</blockquote>
+<p>addslashes()</p>
+<blockquote>
+<p>函数返回在预定义字符（单引号、双引号、反斜杠、NULL）之前添加反斜杠的字符串。</p>
+</blockquote>
+<p>可以看到，由于对message参数使用了htmlspecialchars函数进行编码，因此无法再通过message参数注入XSS代码，但是对于name参数，只是简单过滤<code>&lt;script&gt;</code>字符串，仍然存在存储型漏洞</p>
+<p><strong>漏洞利用</strong></p>
+<p>1.双写绕过  改name参数为</p>
+<p><code>&lt;sc&lt;script&gt;ript&gt;alert(/xss/)&lt;/script&gt;</code></p>
+<p>2.大小写混淆绕过 改name参数为</p>
+<p><code>&lt;Script&gt;alert(/xss/)&lt;/script&gt;</code></p>
+<ul>
+<li>high</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &apos;btnSign&apos; ] ) ) &#123; </span><br><span class="line">    // Get input </span><br><span class="line">    $message = trim( $_POST[ &apos;mtxMessage&apos; ] ); </span><br><span class="line">    $name    = trim( $_POST[ &apos;txtName&apos; ] ); </span><br><span class="line"></span><br><span class="line">    // Sanitize message input </span><br><span class="line">    $message = strip_tags( addslashes( $message ) ); </span><br><span class="line">    $message = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;)); </span><br><span class="line">    $message = htmlspecialchars( $message ); </span><br><span class="line"></span><br><span class="line">    // Sanitize name input </span><br><span class="line">    $name = preg_replace( &apos;/&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i&apos;, &apos;&apos;, $name ); </span><br><span class="line">    $name = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;)); </span><br><span class="line"></span><br><span class="line">    // Update database </span><br><span class="line">    $query  = &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &apos;$message&apos;, &apos;$name&apos; );&quot;; </span><br><span class="line">    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &apos;&lt;pre&gt;&apos; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &apos;&lt;/pre&gt;&apos; );</span><br><span class="line"></span><br><span class="line">    //mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注解:</strong></p>
+<blockquote>
+<p>使用正则表达式过滤了<script>标签，但是却忽略了img、iframe等其它危险的标签，因此name参数依旧存在存储型XSS</p>
+</blockquote>
+<p><strong>漏洞利用</strong></p>
+<p><code>改name参数为&lt;img src=1 onerror=alert(1)&gt;</code></p>
+<ul>
+<li>impossible</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &apos;btnSign&apos; ] ) ) &#123; </span><br><span class="line">    // Check Anti-CSRF token </span><br><span class="line">    checkToken( $_REQUEST[ &apos;user_token&apos; ], $_SESSION[ &apos;session_token&apos; ], &apos;index.php&apos; ); </span><br><span class="line"></span><br><span class="line">    // Get input </span><br><span class="line">    $message = trim( $_POST[ &apos;mtxMessage&apos; ] ); </span><br><span class="line">    $name    = trim( $_POST[ &apos;txtName&apos; ] ); </span><br><span class="line"></span><br><span class="line">    // Sanitize message input </span><br><span class="line">    $message = stripslashes( $message ); </span><br><span class="line">    $message = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;)); </span><br><span class="line">    $message = htmlspecialchars( $message ); </span><br><span class="line"></span><br><span class="line">    // Sanitize name input </span><br><span class="line">    $name = stripslashes( $name ); </span><br><span class="line">    $name = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;)); </span><br><span class="line">    $name = htmlspecialchars( $name ); </span><br><span class="line"></span><br><span class="line">    // Update database </span><br><span class="line">    $data = $db-&gt;prepare( &apos;INSERT INTO guestbook ( comment, name ) VALUES ( :message, :name );&apos; ); </span><br><span class="line">    $data-&gt;bindParam( &apos;:message&apos;, $message, PDO::PARAM_STR ); </span><br><span class="line">    $data-&gt;bindParam( &apos;:name&apos;, $name, PDO::PARAM_STR ); </span><br><span class="line">    $data-&gt;execute(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// Generate Anti-CSRF token </span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注解:</strong></p>
+<blockquote>
+<p>使用htmlspecialchars函数，解决了XSS，但是要注意的是，如果htmlspecialchars函数使用不当，攻击者就可以通过编码的方式绕过函数进行XSS注入</p>
+</blockquote>
+</script></p></blockquote>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/07/24/xss-refelected-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shuai Guo">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="openstack">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gollumhome.github.io/2019/07/24/xss-refelected-md/" itemprop="url">xss_refelected.md</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T23:32:09+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/gollumhome.github.io/categories/security/" itemprop="url" rel="index">
+                    <span itemprop="name">security</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>声明： 抄录自dvwa与互联网<br>
+说明：dvwa氛围四个等级代码，每个等级对应的不同等级的安全性</p>
+<h1 id="1-反射型"><a class="markdownIt-Anchor" href="#1-反射型"></a> 1. 反射型</h1>
+<ul>
+<li>low后台代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">header (&quot;X-XSS-Protection: 0&quot;); </span><br><span class="line"></span><br><span class="line">// Is there any input? </span><br><span class="line">if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &apos;name&apos; ] != NULL ) &#123; </span><br><span class="line">    // Feedback for end user </span><br><span class="line">    echo &apos;&lt;pre&gt;Hello &apos; . $_GET[ &apos;name&apos; ] . &apos;&lt;/pre&gt;&apos;; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注解:</strong></p>
+<blockquote>
+<p>代码直接引用了name参数，并没有任何的过滤与检查，存在明显的XSS漏洞</p>
+</blockquote>
+<p>破解方式<br>
+<code>&lt;script&gt;alert(&quot;hello&quot;)&lt;/script&gt;</code></p>
+<ul>
+<li>medium后台代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">header (&quot;X-XSS-Protection: 0&quot;); </span><br><span class="line"></span><br><span class="line">// Is there any input? </span><br><span class="line">if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &apos;name&apos; ] != NULL ) &#123; </span><br><span class="line">    // Get input </span><br><span class="line">    $name = str_replace( &apos;&lt;script&gt;&apos;, &apos;&apos;, $_GET[ &apos;name&apos; ] ); </span><br><span class="line"></span><br><span class="line">    // Feedback for end user </span><br><span class="line">    echo &quot;&lt;pre&gt;Hello $&#123;name&#125;&lt;/pre&gt;&quot;; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注解:</strong></p>
+<blockquote>
+<p>对输入进行了过滤，基于黑名单的思想，使用<code>str_replace</code>函数将输入中的<code>&lt;script&gt;</code>删除</p>
+</blockquote>
+<p>破解方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 双写绕过检测 &lt;sc&lt;script&gt;ript&gt;alert(/xss/)&lt;/script&gt;  </span><br><span class="line"></span><br><span class="line">2. 大小写绕过   &lt;ScRipt&gt;alert(/xss/)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>high 后台代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">header (&quot;X-XSS-Protection: 0&quot;); </span><br><span class="line"></span><br><span class="line">// Is there any input? </span><br><span class="line">if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &apos;name&apos; ] != NULL ) &#123; </span><br><span class="line">    // Get input </span><br><span class="line">    $name = preg_replace( &apos;/&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i&apos;, &apos;&apos;, $_GET[ &apos;name&apos; ] ); </span><br><span class="line"></span><br><span class="line">    // Feedback for end user </span><br><span class="line">    echo &quot;&lt;pre&gt;Hello $&#123;name&#125;&lt;/pre&gt;&quot;; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注解:</strong><br>
+使用黑名单过滤输入，<code>preg_replace()</code> 函数用于正则表达式的搜索和替换，这使得双写绕过、大小写混淆绕过（正则表达式中i表示不区分大小写）不再有效</p>
+<p>破解说明：</p>
+<blockquote>
+<p>虽然无法使用<code>&lt;script&gt;</code>标签注入XSS代码，但是可以通过img、body等标签的事件或者iframe等标签的src注入恶意的js代码<code>&lt;img src=1 onerror=alert(/xss/)&gt;</code></p>
+</blockquote>
+<ul>
+<li>Impossible 后台代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">// Is there any input? </span><br><span class="line">if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &apos;name&apos; ] != NULL ) &#123; </span><br><span class="line">    // Check Anti-CSRF token </span><br><span class="line">    checkToken( $_REQUEST[ &apos;user_token&apos; ], $_SESSION[ &apos;session_token&apos; ], &apos;index.php&apos; ); </span><br><span class="line"></span><br><span class="line">    // Get input </span><br><span class="line">    $name = htmlspecialchars( $_GET[ &apos;name&apos; ] ); </span><br><span class="line"></span><br><span class="line">    // Feedback for end user </span><br><span class="line">    echo &quot;&lt;pre&gt;Hello $&#123;name&#125;&lt;/pre&gt;&quot;; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// Generate Anti-CSRF token </span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>注解</p>
+<blockquote>
+<p>Impossible级别的代码使用htmlspecialchars函数把预定义的字符&amp;、”、 ’、&lt;、&gt;转换为 HTML 实体，防止浏览器将其作为HTML元素</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/05/03/Neutron-DVR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -342,17 +724,20 @@
       
         
           
-            <h2 id="DVR"><a href="#DVR" class="headerlink" title="DVR"></a>DVR</h2><p> 分布式虚拟路由（Neutron Distributed Virtual Routing）  </p>
+            <h2 id="dvr"><a class="markdownIt-Anchor" href="#dvr"></a> DVR</h2>
+<p>分布式虚拟路由（Neutron Distributed Virtual Routing）</p>
 <blockquote>
-<p>Juno版本的trunk中已经合入了DVR相关的代码  </p>
+<p>Juno版本的trunk中已经合入了DVR相关的代码</p>
 </blockquote>
-<p> <em>未使用DVR</em>  </p>
+<p><em>未使用DVR</em></p>
 <blockquote>
-<p>东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈  </p>
+<p>东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈</p>
 </blockquote>
-<p> <img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr1.png" alt="image"><br> <em>启用DVR</em>  </p>
+<p><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr1.png" alt="image"><br>
+<em>启用DVR</em></p>
 <blockquote>
-<p>对于东西向的流量， 流量会直接在计算节点之间传递。<br>对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果没有floating ip，则会走网络节点   </p>
+<p>对于东西向的流量， 流量会直接在计算节点之间传递。<br>
+对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果没有floating ip，则会走网络节点</p>
 </blockquote>
 <p><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr2.png" alt="image"></p>
 
@@ -498,36 +883,58 @@
           
             <p>LDAP 入门</p>
 <ul>
-<li><p>参考  </p>
-<p>  <a href="https://segmentfault.com/a/1190000014683418" target="_blank" rel="noopener">https://segmentfault.com/a/1190000014683418</a><br>  <a href="https://darklipeng.iteye.com/blog/583615" target="_blank" rel="noopener">https://darklipeng.iteye.com/blog/583615</a><br>  官方文档:<br>  <a href="http://www.openldap.org/doc/admin24/guide.html#Configuring%20slapd" target="_blank" rel="noopener">http://www.openldap.org/doc/admin24/guide.html#Configuring%20slapd</a><br>  <a href="https://www.server-world.info/en/note?os=CentOS_7&amp;p=openldap&amp;f=1" target="_blank" rel="noopener">https://www.server-world.info/en/note?os=CentOS_7&amp;p=openldap&amp;f=1</a></p>
+<li>
+<p>参考</p>
+<p><a href="https://segmentfault.com/a/1190000014683418" target="_blank" rel="noopener">https://segmentfault.com/a/1190000014683418</a><br>
+<a href="https://darklipeng.iteye.com/blog/583615" target="_blank" rel="noopener">https://darklipeng.iteye.com/blog/583615</a><br>
+官方文档:<br>
+<a href="http://www.openldap.org/doc/admin24/guide.html#Configuring%20slapd" target="_blank" rel="noopener">http://www.openldap.org/doc/admin24/guide.html#Configuring slapd</a><br>
+<a href="https://www.server-world.info/en/note?os=CentOS_7&amp;p=openldap&amp;f=1" target="_blank" rel="noopener">https://www.server-world.info/en/note?os=CentOS_7&amp;p=openldap&amp;f=1</a></p>
 </li>
 </ul>
 <p>1.ldap是什么</p>
 <pre><code>ldap 是为查询、浏览和搜索而优化的专业分布式数据库，它呈树状结构组织数据。LDAP 中的信息按照目录信息树结构组织，树中的一个节点称之为条目（Entry），条目包含了该节点的属性及属性值。条目都可以通过识别名 dn 来全局的唯一确定，可以类比于关系型数据库中的主键。比如 dn 为 uid=ada,ou=People,dc=xinhua,dc=org 的条目表示在组织中一个名字叫做 Ada Catherine 的员工  
-</code></pre><ul>
-<li>特点<br>LDAP的结构用树来表示<br>查询快，写慢<br>LDAP提供了静态数据的快速查询方式<br>Client/server模型，Server 用于存储数据，Client提供操作目录信息树的工具<br>这些工具可以将数据库的内容以文本格式（LDAP 数据交换格式，LDIF）呈现</li>
-<li>使用场景<br>比如说你公司要安装一个项目管理工具，那么这个工具几乎必然支持LDAP协议，你公司要安装一个bug管理工具，这工具必然也支持LDAP协议，你公司要安装一套软件版本管理工具，这工具也必然支持LDAP协议。LDAP协议的好处就是你公司的所有员工在所有这些工具里共享同一套用户名和密码，来人的时候新增一个用户就能自动访问所有系统，走人的时候一键删除就取消了他对所有系统的访问权限，这就是LDAP  </li>
+</code></pre>
+<ul>
+<li>特点<br>
+LDAP的结构用树来表示<br>
+查询快，写慢<br>
+LDAP提供了静态数据的快速查询方式<br>
+Client/server模型，Server 用于存储数据，Client提供操作目录信息树的工具<br>
+这些工具可以将数据库的内容以文本格式（LDAP 数据交换格式，LDIF）呈现</li>
+<li>使用场景<br>
+比如说你公司要安装一个项目管理工具，那么这个工具几乎必然支持LDAP协议，你公司要安装一个bug管理工具，这工具必然也支持LDAP协议，你公司要安装一套软件版本管理工具，这工具也必然支持LDAP协议。LDAP协议的好处就是你公司的所有员工在所有这些工具里共享同一套用户名和密码，来人的时候新增一个用户就能自动访问所有系统，走人的时候一键删除就取消了他对所有系统的访问权限，这就是LDAP</li>
 </ul>
 <p>2.ldap 概念介绍</p>
 <ul>
-<li>关键字介绍<br>dn：一条记录的位置<br>dc：一条记录所属区域<br>ou：一条记录所属组织<br>cn/uid：一条记录的名字/ID</li>
-<li>通过Mysql 对比理解ldap   </li>
+<li>关键字介绍<br>
+dn：一条记录的位置<br>
+dc：一条记录所属区域<br>
+ou：一条记录所属组织<br>
+cn/uid：一条记录的名字/ID</li>
+<li>通过Mysql 对比理解ldap</li>
 </ul>
-<p>引用自 <a href="https://darklipeng.iteye.com/blog/583615" target="_blank" rel="noopener">https://darklipeng.iteye.com/blog/583615</a>    </p>
+<p>引用自 <a href="https://darklipeng.iteye.com/blog/583615" target="_blank" rel="noopener">https://darklipeng.iteye.com/blog/583615</a></p>
 <pre><code>MYSQL用“表”储存数据，LDAP用“树”
 
 MYSQL指定一条记录要3个条件：DB、TABLE、ROW。
 
 LDAP却更自由，为什么呢？因为LDAP数据是“树”状的，而且这棵树是可以无限延伸的，假设你要树上的一个苹果（一条记录），你怎么告诉园丁它的位置 呢？当然首先要说明是哪一棵树（dc，相当于MYSQL的DB），然后是从树根到那个苹果所经过的所有“分叉”（ou，呵呵MYSQL里面好象没有这 DD），最后就是这个苹果的名字（uid，记得我们设计MYSQL或其它数据库表时，通常为了方便管理而加上一个‘id’字段吗？）。好了！这时我们可以 清晰的指明这个苹果的位置了，就是那棵“歪脖树”的东边那个分叉上的靠西边那个分叉的再靠北边的分叉上的半红半绿的……，晕了！你直接爬上去吧！我还是说 说LDAP里要怎么定义一个字段的位置吧，树（dc=waibo,dc=com)，分叉（ou=bei,ou=xi,ou=dong），苹果 （cn=honglv），好了！位置出来了：
-</code></pre><p>dn:cn=honglv,ou=bei,ou=xi,ou=dong,dc=waibo,dc=com  </p>
+</code></pre>
+<p>dn:cn=honglv,ou=bei,ou=xi,ou=dong,dc=waibo,dc=com</p>
 <ul>
-<li>ldap 基本元素构成  </li>
+<li>ldap 基本元素构成</li>
 </ul>
 <ol>
-<li>entry<br>条目，是LDAP中的基本单元。通常对LDAP的添加、删除、更改、检索都是以条目为基本对象的。<br>dn：每一个条目都有一个唯一的标识名（distinguished Name ，DN），如上图中一个 dn：”cn=baby,ou=marketing,ou=people,dc=mydomain,dc=org” 。通过DN的层次型语法结构，可以方便地表示出条目在LDAP树中的位置，通常用于检索  </li>
-<li>attribute<br>每个条目都可以有很多属性（Attribute），比如常见的人都有姓名、地址、电话等属性。每个属性都有名称及对应的值，属性值可以有单个、多个，比如你有多个邮箱  </li>
-<li>ObjectClass<br>对象类是属性的集合，LDAP预想了很多人员组织机构中常见的对象，并将其封装成对象类。比如人员（person）含有姓（sn）、名（cn）、电话(telephoneNumber)、密码(userPassword)等属性，单位职工(organizationalPerson)是人员(person)的继承类，通过对象类可以方便的定义条目类型。每个条目可以直接继承多个对象类。</li>
-<li>Schema<br>schema类似关系数据库的字段说明，包括字段名，数据类型，数据长度等等。系统有一些默认的schema。对象类（ObjectClass）、属性类型（AttributeType）、语法（Syntax）分别约定了条目、属性、值，他们之间的关系如下图所示。所以这些构成了模式(Schema)——对象类的集合。条目数据在导入时通常需要接受模式检查，它确保了目录中所有的条目数据结构都是一致的</li>
+<li>entry<br>
+条目，是LDAP中的基本单元。通常对LDAP的添加、删除、更改、检索都是以条目为基本对象的。<br>
+dn：每一个条目都有一个唯一的标识名（distinguished Name ，DN），如上图中一个 dn：“cn=baby,ou=marketing,ou=people,dc=mydomain,dc=org” 。通过DN的层次型语法结构，可以方便地表示出条目在LDAP树中的位置，通常用于检索</li>
+<li>attribute<br>
+每个条目都可以有很多属性（Attribute），比如常见的人都有姓名、地址、电话等属性。每个属性都有名称及对应的值，属性值可以有单个、多个，比如你有多个邮箱</li>
+<li>ObjectClass<br>
+对象类是属性的集合，LDAP预想了很多人员组织机构中常见的对象，并将其封装成对象类。比如人员（person）含有姓（sn）、名（cn）、电话(telephoneNumber)、密码(userPassword)等属性，单位职工(organizationalPerson)是人员(person)的继承类，通过对象类可以方便的定义条目类型。每个条目可以直接继承多个对象类。</li>
+<li>Schema<br>
+schema类似关系数据库的字段说明，包括字段名，数据类型，数据长度等等。系统有一些默认的schema。对象类（ObjectClass）、属性类型（AttributeType）、语法（Syntax）分别约定了条目、属性、值，他们之间的关系如下图所示。所以这些构成了模式(Schema)——对象类的集合。条目数据在导入时通常需要接受模式检查，它确保了目录中所有的条目数据结构都是一致的</li>
 </ol>
 
           
@@ -670,18 +1077,22 @@ LDAP却更自由，为什么呢？因为LDAP数据是“树”状的，而且这
       
         
           
-            <h3 id="3-与oop分析对比"><a href="#3-与oop分析对比" class="headerlink" title="3. 与oop分析对比"></a>3. 与oop分析对比</h3><p>3.1 封装：  </p>
+            <h3 id="3-与oop分析对比"><a class="markdownIt-Anchor" href="#3-与oop分析对比"></a> 3. 与oop分析对比</h3>
+<p>3.1 封装：</p>
 <blockquote>
-<p>可以把struct看成一个类，可以看成对struct的封装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type struct1 struct &#123;</span><br><span class="line">    i1  int</span><br><span class="line">    f1  float32</span><br><span class="line">    str string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以把struct看成一个类，可以看成对struct的封装</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type struct1 struct &#123;</span><br><span class="line">    i1  int</span><br><span class="line">    f1  float32</span><br><span class="line">    str string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>3.2继承:</p>
 <blockquote>
-<p>结构体的嵌套模拟继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">type A struct&#123; //父类</span><br><span class="line">    name string	</span><br><span class="line">    age int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct&#123;//子类	</span><br><span class="line">    a A // 模拟聚合关系	.....</span><br><span class="line"></span><br><span class="line">type C struct&#123;//子类</span><br><span class="line">    A // 模拟继承</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b := B&#123;&#125;</span><br><span class="line">b.a.name</span><br><span class="line">c := C&#123;&#125;</span><br><span class="line">b.name</span><br></pre></td></tr></table></figure></p>
+<p>结构体的嵌套模拟继承</p>
 </blockquote>
-<p>3.3 多态：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">type A struct&#123; //父类</span><br><span class="line">    name string	</span><br><span class="line">    age int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct&#123;//子类	</span><br><span class="line">    a A // 模拟聚合关系	.....</span><br><span class="line"></span><br><span class="line">type C struct&#123;//子类</span><br><span class="line">    A // 模拟继承</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b := B&#123;&#125;</span><br><span class="line">b.a.name</span><br><span class="line">c := C&#123;&#125;</span><br><span class="line">b.name</span><br></pre></td></tr></table></figure>
+<p>3.3 多态：</p>
 <blockquote>
-<p>接口的所有方法的任何类型都表示隐式实现该接口。类型接口的变量可以保存实现该接口的任何值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    package main</span><br><span class="line">     </span><br><span class="line">    import (</span><br><span class="line">    	&quot;fmt&quot;</span><br><span class="line">    )</span><br><span class="line">     </span><br><span class="line">    type Person interface &#123;</span><br><span class="line">    	SayHello()</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Girl struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Boy struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Girl) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Boy) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func main() &#123;</span><br><span class="line">    	g := &amp;Girl&#123;&quot;girl&quot;&#125;</span><br><span class="line">    	b := &amp;Boy&#123;&quot;boy&quot;&#125;</span><br><span class="line">    	p := map[int]Person&#123;&#125;</span><br><span class="line">    	p[0] = g</span><br><span class="line">    	p[1] = b</span><br><span class="line">     </span><br><span class="line">    	for _, v := range p &#123;</span><br><span class="line">    		v.SayHello()</span><br><span class="line">    	&#125; </span><br><span class="line">    &#125;</span><br><span class="line">-------------------</span><br><span class="line">    Hi, I am a boy</span><br><span class="line">    Hi, I am a gir</span><br></pre></td></tr></table></figure></p>
+<p>接口的所有方法的任何类型都表示隐式实现该接口。类型接口的变量可以保存实现该接口的任何值</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">    package main</span><br><span class="line">     </span><br><span class="line">    import (</span><br><span class="line">    	&quot;fmt&quot;</span><br><span class="line">    )</span><br><span class="line">     </span><br><span class="line">    type Person interface &#123;</span><br><span class="line">    	SayHello()</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Girl struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    type Boy struct &#123;</span><br><span class="line">    	Sex string</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Girl) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func (this *Boy) SayHello() &#123;</span><br><span class="line">    	fmt.Println(&quot;Hi, I am a &quot; + this.Sex)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    func main() &#123;</span><br><span class="line">    	g := &amp;Girl&#123;&quot;girl&quot;&#125;</span><br><span class="line">    	b := &amp;Boy&#123;&quot;boy&quot;&#125;</span><br><span class="line">    	p := map[int]Person&#123;&#125;</span><br><span class="line">    	p[0] = g</span><br><span class="line">    	p[1] = b</span><br><span class="line">     </span><br><span class="line">    	for _, v := range p &#123;</span><br><span class="line">    		v.SayHello()</span><br><span class="line">    	&#125; </span><br><span class="line">    &#125;</span><br><span class="line">-------------------</span><br><span class="line">    Hi, I am a boy</span><br><span class="line">    Hi, I am a gir</span><br></pre></td></tr></table></figure>
 
           
         
@@ -823,34 +1234,44 @@ LDAP却更自由，为什么呢？因为LDAP数据是“树”状的，而且这
       
         
           
-            <h3 id="4-并发介绍"><a href="#4-并发介绍" class="headerlink" title="4.并发介绍"></a>4.并发介绍</h3><pre><code>*协程（goroutine）与通道（channel)*    
+            <h3 id="4并发介绍"><a class="markdownIt-Anchor" href="#4并发介绍"></a> 4.并发介绍</h3>
+<pre><code>*协程（goroutine）与通道（channel)*    
 &gt;goroutine这个概念类似于轻量级线程，运行时管理的轻量级线程  
-</code></pre><p>go f(x, y, z)  启动一个新的 Go 程并执行</p>
-<h4 id="4-1-changel"><a href="#4-1-changel" class="headerlink" title="4.1 changel"></a>4.1 changel</h4><p>ch &lt;- v    // 将 v 发送至信道 ch。</p>
+</code></pre>
+<p>go f(x, y, z)  启动一个新的 Go 程并执行</p>
+<h4 id="41-changel"><a class="markdownIt-Anchor" href="#41-changel"></a> 4.1 changel</h4>
+<p>ch &lt;- v    // 将 v 发送至信道 ch。</p>
 <p>v := &lt;-ch  // 从 ch 接收值并赋予 v。</p>
 <p>必须先创建changel</p>
 <p>ch := make(chan int)</p>
 <p>默认情况下，发送和接收操作在另一端准备好之前都会阻塞。这使得 Go 程可以在没有显式的锁或竞态变量的情况下进行同步</p>
 <ul>
-<li>带缓冲区changel  </li>
+<li>带缓冲区changel</li>
 </ul>
 <p>ch := make(chan int, 100)</p>
 <p>仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞</p>
 <ul>
-<li>range 和 close<br>  发送者可通过 close 关闭一个信道来表示没有需要发送的值了。接收者可以通过为接收表达式分配第二个参数来测试信道是否被关闭：若没有值可以接收且信道已被关闭，那么在执行完</li>
+<li>range 和 close<br>
+发送者可通过 close 关闭一个信道来表示没有需要发送的值了。接收者可以通过为接收表达式分配第二个参数来测试信道是否被关闭：若没有值可以接收且信道已被关闭，那么在执行完</li>
 </ul>
 <p>v, ok := &lt;-ch</p>
 <pre><code>之后 ok 会被设置为 false  
 循环 for i := range c  会不断从信道接收值，直到它被关闭
-</code></pre><p>注意： 只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。</p>
+</code></pre>
+<p>注意： 只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。</p>
 <p>还要注意： 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有值需要发送的时候才有必要关闭，例如终止一个 range 循环</p>
 <ul>
-<li>sync.Mutex<br>  Go 标准库中提供了 sync.Mutex 互斥锁类型及其两个方法：Lock 、Unlock<br>  也可以用 defer 语句来保证互斥锁一定会被解锁<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
+<li>sync.Mutex<br>
+Go 标准库中提供了 sync.Mutex 互斥锁类型及其两个方法：Lock 、Unlock<br>
+也可以用 defer 语句来保证互斥锁一定会被解锁</li>
 </ul>
-<p>// SafeCounter 的并发使用是安全的。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type SafeCounter struct &#123;</span><br><span class="line">	v   map[string]int</span><br><span class="line">	mux sync.Mutex</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>// Inc 增加给定 key 的计数器的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func (c *SafeCounter) Inc(key string) &#123;</span><br><span class="line">	c.mux.Lock()</span><br><span class="line">	// Lock 之后同一时刻只有一个 goroutine 能访问 c.v</span><br><span class="line">	c.v[key]++</span><br><span class="line">	c.mux.Unlock()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>// Value 返回给定 key 的计数器的当前值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func (c *SafeCounter) Value(key string) int &#123;</span><br><span class="line">	c.mux.Lock()</span><br><span class="line">	// Lock 之后同一时刻只有一个 goroutine 能访问 c.v</span><br><span class="line">	defer c.mux.Unlock()</span><br><span class="line">	return c.v[key]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	c := SafeCounter&#123;v: make(map[string]int)&#125;</span><br><span class="line">	for i := 0; i &lt; 1000; i++ &#123;</span><br><span class="line">		go c.Inc(&quot;somekey&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	fmt.Println(c.Value(&quot;somekey&quot;))</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>// SafeCounter 的并发使用是安全的。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type SafeCounter struct &#123;</span><br><span class="line">	v   map[string]int</span><br><span class="line">	mux sync.Mutex</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>// Inc 增加给定 key 的计数器的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func (c *SafeCounter) Inc(key string) &#123;</span><br><span class="line">	c.mux.Lock()</span><br><span class="line">	// Lock 之后同一时刻只有一个 goroutine 能访问 c.v</span><br><span class="line">	c.v[key]++</span><br><span class="line">	c.mux.Unlock()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>// Value 返回给定 key 的计数器的当前值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func (c *SafeCounter) Value(key string) int &#123;</span><br><span class="line">	c.mux.Lock()</span><br><span class="line">	// Lock 之后同一时刻只有一个 goroutine 能访问 c.v</span><br><span class="line">	defer c.mux.Unlock()</span><br><span class="line">	return c.v[key]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	c := SafeCounter&#123;v: make(map[string]int)&#125;</span><br><span class="line">	for i := 0; i &lt; 1000; i++ &#123;</span><br><span class="line">		go c.Inc(&quot;somekey&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	fmt.Println(c.Value(&quot;somekey&quot;))</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1001,43 +1422,120 @@ LDAP却更自由，为什么呢？因为LDAP数据是“树”状的，而且这
 
 field2 type2
 ...
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)</span><br><span class="line">    访问结构体变量或赋值</span><br></pre></td></tr></table></figure></p>
+</code></pre>
+<p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)</span><br><span class="line">    访问结构体变量或赋值</span><br></pre></td></tr></table></figure>
 <p>structname.fieldname</p>
-<p>structname.fieldname = value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 匿名字段和内嵌结构体  </span><br><span class="line">    结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</span><br></pre></td></tr></table></figure></p>
+<p>structname.fieldname = value</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 匿名字段和内嵌结构体  </span><br><span class="line">    结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</span><br></pre></td></tr></table></figure>
 <p>package main</p>
 <p>import “fmt”</p>
-<p>type A struct {<br>    ax, ay int<br>}</p>
-<p>type B struct {<br>    A<br>    bx, by float32<br>}</p>
-<p>func main() {<br>    b := B{A{1, 2}, 3.0, 4.0}<br>    fmt.Println(b.ax, b.ay, b.bx, b.by)<br>    fmt.Println(b.A)<br>}</p>
+<p>type A struct {<br>
+ax, ay int<br>
+}</p>
+<p>type B struct {<br>
+A<br>
+bx, by float32<br>
+}</p>
+<p>func main() {<br>
+b := B{A{1, 2}, 3.0, 4.0}<br>
+fmt.Println(<a href="http://b.ax" target="_blank" rel="noopener">b.ax</a>, b.ay, b.bx, <a href="http://b.by" target="_blank" rel="noopener">b.by</a>)<br>
+fmt.Println(b.A)<br>
+}</p>
 <p>1 2 3 4</p>
-<p>{1 2}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.1 方法  </span><br><span class="line">    结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  </span><br><span class="line">    定义方法的一般格式如下：</span><br></pre></td></tr></table></figure></p>
-<p>func (recv receiver_type) methodName(parameter_list) (return_value_list) { … }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 示例method .go</span><br></pre></td></tr></table></figure></p>
+<p>{1 2}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.1 方法  </span><br><span class="line">    结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  </span><br><span class="line">    定义方法的一般格式如下：</span><br></pre></td></tr></table></figure>
+<p>func (recv receiver_type) methodName(parameter_list) (return_value_list) { … }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 示例method .go</span><br></pre></td></tr></table></figure>
 <p>package main</p>
 <p>import “fmt”</p>
-<p>type TwoInts struct {<br>    a int<br>    b int<br>}</p>
-<p>func main() {<br>    two1 := new(TwoInts)<br>    two1.a = 12<br>    two1.b = 10<br>    fmt.Printf(“The sum is: %d\n”, two1.AddThem())<br>    fmt.Printf(“Add them to the param: %d\n”, two1.AddToParam(20))<br>    two2 := TwoInts{3, 4}<br>    fmt.Printf(“The sum is: %d\n”, two2.AddThem())<br>}</p>
-<p>func (tn *TwoInts) AddThem() int {<br>    return tn.a + tn.b<br>}</p>
-<p>func (tn *TwoInts) AddToParam(param int) int {<br>    return tn.a + tn.b + param<br>}</p>
+<p>type TwoInts struct {<br>
+a int<br>
+b int<br>
+}</p>
+<p>func main() {<br>
+two1 := new(TwoInts)<br>
+two1.a = 12<br>
+two1.b = 10<br>
+fmt.Printf(“The sum is: %d\n”, two1.AddThem())<br>
+fmt.Printf(“Add them to the param: %d\n”, two1.AddToParam(20))<br>
+two2 := TwoInts{3, 4}<br>
+fmt.Printf(“The sum is: %d\n”, two2.AddThem())<br>
+}</p>
+<p>func (tn *TwoInts) AddThem() int {<br>
+return tn.a + tn.b<br>
+}</p>
+<p>func (tn *TwoInts) AddToParam(param int) int {<br>
+return tn.a + tn.b + param<br>
+}</p>
 <hr>
 <p>The sum is: 22</p>
 <p>Add them to the param: 42</p>
-<p>The sum is: 7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.2内嵌类型的方法和继承  </span><br><span class="line">    当一个匿名类型被内嵌在结构体中时，匿名类型的可见方法也同样被内嵌，这在效果上等同于外层类型继承了这些方法  </span><br><span class="line">&gt;示例：method3.go</span><br></pre></td></tr></table></figure></p>
+<p>The sum is: 7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.2内嵌类型的方法和继承  </span><br><span class="line">    当一个匿名类型被内嵌在结构体中时，匿名类型的可见方法也同样被内嵌，这在效果上等同于外层类型继承了这些方法  </span><br><span class="line">&gt;示例：method3.go</span><br></pre></td></tr></table></figure>
 <p>package main</p>
-<p>import (<br>    “fmt”<br>    “math”<br>)</p>
-<p>type Point struct {<br>    x, y float64<br>}</p>
-<p>func (p *Point) Abs() float64 {<br>    return math.Sqrt(p.xp.x + p.yp.y)<br>}</p>
-<p>type NamedPoint struct {<br>    Point<br>    name string<br>}</p>
-<p>func main() {<br>    n := &amp;NamedPoint{Point{3, 4}, “Pythagoras”}<br>    fmt.Println(n.Abs()) // 打印5<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.3接口（interface）</span><br><span class="line">      接口提供了一种方式来 说明 对象的行为，接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量  </span><br><span class="line">      1 一般定义为</span><br></pre></td></tr></table></figure></p>
-<p>type Namer interface {<br>    Method1(param_list) return_type<br>    Method2(param_list) return_type<br>    …<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;示例 interfaces.go:</span><br></pre></td></tr></table></figure></p>
+<p>import (<br>
+“fmt”<br>
+“math”<br>
+)</p>
+<p>type Point struct {<br>
+x, y float64<br>
+}</p>
+<p>func (p *Point) Abs() float64 {<br>
+return math.Sqrt(p.xp.x + p.yp.y)<br>
+}</p>
+<p>type NamedPoint struct {<br>
+Point<br>
+name string<br>
+}</p>
+<p>func main() {<br>
+n := &amp;NamedPoint{Point{3, 4}, “Pythagoras”}<br>
+fmt.Println(n.Abs()) // 打印5<br>
+}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#### 2.3接口（interface）</span><br><span class="line">      接口提供了一种方式来 说明 对象的行为，接口定义了一组方法（方法集），但是这些方法不包含（实现）代码：它们没有被实现（它们是抽象的）。接口里也不能包含变量  </span><br><span class="line">      1 一般定义为</span><br></pre></td></tr></table></figure>
+<p>type Namer interface {<br>
+Method1(param_list) return_type<br>
+Method2(param_list) return_type<br>
+…<br>
+}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;示例 interfaces.go:</span><br></pre></td></tr></table></figure>
 <p>package main</p>
 <p>import “fmt”</p>
-<p>type Shaper interface {<br>    Area() float32<br>}</p>
-<p>type Square struct {<br>    side float32<br>}</p>
-<p>func (sq <em>Square) Area() float32 {<br>    return sq.side </em> sq.side<br>}</p>
-<p>func main() {<br>    sq1 := new(Square)<br>    sq1.side = 5<br>    var areaIntf Shaper<br>    areaIntf = sq1<br>    // shorter,without separate declaration:<br>    // areaIntf := Shaper(sq1)<br>    // or even:<br>    // areaIntf := sq1<br>    fmt.Printf(“The square has area: %f\n”, areaIntf.Area())<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">注：接口变量包含一个指向 Square 变量的引用，通过它可以调用 Square 上的方法 Area()，接口变量里包含了接收者实例的值和指向对应方法表的指针</span><br><span class="line"></span><br><span class="line">当前示例即是Go 版本的多态，同一种类型在不同的实例上似乎表现出不同的行为</span><br><span class="line"></span><br><span class="line">The square has area: 25.000000</span><br><span class="line"></span><br><span class="line">#### 2.4 接口嵌套  </span><br><span class="line">    一个接口可以包含一个或多个其他的接口，相当于直接将这些内嵌接口的方法列举在外层接口中一样</span><br></pre></td></tr></table></figure></p>
-<p>type ReadWrite interface {<br>    Read(b Buffer) bool<br>    Write(b Buffer) bool<br>}</p>
-<p>type Lock interface {<br>    Lock()<br>    Unlock()<br>}</p>
-<p>type File interface {<br>    ReadWrite<br>    Lock<br>    Close()<br>    }<br><code>`</code></p>
+<p>type Shaper interface {<br>
+Area() float32<br>
+}</p>
+<p>type Square struct {<br>
+side float32<br>
+}</p>
+<p>func (sq *Square) Area() float32 {<br>
+return sq.side * sq.side<br>
+}</p>
+<p>func main() {<br>
+sq1 := new(Square)<br>
+sq1.side = 5<br>
+var areaIntf Shaper<br>
+areaIntf = sq1<br>
+// shorter,without separate declaration:<br>
+// areaIntf := Shaper(sq1)<br>
+// or even:<br>
+// areaIntf := sq1<br>
+fmt.Printf(“The square has area: %f\n”, areaIntf.Area())<br>
+}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">注：接口变量包含一个指向 Square 变量的引用，通过它可以调用 Square 上的方法 Area()，接口变量里包含了接收者实例的值和指向对应方法表的指针</span><br><span class="line"></span><br><span class="line">当前示例即是Go 版本的多态，同一种类型在不同的实例上似乎表现出不同的行为</span><br><span class="line"></span><br><span class="line">The square has area: 25.000000</span><br><span class="line"></span><br><span class="line">#### 2.4 接口嵌套  </span><br><span class="line">    一个接口可以包含一个或多个其他的接口，相当于直接将这些内嵌接口的方法列举在外层接口中一样</span><br></pre></td></tr></table></figure>
+<p>type ReadWrite interface {<br>
+Read(b Buffer) bool<br>
+Write(b Buffer) bool<br>
+}</p>
+<p>type Lock interface {<br>
+Lock()<br>
+Unlock()<br>
+}</p>
+<p>type File interface {<br>
+ReadWrite<br>
+Lock<br>
+Close()<br>
+}</p>
+<pre class="highlight"><code class></code></pre>
 
           
         
@@ -1179,18 +1677,20 @@ field2 type2
       
         
           
-            <h2 id="如何使用-Golang"><a href="#如何使用-Golang" class="headerlink" title="如何使用 Golang"></a>如何使用 Golang</h2><p>语法知识点练习  </p>
-<p><a href="http://tour.studygolang.com/welcome/1" target="_blank" rel="noopener">http://tour.studygolang.com/welcome/1</a>  </p>
-<p><strong>主要介绍三个方面</strong>  </p>
+            <h2 id="如何使用-golang"><a class="markdownIt-Anchor" href="#如何使用-golang"></a> 如何使用 Golang</h2>
+<p>语法知识点练习</p>
+<p><a href="http://tour.studygolang.com/welcome/1" target="_blank" rel="noopener">http://tour.studygolang.com/welcome/1</a></p>
+<p><strong>主要介绍三个方面</strong></p>
 <ol>
-<li>基础语法介绍，包含基本变量、流程控制、函数 等  </li>
-<li>方法与接口 </li>
-<li>如何实现面向对象、继承、多态、封装   </li>
-<li>并发介绍    </li>
-<li>错误处理与panic 恢复  </li>
+<li>基础语法介绍，包含基本变量、流程控制、函数 等</li>
+<li>方法与接口</li>
+<li>如何实现面向对象、继承、多态、封装</li>
+<li>并发介绍</li>
+<li>错误处理与panic 恢复</li>
 </ol>
-<h3 id="1-基础介绍"><a href="#1-基础介绍" class="headerlink" title="1. 基础介绍"></a>1. 基础介绍</h3><ul>
-<li>Go 程序的基本结构  </li>
+<h3 id="1-基础介绍"><a class="markdownIt-Anchor" href="#1-基础介绍"></a> 1. 基础介绍</h3>
+<ul>
+<li>Go 程序的基本结构</li>
 </ul>
 <p>示例hello_world.go</p>
 <pre><code>package main
@@ -1198,74 +1698,95 @@ field2 type2
 import &quot;fmt&quot;
 
 func main() {
-    fmt.Println(&quot;hello, world&quot;)
+	fmt.Println(&quot;hello, world&quot;)
 } 
-</code></pre><p>每个 Go 程序都是由包组成的,程序运行的入口是包 main;当前程序使用并导入了包 “fmt”  </p>
-<h4 id="1-1-包的概念、导入与可见性"><a href="#1-1-包的概念、导入与可见性" class="headerlink" title="1.1  包的概念、导入与可见性"></a>1.1  包的概念、导入与可见性</h4><ul>
-<li>每个程序都由包的概念组成，可以使用自身的包或者从其它包中导入内容   </li>
-<li>每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成  </li>
-<li>必须在源文件中非注释的第一行指明这个文件属于哪个包，如：package main,所有的包名都应该使用小写字母  </li>
+</code></pre>
+<p>每个 Go 程序都是由包组成的,程序运行的入口是包 main;当前程序使用并导入了包 “fmt”</p>
+<h4 id="11-包的概念-导入与可见性"><a class="markdownIt-Anchor" href="#11-包的概念-导入与可见性"></a> 1.1  包的概念、导入与可见性</h4>
+<ul>
+<li>每个程序都由包的概念组成，可以使用自身的包或者从其它包中导入内容</li>
+<li>每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成</li>
+<li>必须在源文件中非注释的第一行指明这个文件属于哪个包，如：package main,所有的包名都应该使用小写字母</li>
 </ul>
-<p><strong>引入多个包</strong>  </p>
+<p><strong>引入多个包</strong></p>
 <pre><code>import (
    &quot;fmt&quot;
    &quot;os&quot;
 )
-</code></pre><p><strong>可见性规则</strong>  </p>
+</code></pre>
+<p><strong>可见性规则</strong></p>
 <ol>
-<li><p>当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：Group1，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）  </p>
+<li>
+<p>当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：Group1，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）</p>
 </li>
-<li><p>标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 private ）  </p>
+<li>
+<p>标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 private ）</p>
 </li>
 </ol>
-<h4 id="1-2-数据类型"><a href="#1-2-数据类型" class="headerlink" title="1.2  数据类型"></a>1.2  数据类型</h4><ul>
-<li>数字类型：包含整型、浮点型、复数    </li>
-<li>布尔型  </li>
-<li><p>字符串  </p>
+<h4 id="12-数据类型"><a class="markdownIt-Anchor" href="#12-数据类型"></a> 1.2  数据类型</h4>
+<ul>
+<li>数字类型：包含整型、浮点型、复数</li>
+<li>布尔型</li>
+<li>字符串</li>
+</ul>
 <blockquote>
 <p>var str1 string = “str”</p>
 </blockquote>
-</li>
-<li><p>派生类型：包含struct、array、slice、map、channel,interface  </p>
+<ul>
+<li>
+<p>派生类型：包含struct、array、slice、map、channel,interface</p>
 <p>数组：var identifier [len]type  固定长度 ，值类型</p>
 <p>切片：var identifier []type   切片是一个 长度可变的数组 ，引用类型</p>
-<p>map ： var map1 map[keytype]valuetype </p>
+<p>map ： var map1 map[keytype]valuetype</p>
 <p>channel: chan T</p>
 </li>
 </ul>
-<h4 id="1-3-数组、切片、Map"><a href="#1-3-数组、切片、Map" class="headerlink" title="1.3 数组、切片、Map"></a>1.3 数组、切片、Map</h4><ul>
-<li><p>数组</p>
+<h4 id="13-数组-切片-map"><a class="markdownIt-Anchor" href="#13-数组-切片-map"></a> 1.3 数组、切片、Map</h4>
+<ul>
+<li>
+<p>数组</p>
 <p>数组的长度是其类型的一部分，因此数组不能改变大小</p>
-<p>   primes := [6]int{2, 3, 5, 7, 11, 13}</p>
+<p>primes := [6]int{2, 3, 5, 7, 11, 13}</p>
 </li>
-<li><p>切片  </p>
+<li>
+<p>切片</p>
 </li>
 </ul>
 <p>切片（slice）是对数组一个连续片段的引用，切片则为数组元素提供动态大小</p>
-<pre><code>primes := [6]int{2, 3, 5, 7, 11, 13} --&gt;数组
-var s []int = primes[1:4]  -&gt;切片
-</code></pre><p> maek 创建切片指定大小</p>
-<pre><code>a := make([]int, 5)
-</code></pre><ul>
-<li>for - range遍历  </li>
+<pre><code> primes := [6]int{2, 3, 5, 7, 11, 13} --&gt;数组
+ var s []int = primes[1:4]  -&gt;切片
+</code></pre>
+<p>maek 创建切片指定大小</p>
+<pre><code> a := make([]int, 5)
+</code></pre>
+<ul>
+<li>for - range遍历</li>
 </ul>
 <p>for 循环的 range 形式可遍历切片或映射</p>
 <pre><code> for ix, value := range slice1 {
-    ...
+	...
 }
-</code></pre><p>当使用 for 循环遍历切片时，每次迭代都会返回两个值。第一个值为当前元素的下标，第二个值为该下标所对应元素的一份副本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">var pow = []int&#123;1, 2, 4, 8, 16, 32, 64, 128&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i, v := range pow &#123;</span><br><span class="line">		fmt.Printf(&quot;2**%d = %d\n&quot;, i, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">--------------------</span><br><span class="line">2**0 = 1</span><br><span class="line">2**1 = 2</span><br><span class="line">2**2 = 4</span><br></pre></td></tr></table></figure></p>
-<h4 id="1-4MAP使用"><a href="#1-4MAP使用" class="headerlink" title="1.4MAP使用"></a>1.4MAP使用</h4><pre><code>var map1 map[keytype]valuetype
+</code></pre>
+<p>当使用 for 循环遍历切片时，每次迭代都会返回两个值。第一个值为当前元素的下标，第二个值为该下标所对应元素的一份副本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">var pow = []int&#123;1, 2, 4, 8, 16, 32, 64, 128&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i, v := range pow &#123;</span><br><span class="line">		fmt.Printf(&quot;2**%d = %d\n&quot;, i, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">--------------------</span><br><span class="line">2**0 = 1</span><br><span class="line">2**1 = 2</span><br><span class="line">2**2 = 4</span><br></pre></td></tr></table></figure>
+<h4 id="14map使用"><a class="markdownIt-Anchor" href="#14map使用"></a> 1.4MAP使用</h4>
+<pre><code>var map1 map[keytype]valuetype
 var map1 map[string]int
-</code></pre><ul>
-<li><p>测试键值对是否存在及删除元素</p>
-<p>  val1, isPresent = map1[key1]<br>  isPresent 返回一个 bool 值：如果 key1 存在于 map1，val1 就是 key1 对应的 value 值，并且 isPresent为true；如果 key1 不存在，val1 就是一个空值，并且 isPresent 会返回 false</p>
+</code></pre>
+<ul>
+<li>
+<p>测试键值对是否存在及删除元素</p>
+<p>val1, isPresent = map1[key1]<br>
+isPresent 返回一个 bool 值：如果 key1 存在于 map1，val1 就是 key1 对应的 value 值，并且 isPresent为true；如果 key1 不存在，val1 就是一个空值，并且 isPresent 会返回 false</p>
 </li>
-<li><p>如果你只是想判断某个 key 是否存在而不关心它对应的 值  </p>
+<li>
+<p>如果你只是想判断某个 key 是否存在而不关心它对应的 值</p>
 <blockquote>
-<p>_, ok := map1[key1] // 如果key1存在则ok == true，否则ok为false   </p>
+<p>_, ok := map1[key1] // 如果key1存在则ok == true，否则ok为false</p>
 </blockquote>
 </li>
-<li><p>与if 混合使用</p>
+<li>
+<p>与if 混合使用</p>
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if _, ok := map1[key1]; ok &#123;</span><br><span class="line">	// ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1274,86 +1795,122 @@ var map1 map[string]int
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for key, value := range map1 &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果只关心值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for _, value := range map1 &#123;</span><br><span class="line">	..</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果只关心值</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for _, value := range map1 &#123;</span><br><span class="line">	..</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果只想获取 key，你可以这么使用：  </p>
+<p>如果只想获取 key，你可以这么使用：</p>
 </blockquote>
 <figure class="highlight plain"><figcaption><span>key :</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	fmt.Printf(&quot;key is: %d\n&quot;, key)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="1-5-类型转换"><a href="#1-5-类型转换" class="headerlink" title="1.5 类型转换"></a>1.5 类型转换</h4><p>Go 语言不存在隐式类型转换，必须显式说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a := 5.0</span><br><span class="line">b := int(a)</span><br></pre></td></tr></table></figure></p>
-<h4 id="1-6-控制流程"><a href="#1-6-控制流程" class="headerlink" title="1.6 控制流程"></a>1.6 控制流程</h4><ul>
-<li>if-else结构  </li>
+<h4 id="15-类型转换"><a class="markdownIt-Anchor" href="#15-类型转换"></a> 1.5 类型转换</h4>
+<p>Go 语言不存在隐式类型转换，必须显式说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a := 5.0</span><br><span class="line">b := int(a)</span><br></pre></td></tr></table></figure>
+<h4 id="16-控制流程"><a class="markdownIt-Anchor" href="#16-控制流程"></a> 1.6 控制流程</h4>
+<ul>
+<li>if-else结构</li>
 </ul>
 <p>Go 完全省略了 if、switch 和 for 结构中条件语句两侧的括号，相比 Java、C++ 和 C# 中减少了很多视觉混乱的因素，同时也使你的代码更加简洁。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if condition &#123;</span><br><span class="line">	// do something	</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	// do something	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>关键字 if 和 else 之后的左大括号 { 必须和关键字在同一行，如果你使用了 else-if 结构，则前段代码块的右大括号 } 必须和 else-if 关键字在同一行。这两条规则都是被编译器强制规定的。</p>
 <p>​    <em>非法的 Go 代码:</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if x&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">else &#123;	// 无效的</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 当 if 结构内有 break、continue、goto 或者 return 语句时， Go 代码的常见写法是省略 else 部分。无论满足哪个条件都会返回 x 或者 y 时，一般使用以下写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if condition &#123;</span><br><span class="line"></span><br><span class="line">	return x</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return y</span><br></pre></td></tr></table></figure></p>
+<p>当 if 结构内有 break、continue、goto 或者 return 语句时， Go 代码的常见写法是省略 else 部分。无论满足哪个条件都会返回 x 或者 y 时，一般使用以下写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if condition &#123;</span><br><span class="line"></span><br><span class="line">	return x</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return y</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>switch结构  </p>
+<li>switch结构</li>
+</ul>
 <p>相比较 C 和 Java 等其它语言而言，Go 语言中的 switch 结构使用上更加灵活。它接受任意形式的表达式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">switch var1 &#123;</span><br><span class="line">	case val1:</span><br><span class="line">		...	</span><br><span class="line">	case val2:</span><br><span class="line">		...</span><br><span class="line">	default:</span><br><span class="line">		...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>for 循环遍历</p>
-<blockquote>
-<p>基本形式为 for 初始化语句; 条件语句; 修饰语句 {}  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i := 0; i &lt; 5; i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;This is the %d iteration\n&quot;, i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<p><em>基于条件判断</em><br>    &gt; 基本形式为 for 条件语句 {},类似其它语言中的 while 循环<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i &gt;= 0 &#123;</span><br><span class="line">		i = i - 1</span><br><span class="line">		fmt.Printf(&quot;The variable i is now: %d\n&quot;, i)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li><p>break和continue  </p>
-<p>break被用于任何形式的for循环以及switch或select语句，continue只能被用于for循环  </p>
-<h4 id="1-7-函数"><a href="#1-7-函数" class="headerlink" title="1.7 函数"></a>1.7 函数</h4><ul>
-<li>函数     <blockquote>
-<p>函数是 Go 里面的基本代码块,Go 里面有三种类型的函数：<br>普通的带有名字的函数<br>匿名函数或者lambda函数<br>方法Methods<br>符合规范的函数一般写成如下的形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func functionName(parameter_list) (return_value_list) &#123;</span><br><span class="line">   …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>for 循环遍历
+<blockquote>
+<p>基本形式为 for 初始化语句; 条件语句; 修饰语句 {}</p>
 </blockquote>
 </li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i := 0; i &lt; 5; i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;This is the %d iteration\n&quot;, i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>基于条件判断</em><br>
+&gt; 基本形式为 for 条件语句 {},类似其它语言中的 while 循环</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i &gt;= 0 &#123;</span><br><span class="line">		i = i - 1</span><br><span class="line">		fmt.Printf(&quot;The variable i is now: %d\n&quot;, i)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>break和continue</p>
+<p>break被用于任何形式的for循环以及switch或select语句，continue只能被用于for循环</p>
+<h4 id="17-函数"><a class="markdownIt-Anchor" href="#17-函数"></a> 1.7 函数</h4>
+<ul>
+<li>函数</li>
+</ul>
 </li>
 </ul>
+<blockquote>
+<p>函数是 Go 里面的基本代码块,Go 里面有三种类型的函数：<br>
+普通的带有名字的函数<br>
+匿名函数或者lambda函数<br>
+方法Methods<br>
+符合规范的函数一般写成如下的形式：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func functionName(parameter_list) (return_value_list) &#123;</span><br><span class="line">   …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注：1.函数需要被外部包调用的时候使用大写字母开头，遵循骆驼命名法。</p>
 <pre><code>2.左大括号 { 必须与方法的声明放在同一行，这是编译器的强制规定，否则你在使用 gofmt 时就会出现错误提示
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build-error: syntax error: unexpected semicolon or newline before &#123;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">build-error: syntax error: unexpected semicolon or newline before &#123;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>函数返回值<br>  函数可以拥有多返回值，返回类型之间需要使用逗号分割，并使用小括号 () 将它们括起来  </p>
+<li>
+<p>函数返回值<br>
+函数可以拥有多返回值，返回类型之间需要使用逗号分割，并使用小括号 () 将它们括起来</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func FunctionName (a typea, b typeb) (t1 type1, t2 type2)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>init 函数<br>  1&gt;一类非常特殊的函数，它不能够被人为调用，而是在每个包完成初始化后自动执行，并且执行优先级比 main 函数高<br>  2&gt;每个源文件都只能包含一个 init 函数。初始化总是以单线程执行，并且按照包的依赖关系顺序执行  </p>
-<p>  可能的用途：  变量初始化 init.go</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package trans</span><br><span class="line"></span><br><span class="line">import &quot;math&quot;</span><br><span class="line"></span><br><span class="line">var Pi float64</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line"></span><br><span class="line">   Pi = 4 * math.Atan(1) // init() function computes Pi</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>按值传递、按引用传递  </p>
-<pre><code>1&gt;默认使用按值传递来传递参数，也就是传递参数的副本。函数接收参数副本之后，在使用变量的过程中可能对副本的值进行更改，但不会影响到原来的变量  
-2&gt; 如果函数直接修改参数的值，而不是对参数的副本进行操作，需要按引用传递，即变量名前面添加&amp;符号  
-</code></pre><p>  注：函数调用时，像切片（slice）、字典（map）、接口（interface）、通道（channel）这样的引用类型都是默认使用引用传递（即使没有显式的指出指针）</p>
-</li>
-<li><p>传递变长参数<br>  函数的最后一个参数是采用 …type 的形式，那么这个函数就可以处理一个变长的参数，这个长度可以为0  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func myFunc(a, b, arg ...int) &#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>defer 函数<br>  defer 语句会将函数推迟到外层函数返回之后执行<br>  推迟调用的函数其参数会立即求值，但直到外层函数返回前该函数都不会被调用<br>  ==使用场景：一般用于释放某些已分配的资源==</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	defer fmt.Println(&quot;world&quot;)</span><br><span class="line">	fmt.Println(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello</span><br><span class="line"></span><br><span class="line">world</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>回调<br>  函数可以作为其它函数的参数进行传递  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	callback(1, Add)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Add(a, b int) &#123;</span><br><span class="line">	fmt.Printf(&quot;The sum of %d and %d is: %d\n&quot;, a, b, a+b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func callback(y int, f func(int, int)) &#123;</span><br><span class="line">	f(y, 2) // this becomes Add(1, 2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">The sum of 1 and 2 is: 3</span><br><span class="line">## 2. 结构struct与方法method  </span><br><span class="line">    </span><br><span class="line">- 结构体定义的一般方式如下：  </span><br><span class="line"></span><br><span class="line">type identifier struct &#123;</span><br><span class="line"></span><br><span class="line">    field1 type1</span><br><span class="line">    </span><br><span class="line">    field2 type2</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>
+<p>init 函数<br>
+1&gt;一类非常特殊的函数，它不能够被人为调用，而是在每个包完成初始化后自动执行，并且执行优先级比 main 函数高<br>
+2&gt;每个源文件都只能包含一个 init 函数。初始化总是以单线程执行，并且按照包的依赖关系顺序执行</p>
+<p>可能的用途：  变量初始化 init.go</p>
 </li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package trans</span><br><span class="line"></span><br><span class="line">import &quot;math&quot;</span><br><span class="line"></span><br><span class="line">var Pi float64</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line"></span><br><span class="line">   Pi = 4 * math.Atan(1) // init() function computes Pi</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>按值传递、按引用传递<br>
+1&gt;默认使用按值传递来传递参数，也就是传递参数的副本。函数接收参数副本之后，在使用变量的过程中可能对副本的值进行更改，但不会影响到原来的变量<br>
+2&gt; 如果函数直接修改参数的值，而不是对参数的副本进行操作，需要按引用传递，即变量名前面添加&amp;符号<br>
+注：函数调用时，像切片（slice）、字典（map）、接口（interface）、通道（channel）这样的引用类型都是默认使用引用传递（即使没有显式的指出指针）</p>
+</li>
+<li>
+<p>传递变长参数<br>
+函数的最后一个参数是采用 …type 的形式，那么这个函数就可以处理一个变长的参数，这个长度可以为0</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func myFunc(a, b, arg ...int) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>defer 函数<br>
+defer 语句会将函数推迟到外层函数返回之后执行<br>
+推迟调用的函数其参数会立即求值，但直到外层函数返回前该函数都不会被调用<br>
+<mark>使用场景：一般用于释放某些已分配的资源</mark></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	defer fmt.Println(&quot;world&quot;)</span><br><span class="line">	fmt.Println(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hello</span><br><span class="line"></span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+<ul>
+<li>回调<br>
+函数可以作为其它函数的参数进行传递</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	callback(1, Add)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func Add(a, b int) &#123;</span><br><span class="line">	fmt.Printf(&quot;The sum of %d and %d is: %d\n&quot;, a, b, a+b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func callback(y int, f func(int, int)) &#123;</span><br><span class="line">	f(y, 2) // this becomes Add(1, 2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">The sum of 1 and 2 is: 3</span><br><span class="line">## 2. 结构struct与方法method  </span><br><span class="line">    </span><br><span class="line">- 结构体定义的一般方式如下：  </span><br><span class="line"></span><br><span class="line">type identifier struct &#123;</span><br><span class="line"></span><br><span class="line">    field1 type1</span><br><span class="line">    </span><br><span class="line">    field2 type2</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
-<li><p>使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)<br> 访问结构体变量或赋值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">structname.fieldname</span><br><span class="line"></span><br><span class="line">structname.fieldname = value</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>匿名字段和内嵌结构体<br> 结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type A struct &#123;</span><br><span class="line">	ax, ay int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct &#123;</span><br><span class="line">	A</span><br><span class="line">	bx, by float32</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	b := B&#123;A&#123;1, 2&#125;, 3.0, 4.0&#125;</span><br><span class="line">	fmt.Println(b.ax, b.ay, b.bx, b.by)</span><br><span class="line">	fmt.Println(b.A)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1 2 3 4</span><br><span class="line"></span><br><span class="line">&#123;1 2&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>使用 new 函数给一个新的结构体变量分配内存，它返回指向已分配内存的指针：var t *T = new(T)<br>
+访问结构体变量或赋值</li>
 </ol>
-<h4 id="2-1-方法"><a href="#2-1-方法" class="headerlink" title="2.1 方法"></a>2.1 方法</h4><pre><code>结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">structname.fieldname</span><br><span class="line"></span><br><span class="line">structname.fieldname = value</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>匿名字段和内嵌结构体<br>
+结构体可以包含一个或多个 匿名（或内嵌）字段，即这些字段没有显式的名字，只有字段的类型是必须的，此时类型就是字段的名字。匿名字段本身可以是一个结构体类型，即 结构体可以包含内嵌结构体</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type A struct &#123;</span><br><span class="line">	ax, ay int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type B struct &#123;</span><br><span class="line">	A</span><br><span class="line">	bx, by float32</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	b := B&#123;A&#123;1, 2&#125;, 3.0, 4.0&#125;</span><br><span class="line">	fmt.Println(b.ax, b.ay, b.bx, b.by)</span><br><span class="line">	fmt.Println(b.A)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">1 2 3 4</span><br><span class="line"></span><br><span class="line">&#123;1 2&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="21-方法"><a class="markdownIt-Anchor" href="#21-方法"></a> 2.1 方法</h4>
+<pre><code>结构体就像是类的一种简化形式，类似于OOP中有方法的实现，Go 方法是作用在接收者（receiver）上的一个函数，接收者是某种类型的变量。因此方法是一种特殊类型的函数  
 定义方法的一般格式如下：
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func (recv receiver_type) methodName(parameter_list) (return_value_list) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func (recv receiver_type) methodName(parameter_list) (return_value_list) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
 <pre><code>示例：method .go
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type TwoInts struct &#123;</span><br><span class="line">	a int</span><br><span class="line">	b int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	two1 := new(TwoInts)</span><br><span class="line">	two1.a = 12</span><br><span class="line">	two1.b = 10</span><br><span class="line">	fmt.Printf(&quot;The sum is: %d\n&quot;, two1.AddThem())</span><br><span class="line">	fmt.Printf(&quot;Add them to the param: %d\n&quot;, two1.AddToParam(20))</span><br><span class="line">	two2 := TwoInts&#123;3, 4&#125;</span><br><span class="line">	fmt.Printf(&quot;The sum is: %d\n&quot;, two2.AddThem())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (tn *TwoInts) AddThem() int &#123;</span><br><span class="line">	return tn.a + tn.b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (tn *TwoInts) AddToParam(param int) int &#123;</span><br><span class="line">	return tn.a + tn.b + param</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">The sum is: 22</span><br><span class="line"></span><br><span class="line">Add them to the param: 42</span><br><span class="line"></span><br><span class="line">The sum is: 7</span><br></pre></td></tr></table></figure>
+</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type TwoInts struct &#123;</span><br><span class="line">	a int</span><br><span class="line">	b int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	two1 := new(TwoInts)</span><br><span class="line">	two1.a = 12</span><br><span class="line">	two1.b = 10</span><br><span class="line">	fmt.Printf(&quot;The sum is: %d\n&quot;, two1.AddThem())</span><br><span class="line">	fmt.Printf(&quot;Add them to the param: %d\n&quot;, two1.AddToParam(20))</span><br><span class="line">	two2 := TwoInts&#123;3, 4&#125;</span><br><span class="line">	fmt.Printf(&quot;The sum is: %d\n&quot;, two2.AddThem())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (tn *TwoInts) AddThem() int &#123;</span><br><span class="line">	return tn.a + tn.b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (tn *TwoInts) AddToParam(param int) int &#123;</span><br><span class="line">	return tn.a + tn.b + param</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">The sum is: 22</span><br><span class="line"></span><br><span class="line">Add them to the param: 42</span><br><span class="line"></span><br><span class="line">The sum is: 7</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1614,17 +2171,20 @@ var map1 map[string]int
       
         
           
-            <h2 id="Golang-初步介绍"><a href="#Golang-初步介绍" class="headerlink" title="Golang 初步介绍"></a>Golang 初步介绍</h2><p><strong>Golang主要学习资料</strong>   </p>
+            <h2 id="golang-初步介绍"><a class="markdownIt-Anchor" href="#golang-初步介绍"></a> Golang 初步介绍</h2>
+<p><strong>Golang主要学习资料</strong></p>
 <blockquote>
-<p><a href="https://tour.go-zh.org/concurrency/11" target="_blank" rel="noopener">https://tour.go-zh.org/concurrency/11</a><br><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md</a>  </p>
+<p><a href="https://tour.go-zh.org/concurrency/11" target="_blank" rel="noopener">https://tour.go-zh.org/concurrency/11</a><br>
+<a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md</a></p>
 </blockquote>
-<p><strong>1. Golang 初认识</strong>  </p>
+<p><strong>1. Golang 初认识</strong></p>
 <ul>
-<li>吉祥物(囊地鼠Gopher)<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang002.jpg" alt="image">  </li>
+<li>吉祥物(囊地鼠Gopher)<br>
+<img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang002.jpg" alt="image"></li>
 </ul>
-<p><strong>2. Golang使用范围</strong>  </p>
+<p><strong>2. Golang使用范围</strong></p>
 <blockquote>
-<p><a href="https://studygolang.com/articles/4047" target="_blank" rel="noopener">引用自Golang中文社区</a>  </p>
+<p><a href="https://studygolang.com/articles/4047" target="_blank" rel="noopener">引用自Golang中文社区</a></p>
 </blockquote>
 <blockquote>
 <p>1、服务器编程，以前你如果使用C或者C++做的那些事情，用Go来做很合适，例如处理日志、数据打包、虚拟机处理、文件系统等。</p>
@@ -1642,61 +2202,91 @@ var map1 map[string]int
 <p>5、云平台，目前国外很多云平台在采用Go开发，CloudFoundy的部分组建，前VMare的技术总监自己出来搞的apcera云平台。</p>
 </blockquote>
 <blockquote>
-<p>6、游戏服务端的开发   </p>
+<p>6、游戏服务端的开发</p>
 </blockquote>
 <blockquote>
-<p>其他介绍- Go语言适合做什么？<br><a href="https://blog.csdn.net/lmseo5hy/article/details/79654098" target="_blank" rel="noopener">https://blog.csdn.net/lmseo5hy/article/details/79654098</a><br><a href="https://www.zhihu.com/question/21409296" target="_blank" rel="noopener">https://www.zhihu.com/question/21409296</a></p>
+<p>其他介绍- Go语言适合做什么？<br>
+<a href="https://blog.csdn.net/lmseo5hy/article/details/79654098" target="_blank" rel="noopener">https://blog.csdn.net/lmseo5hy/article/details/79654098</a><br>
+<a href="https://www.zhihu.com/question/21409296" target="_blank" rel="noopener">https://www.zhihu.com/question/21409296</a></p>
+</blockquote>
 <ul>
-<li>Golang 只是图谱<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang001.png" alt="image"><br><strong>3. 语言发展介绍与特点</strong>  </li>
-<li>起源与发展<br>Go 语言起源 2007 年，并于 2009 年正式对外发布,该项目的三位领导者：Robert Griesemer，参与开发 Java HotSpot 虚拟机；Rob Pike，贝尔实验室 Unix 团队成员；Ken Thompson，贝尔实验室 Unix 团队成员等<br><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang003.png" alt="image"><br>Go 语言设计者：Griesemer、Thompson 和 Pike  </li>
+<li>Golang 只是图谱<br>
+<img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang001.png" alt="image"><br>
+<strong>3. 语言发展介绍与特点</strong></li>
+<li>起源与发展</li>
 </ul>
+<blockquote>
+<p>Go 语言起源 2007 年，并于 2009 年正式对外发布,该项目的三位领导者：Robert Griesemer，参与开发 Java HotSpot 虚拟机；Rob Pike，贝尔实验室 Unix 团队成员；Ken Thompson，贝尔实验室 Unix 团队成员等<br>
+<img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang003.png" alt="image"><br>
+Go 语言设计者：Griesemer、Thompson 和 Pike</p>
 </blockquote>
 <blockquote>
-<p>发展时间轴   </p>
+<p>发展时间轴</p>
 </blockquote>
 <blockquote>
-<p>2007 年 9 月 21 日：雏形设计<br>2009 年 11 月 10日：首次公开发布<br>2010 年 1 月 8 日：当选 2009 年年度语言<br>2010 年 5 月：谷歌投入使用<br>2011 年 5 月 5 日：Google App Engine 支持 Go 语言</p>
+<p>2007 年 9 月 21 日：雏形设计<br>
+2009 年 11 月 10日：首次公开发布<br>
+2010 年 1 月 8 日：当选 2009 年年度语言<br>
+2010 年 5 月：谷歌投入使用<br>
+2011 年 5 月 5 日：Google App Engine 支持 Go 语言</p>
 </blockquote>
 <ul>
-<li>语言主要特点  </li>
+<li>语言主要特点</li>
 </ul>
 <ol>
-<li>Go 语言使用静态类型，所以它是类型安全的一门语言  </li>
-<li>语言没有类和继承的概念，通过接口（interface）的概念来实现多态性  </li>
+<li>Go 语言使用静态类型，所以它是类型安全的一门语言</li>
+<li>语言没有类和继承的概念，通过接口（interface）的概念来实现多态性</li>
 <li>强类型语言，隐式的类型转换是不被允许</li>
-<li>运行速度快  <blockquote>
-<p>与JAVA速度对比  </p>
-</blockquote>
-</li>
+<li>运行速度快</li>
 </ol>
-<p><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang004.png" alt="image">  </p>
 <blockquote>
-<p>Go 和 Python 在一般开发的平均水平测试中，Go 要比 Python 3 快 25 倍左右，少占用三分之二的内存，但比 Python 大概多写一倍的代码  </p>
+<p>与JAVA速度对比</p>
+</blockquote>
+<p><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/Golang/Golang004.png" alt="image"></p>
+<blockquote>
+<p>Go 和 Python 在一般开发的平均水平测试中，Go 要比 Python 3 快 25 倍左右，少占用三分之二的内存，但比 Python 大概多写一倍的代码</p>
+</blockquote>
 <ol start="5">
-<li>快速编译<br>一般情况下构建一个程序的时间只需要数百毫秒到几秒,避免像 C++ 那样的静态语言漫长编译 </li>
+<li>快速编译</li>
 </ol>
+<blockquote>
+<p>一般情况下构建一个程序的时间只需要数百毫秒到几秒,避免像 C++ 那样的静态语言漫长编译</p>
 </blockquote>
 <blockquote>
-<p>同时Go 语言在执行速度方面也可以与 C/C++ 相提并论。  </p>
+<p>同时Go 语言在执行速度方面也可以与 C/C++ 相提并论。</p>
 </blockquote>
-<p><strong>2. Golang 环境安装与调试配置</strong>   </p>
+<p><strong>2. Golang 环境安装与调试配置</strong></p>
 <blockquote>
-<p>环境：centos7、Go1.9.2 ,Gin </p>
+<p>环境：centos7、Go1.9.2 ,Gin</p>
 </blockquote>
-<p>2.1. 环境变量配置  </p>
+<p>2.1. 环境变量配置</p>
 <blockquote>
-<p>$GOROOT 表示 Go 在电脑上的安装位置<br>$GOBIN 表示编译器和链接器的安装位置<br> $GOPATH  从Go1.1以上，必须分别包含三个规定的目录：src、pkg 和 bin，分别用于存放源码文件、包文件和可执行文件  </p>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>G</mi><mi>O</mi><mi>R</mi><mi>O</mi><mi>O</mi><mi>T</mi><mi mathvariant="normal">表</mi><mi mathvariant="normal">示</mi><mi>G</mi><mi>o</mi><mi mathvariant="normal">在</mi><mi mathvariant="normal">电</mi><mi mathvariant="normal">脑</mi><mi mathvariant="normal">上</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">安</mi><mi mathvariant="normal">装</mi><mi mathvariant="normal">位</mi><mi mathvariant="normal">置</mi></mrow><annotation encoding="application/x-tex">GOROOT 表示 Go 在电脑上的安装位置  
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">G</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord cjk_fallback">表</span><span class="mord cjk_fallback">示</span><span class="mord mathdefault">G</span><span class="mord mathdefault">o</span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">电</span><span class="mord cjk_fallback">脑</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">安</span><span class="mord cjk_fallback">装</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">置</span></span></span></span>GOBIN 表示编译器和链接器的安装位置<br>
+$GOPATH  从Go1.1以上，必须分别包含三个规定的目录：src、pkg 和 bin，分别用于存放源码文件、包文件和可执行文件</p>
 </blockquote>
-<p><strong>步骤：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim  .bashrc   </span><br><span class="line">export GOROOT=$HOME/go  </span><br><span class="line">export PATH=$PATH:$GOROOT/bin  </span><br><span class="line">export GOPATH=$HOME/Applications/Go  </span><br><span class="line">source  .bashrc</span><br></pre></td></tr></table></figure></p>
-<p>2.2. 安装Go1.9.2  </p>
+<p><strong>步骤：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim  .bashrc   </span><br><span class="line">export GOROOT=$HOME/go  </span><br><span class="line">export PATH=$PATH:$GOROOT/bin  </span><br><span class="line">export GOPATH=$HOME/Applications/Go  </span><br><span class="line">source  .bashrc</span><br></pre></td></tr></table></figure>
+<p>2.2. 安装Go1.9.2</p>
 <ul>
-<li>注：安装1.9.2之前必须先安装1.4版本  </li>
+<li>注：安装1.9.2之前必须先安装1.4版本</li>
 </ul>
-<p>安装过程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">wget https://storage.googleapis.com/golang/go1.4.src.tar.gz</span><br><span class="line">tar -zxvf go1.4.src.tar.gz</span><br><span class="line">mv go $GOROOT</span><br><span class="line">cd $GOROOT/src</span><br><span class="line"> ./all.bash</span><br><span class="line">```  </span><br><span class="line">检测是否安装成功:  </span><br><span class="line">&gt;go env，若有输出，则代表安装成功   </span><br><span class="line"></span><br><span class="line">升级成为1.9.2版本</span><br><span class="line">&gt;1. 把安装好的go项目（1.4版本）复制一份到/root/go1.4：  </span><br><span class="line">&gt;2. 重新下载Go1.9.2源码，重新./all.bash ,即可  </span><br><span class="line"></span><br><span class="line">Gin安装 </span><br><span class="line">&gt;go get -u github.com/gin-gonic/gin   </span><br><span class="line"></span><br><span class="line">检测是否安装成功:  </span><br><span class="line">&gt;编写一个test.go文件</span><br></pre></td></tr></table></figure></p>
+<p>安装过程:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">wget https://storage.googleapis.com/golang/go1.4.src.tar.gz</span><br><span class="line">tar -zxvf go1.4.src.tar.gz</span><br><span class="line">mv go $GOROOT</span><br><span class="line">cd $GOROOT/src</span><br><span class="line"> ./all.bash</span><br><span class="line">```  </span><br><span class="line">检测是否安装成功:  </span><br><span class="line">&gt;go env，若有输出，则代表安装成功   </span><br><span class="line"></span><br><span class="line">升级成为1.9.2版本</span><br><span class="line">&gt;1. 把安装好的go项目（1.4版本）复制一份到/root/go1.4：  </span><br><span class="line">&gt;2. 重新下载Go1.9.2源码，重新./all.bash ,即可  </span><br><span class="line"></span><br><span class="line">Gin安装 </span><br><span class="line">&gt;go get -u github.com/gin-gonic/gin   </span><br><span class="line"></span><br><span class="line">检测是否安装成功:  </span><br><span class="line">&gt;编写一个test.go文件</span><br></pre></td></tr></table></figure>
 <p>package main</p>
-<p>import “github.com/gin-gonic/gin”</p>
-<p>func main() {<br>    r := gin.Default()<br>    r.GET(“/ping”, func(c *gin.Context) {<br>        c.JSON(200, gin.H{<br>            “message”: “pong”,<br>        })<br>    })<br>    r.Run() // listen and serve on 0.0.0.0:8080<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;运行  go run test.go，然后访问$HOST:8080/ping，若返回&#123;&quot;message&quot;:&quot;pong&quot;&#125;则安装正确</span><br></pre></td></tr></table></figure></p>
-<p>curl 127.0.0.1:8080/ping<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2.2 调试环境配置  </span><br><span class="line"></span><br><span class="line">*安装调试工具*</span><br><span class="line">&gt; go get -u github.com/derekparker/delve/cmd/dlv  </span><br><span class="line"></span><br><span class="line">&gt;注：安装完成后，copy GoPath路径下bin/dlv 到GoRoot路径下的bin/dlv，dlv命令才可以使用  </span><br><span class="line"></span><br><span class="line">*IDE安装*  </span><br><span class="line">&gt; goland-2017.3.1</span><br><span class="line">```    </span><br><span class="line">    http://www.ddooo.com/softdown/112592.htm  </span><br><span class="line">    破解码：</span><br><span class="line">    http://intellij.mandroid.cn/ </span><br><span class="line">    http://idea.imsxm.com/ </span><br><span class="line">    http://idea.iteblog.com/key.php  </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- 配置远程连接：  </span><br><span class="line">    1.安装插件 Remote Hosts Access   </span><br><span class="line"></span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE1.png)  </span><br><span class="line">    </span><br><span class="line">    2 . 配置远程代码库信息</span><br><span class="line">    </span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE2.png)  </span><br><span class="line">    </span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE3.png)  </span><br><span class="line"></span><br><span class="line">*本地调试*</span><br></pre></td></tr></table></figure></p>
+<p>import “<a href="http://github.com/gin-gonic/gin" target="_blank" rel="noopener">github.com/gin-gonic/gin</a>”</p>
+<p>func main() {<br>
+r := gin.Default()<br>
+r.GET(&quot;/ping&quot;, func(c *gin.Context) {<br>
+c.JSON(200, gin.H{<br>
+“message”: “pong”,<br>
+})<br>
+})<br>
+r.Run() // listen and serve on 0.0.0.0:8080<br>
+}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;运行  go run test.go，然后访问$HOST:8080/ping，若返回&#123;&quot;message&quot;:&quot;pong&quot;&#125;则安装正确</span><br></pre></td></tr></table></figure>
+<p>curl 127.0.0.1:8080/ping</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2.2 调试环境配置  </span><br><span class="line"></span><br><span class="line">*安装调试工具*</span><br><span class="line">&gt; go get -u github.com/derekparker/delve/cmd/dlv  </span><br><span class="line"></span><br><span class="line">&gt;注：安装完成后，copy GoPath路径下bin/dlv 到GoRoot路径下的bin/dlv，dlv命令才可以使用  </span><br><span class="line"></span><br><span class="line">*IDE安装*  </span><br><span class="line">&gt; goland-2017.3.1</span><br><span class="line">```    </span><br><span class="line">    http://www.ddooo.com/softdown/112592.htm  </span><br><span class="line">    破解码：</span><br><span class="line">    http://intellij.mandroid.cn/ </span><br><span class="line">    http://idea.imsxm.com/ </span><br><span class="line">    http://idea.iteblog.com/key.php  </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">- 配置远程连接：  </span><br><span class="line">    1.安装插件 Remote Hosts Access   </span><br><span class="line"></span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE1.png)  </span><br><span class="line">    </span><br><span class="line">    2 . 配置远程代码库信息</span><br><span class="line">    </span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE2.png)  </span><br><span class="line">    </span><br><span class="line">    ![image](https://9526-1256660358.cos.ap-chengdu.myqcloud.com/goIde/GoIDE3.png)  </span><br><span class="line"></span><br><span class="line">*本地调试*</span><br></pre></td></tr></table></figure>
 <pre><code>dlv debug xx.go   
 编译、调试命令使用方法：
 以hello.go 为例
@@ -1727,638 +2317,24 @@ r
 args
 临时设置变量
 set  
-</code></pre><p><code>`</code></p>
-<p><em>远程调试</em>  </p>
-<ol>
-<li>远程服务器启动  <blockquote>
-<p>dlv debug –headless –listen=:2345 –api-version=2 main.go  </p>
-</blockquote>
-</li>
-<li>IDE打开debug模式运行,即可本地debug  <blockquote>
-<p>注：项目不同包中的.go文件不要命名为相同名称，否则debug 文件找不到</p>
-</blockquote>
-</li>
-</ol>
-<p><strong>3. 文中其他参考引用</strong>  </p>
-<blockquote>
-<p><a href="https://blog.csdn.net/csdnnews/article/details/78293757" target="_blank" rel="noopener">https://blog.csdn.net/csdnnews/article/details/78293757</a><br><a href="https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/01.2.md" target="_blank" rel="noopener">https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/01.2.md</a>   </p>
-</blockquote>
+</code></pre>
+<pre class="highlight"><code class>
 
-          
-        
-      
-    </div>
-    
-    
-    
+*远程调试*  
 
-    
+1. 远程服务器启动  
+&gt;dlv debug --headless --listen=:2345 --api-version=2 main.go  
+2. IDE打开debug模式运行,即可本地debug  
+&gt; 注：项目不同包中的.go文件不要命名为相同名称，否则debug 文件找不到
 
-    
 
-    
+**3. 文中其他参考引用**  
+&gt;https://blog.csdn.net/csdnnews/article/details/78293757  
+&gt;https://github.com/Unknwon/the-way-to-go_ZH_CN/blob/master/eBook/01.2.md   
 
-    <footer class="post-footer">
-      
 
-      
 
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/24/Mysql慢查询/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2019/03/24/Mysql慢查询/" itemprop="url">Mysql慢查询</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T14:19:55+08:00">
-                2019-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/database/" itemprop="url" rel="index">
-                    <span itemprop="name">database</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Mysql慢查询日志、分析、优化"><a href="#Mysql慢查询日志、分析、优化" class="headerlink" title="Mysql慢查询日志、分析、优化"></a>Mysql慢查询日志、分析、优化</h2><h2 id="慢查询"><a href="#慢查询" class="headerlink" title="慢查询"></a>慢查询</h2><p><strong>简介：</strong>  </p>
-<ul>
-<li><p>概念：  </p>
-<blockquote>
-<p>MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阀值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。long_query_time的默认值为10，意思是运行10S以上的语句。默认情况下，Mysql数据库并不启动慢查询日志  </p>
-</blockquote>
-</li>
-<li><p>作用：  </p>
-<blockquote>
-<p>开启慢查询日志，MySQL能记录下查询超过指定时间的语句，通过定位分析性能的瓶颈，可以更好的优化数据库系统的性能    </p>
-</blockquote>
-</li>
-<li><p>参数说明：  </p>
-<blockquote>
-<p>slow_query_log 慢查询开启状态<br>slow_query_log_file 慢查询日志存放的位置（这个目录需要MySQL的运行帐号的可写权限，一般设置为MySQL的数据存放目录）<br>long_query_time 查询超过多少秒才记录</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>慢查询设置</strong>：  </p>
-<ol>
-<li>查看慢查询相关参数  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;slow_query%&apos;;</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line">| Variable_name             | Value                            |</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line">| slow_query_log            | OFF                              |</span><br><span class="line">| slow_query_log_file       | /mysql/data/localhost-slow.log   |</span><br><span class="line">+---------------------------+----------------------------------+</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &apos;long_query_time&apos;;</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">| Variable_name   | Value     |</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">| long_query_time | 10.000000 |</span><br><span class="line">+-----------------+-----------+</span><br><span class="line">```  </span><br><span class="line">2. 设置方法  </span><br><span class="line">*方法一:全局变量设置* </span><br><span class="line">&gt;将 slow_query_log 全局变量设置为“ON”状态</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>mysql&gt; set global slow_query_log=’ON’;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;设置慢查询日志存放的位置</span><br></pre></td></tr></table></figure></p>
-<p>mysql&gt; set global slow_query_log_file=’/usr/local/mysql/data/slow.log’;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 查询超过1秒就记录</span><br></pre></td></tr></table></figure></p>
-<p>mysql&gt; set global long_query_time=1;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*方法二:配置文件设置* </span><br><span class="line">&gt;修改配置文件my.cnf，在[mysqld]下的下方加入</span><br></pre></td></tr></table></figure></p>
-<p>[mysqld]<br>slow_query_log = ON<br>slow_query_log_file = /usr/local/mysql/data/slow.log<br>long_query_time = 1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**重启MySQL服务**</span><br></pre></td></tr></table></figure></p>
-<p>service mysqld restart<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**查看设置后的参数**</span><br></pre></td></tr></table></figure></p>
-<p>mysql&gt; show variables like ‘slow_query%’;<br>+———————+——————————–+<br>| Variable_name       | Value                          |<br>+———————+——————————–+<br>| slow_query_log      | ON                             |<br>| slow_query_log_file | /usr/local/mysql/data/slow.log |<br>+———————+——————————–+</p>
-<p>mysql&gt; show variables like ‘long_query_time’;<br>+—————–+———-+<br>| Variable_name   | Value    |<br>+—————–+———-+<br>| long_query_time | 1.000000 |<br>+—————–+———-+<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">**测试**  </span><br><span class="line">-  执行一条慢查询SQL语句  </span><br><span class="line">&gt;mysql&gt; select sleep(2);  </span><br><span class="line">- 查看是否生成慢查询日志  </span><br><span class="line">&gt; ls /usr/local/mysql/data/slow.log</span><br><span class="line"></span><br><span class="line">## 日志分析工具mysqldumpslow</span><br></pre></td></tr></table></figure></p>
-<p>[root@localhost~]# mysqldumpslow –help<br>Usage: mysqldumpslow [ OPTS… ] [ LOGS… ]</p>
-<p>Parse and summarize the MySQL slow query log. Options are</p>
-<p>  –verbose    verbose<br>  –debug      debug<br>  –help       write this text to standard output</p>
-<p>  -v           verbose<br>  -d           debug<br>  -s ORDER     what to sort by (al, at, ar, c, l, r, t), ‘at’ is default<br>                al: average lock time<br>                ar: average rows sent<br>                at: average query time<br>                 c: count<br>                 l: lock time<br>                 r: rows sent<br>                 t: query time<br>  -r           reverse the sort order (largest last instead of first)<br>  -t NUM       just show the top n queries<br>  -a           don’t abstract all numbers to N and strings to ‘S’<br>  -n NUM       abstract numbers with at least n digits within names<br>  -g PATTERN   grep: only consider stmts that include this string<br>  -h HOSTNAME  hostname of db server for <em>-slow.log filename (can be wildcard),<br>               default is ‘</em>‘, i.e. match all<br>  -i NAME      name of server instance (if using mysql.server startup script)<br>  -l           don’t subtract lock time from total time</p>
-<p>mysqldumpslow –help<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- 使用举例</span><br></pre></td></tr></table></figure></p>
-<p>-s, 是表示按照何种方式排序<br>    c: 访问计数</p>
-<pre><code>l: 锁定时间
-
-r: 返回记录
-
-t: 查询时间
-
-al:平均锁定时间
-
-ar:平均返回记录数
-
-at:平均查询时间
-</code></pre><p>-t, 是top n的意思，即为返回前面多少条的数据；<br>-g, 后边可以写一个正则匹配模式，大小写不敏感的；</p>
-<p>比如:<br>得到返回记录集最多的10个SQL。<br>mysqldumpslow -s r -t 10 /database/mysql/mysql06_slow.log</p>
-<p>得到访问次数最多的10个SQL<br>mysqldumpslow -s c -t 10 /database/mysql/mysql06_slow.log</p>
-<p>得到按照时间排序的前10条里面含有左连接的查询语句。<br>mysqldumpslow -s t -t 10 -g “left join” /database/mysql/mysql06_slow.log</p>
-<p>另外建议在使用这些命令时结合 | 和more 使用 ，否则有可能出现刷屏的情况。<br>mysqldumpslow -s r -t 20 /mysqldata/mysql/mysql06-slow.log | more</p>
-<p><code>`</code></p>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p><strong>1. SQL语句优化</strong>  </p>
-<blockquote>
-<p>（1）避免select *，将需要查找的字段列出来<br>（2）使用连接（join）来代替子查询<br>（3）拆分大的delete或insert语句  </p>
-</blockquote>
-<p><strong>2. 选择合适的数据类型</strong>  </p>
-<blockquote>
-<p>（1）使用简单的数据类型，整型比字符处理开销更小，因为字符串的比较更复杂。如，int类型存储时间类型<br>（2）使用合理的字段属性长度，固定长度的表会更快。使用enum、char而不是varchar<br>（3）尽可能使用not null定义字段<br>（4）尽量少用text，非用不可最好分表    </p>
-</blockquote>
-<p><strong>3. 优化LIMIT分页</strong>  </p>
-<ul>
-<li><p>1、offset比较小的时候  </p>
-<blockquote>
-<p>直接使用limit较优  </p>
-</blockquote>
-</li>
-<li><p>2 offset大的时候  </p>
-<blockquote>
-<p>select id,title from collect limit 90000,10 修改为<br>-&gt; select id,title from collect where id&gt;=(select id from collect order by id limit 90000,1) limit 10;  </p>
-</blockquote>
-</li>
-</ul>
-<h2 id="Mysql-索引"><a href="#Mysql-索引" class="headerlink" title="Mysql 索引"></a>Mysql 索引</h2><ol>
-<li>单列索引  <blockquote>
-<p>一个索引只包含单个列</p>
-</blockquote>
-</li>
-</ol>
-<p>2.组合索引  </p>
-<blockquote>
-<p>一个索引包含多个列  </p>
-<ol start="3">
-<li>唯一索引<br>索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一</li>
-</ol>
-</blockquote>
-<hr>
-<p><strong>参考：</strong>  </p>
-<blockquote>
-<p><a href="http://www.cnblogs.com/luyucheng/p/6265594.html" target="_blank" rel="noopener">http://www.cnblogs.com/luyucheng/p/6265594.html</a><br><a href="https://www.cnblogs.com/saneri/p/6656161.html" target="_blank" rel="noopener">https://www.cnblogs.com/saneri/p/6656161.html</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://gollumhome.github.io/gollumhome.github.io/2019/03/17/interview1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Shuai Guo">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/gollumhome.github.io/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="openstack">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gollumhome.github.io/2019/03/17/interview1/" itemprop="url">面试总结1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-17T21:53:10+08:00">
-                2019-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/gollumhome.github.io/categories/面试/" itemprop="url" rel="index">
-                    <span itemprop="name">面试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>面试整理1</strong></p>
-<h2 id="待完善。。"><a href="#待完善。。" class="headerlink" title="待完善。。"></a>待完善。。</h2><p>在我参加的后台开发岗位面试中，主要有以下知识是比较侧重：</p>
-<p>数据库CRUD操作/查询优化以及数据库知识量</p>
-<p>框架的对比和了解/项目具体模块的业务逻辑描述</p>
-<p>常见排序算法</p>
-<p>Linux系统的常用命令和Linux系统了解程度考核</p>
-<p>项目部署用到的服务器的配置和了解程度</p>
-<p>加分项</p>
-<p>数据库基本功必须掌握但同时更重要的是理解为什么和是如何实现的，拓展自己知识面</p>
-<p>Linux系统的底层原理和了解程度</p>
-<p>目前Golang在后端中也逐渐流行，有时间还是需要去掌握</p>
-<p>技术没有终点，保持乐于学习和接受新技术的心态，面试官看重技术能力同时也更看重你的心态</p>
-<p>自信且好学</p>
-<p><strong>面试问题</strong></p>
-<p>问题就给大家了，答案自己去查找吧。只有经过自己努力的东西才会格外珍惜与铭刻。</p>
-<h2 id="1-Python相关"><a href="#1-Python相关" class="headerlink" title="1. Python相关"></a>1. Python相关</h2><p>实现一个单例模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">线程非安全版</span><br><span class="line"></span><br><span class="line">class Singleton(object):</span><br><span class="line">    # 方法1,实现__new__方法</span><br><span class="line">    # 并在将一个类的实例绑定到类变量_instance上,</span><br><span class="line">    # 如果cls._instance为None说明该类还没有实例化过,实例化该类,并返回</span><br><span class="line">    # 如果cls._instance不为None,直接返回cls._instance</span><br><span class="line">    # 定义静态变量实例</span><br><span class="line">    __instance = None</span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not cls.__instance: #if hasattr(cls.&apos;__instance&apos;)非单例对象</span><br><span class="line">            cls.__instance = super(Singleton, cls).__new__(cls, *args, **kwargs)</span><br><span class="line">        return cls.__instance</span><br><span class="line"></span><br><span class="line">    def __init__(self, status_number):</span><br><span class="line">        self.status_number = status_number</span><br><span class="line"></span><br><span class="line">instance1 = Singleton(2)</span><br><span class="line">instance2 = Singleton(4)</span><br><span class="line">print id(instance1)</span><br><span class="line">print id(instance2)</span><br><span class="line">print instance1.status_number</span><br><span class="line">print instance1.status_number</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">39940840</span><br><span class="line">39940840</span><br><span class="line">4</span><br><span class="line">4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">线程非安全版</span><br><span class="line">--------------------------------------------------</span><br><span class="line">#使用元类</span><br><span class="line">class Singleton(type):</span><br><span class="line">    _instance = None</span><br><span class="line"></span><br><span class="line">    def __call__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(cls, &apos;_instance&apos;):</span><br><span class="line">            cls._instance = super(Singleton, cls).__call__(*args, **kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class SingletonChild(object):</span><br><span class="line">    __metaclass__ = Singleton</span><br><span class="line"></span><br><span class="line">instance1 = SingletonChild()</span><br><span class="line">instance2 = SingletonChild()</span><br><span class="line">print id(instance1)</span><br><span class="line">print id(instance2)</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">503241816</span><br><span class="line">503241816</span><br><span class="line"></span><br><span class="line">---------------------------------------------------</span><br><span class="line"></span><br><span class="line">线程安全版：</span><br><span class="line">问题说明：当有多个线程同时去初始化对象时，就很可能同时判断__instance is None，从而进入初始化instance</span><br><span class="line"></span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import threading</span><br><span class="line">from threading import Thread</span><br><span class="line"></span><br><span class="line">Lock = threading.Lock()</span><br><span class="line"></span><br><span class="line">class Singleton(object):</span><br><span class="line">    # 定义静态变量实例</span><br><span class="line">    __instance = None</span><br><span class="line"></span><br><span class="line">    def __init__(self, status_number):</span><br><span class="line">        self.status_number = status_number + 1</span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not cls.__instance:</span><br><span class="line">            try:</span><br><span class="line">                Lock.acquire()</span><br><span class="line">                if not cls.__instance:</span><br><span class="line">                    cls.__instance = super(Singleton, cls).__new__(cls, *args,</span><br><span class="line">                                                                   **kwargs)</span><br><span class="line">            finally:</span><br><span class="line">                Lock.release()</span><br><span class="line">        return cls.__instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def test_singleton_in_thread():</span><br><span class="line">    print id(Singleton(2))</span><br><span class="line">    print Singleton(2).status_number</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    idx = 0</span><br><span class="line">    while 1:</span><br><span class="line">        Thread(target=test_singleton_in_thread, group=None).start()</span><br><span class="line">        idx += 1</span><br><span class="line">        if idx &gt; 0X100:</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">&gt; 1496192</span><br><span class="line">3</span><br><span class="line">41496192</span><br><span class="line">3</span><br><span class="line">41496192</span><br><span class="line">3</span><br></pre></td></tr></table></figure></p>
-<p><strong>实现一个装饰器</strong></p>
-<blockquote>
-<p>装饰器：本质就是一个函数，为其他函数添加附加功能。装饰器=高阶函数+函数嵌套+闭包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#带有不定参数的装饰器</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">def deco(func):</span><br><span class="line">    def wrapper(*args, **kwargs):</span><br><span class="line">        startTime = time.time()</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line">        endTime = time.time()</span><br><span class="line">        msecs = (endTime - startTime)*1000</span><br><span class="line">        print(&quot;time is %d ms&quot; %msecs)</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    f = func</span><br><span class="line">    func2(3,4,5)</span><br><span class="line">    f(3,4)</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p><strong>用Python实现快排</strong></p>
-<p><strong>如果系统中需要很多个Python版本，如何进行Python版本的管理</strong></p>
-<blockquote>
-<p>python 虚机环境隔离 virtualenv</p>
-</blockquote>
-<p><strong>如何实现一个全局变量？(除了global,还可以通过单例模式)</strong></p>
-<h2 id="2-数据库"><a href="#2-数据库" class="headerlink" title="2. 数据库"></a>2. 数据库</h2><p><strong>数据库的数据是实时更新的吗？每点击一次，数据库数据修改一次？</strong></p>
-<blockquote>
-<p>redis 本身的持久化到本地文件，定时任务来写进 mysql</p>
-</blockquote>
-<p><strong>Redis hash的个数</strong></p>
-<p><strong>如何修改Redis数据库的库的个数？&amp;</strong></p>
-<p><strong>Redis数据库如何实现持久化</strong></p>
-<p><strong>Redis数据库支持的数据类型</strong></p>
-<blockquote>
-<p>Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)</p>
-</blockquote>
-<p><strong>Redis使用AOF方式持久化，aof文件不断增大，如何处理？</strong></p>
-<blockquote>
-<p>AOF 简介：Redis的持久化方式之一RDB是通过保存数据库中的键值对来记录数据库的状态。而另一种持久化方式 AOF 则是通过保存Redis服务器所执行的写命令来记录数据库状态</p>
-</blockquote>
-<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A000.png" alt="image"></p>
-<blockquote>
-<p>RDB 持久化方式就是将 str1,str2,str3 这三个键值对保存到 RDB文件中，而 AOF 持久化则是将执行的 set,sadd,lpush 三个命令保存到 AOF 文件中</p>
-</blockquote>
-<blockquote>
-<p>问题产生原因及解决方式：由于AOF持久化是Redis不断将写命令记录到 AOF 文件中，随着Redis不断的进行，AOF 的文件会越来越大，文件越大，占用服务器内存越大以及 AOF 恢复要求时间越长。为了解决这个问题，Redis新增了重写机制，当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩，只保留可以恢复数据的最小指令集。可以使用命令 bgrewriteaof 来重写</p>
-</blockquote>
-<p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A001.png" alt="image"> </p>
-<blockquote>
-<p>如果不进行 AOF 文件重写，那么 AOF 文件将保存四条 SADD 命令，如果使用AOF 重写，那么AOF 文件中将只会保留下面一条命令：</p>
-</blockquote>
-<blockquote>
-<p>sadd animals “dog” “tiger” “panda” “lion” “cat”<br>　　也就是说 AOF 文件重写并不是对原文件进行重新整理，而是直接读取服务器现有的键值对，然后用一条命令去代替之前记录这个键值对的多条命令，生成一个新的文件后去替换原来的 AOF 文件。</p>
-</blockquote>
-<blockquote>
-<p>AOF 文件重写触发机制：通过 redis.conf 配置文件中的 auto-aof-rewrite-percentage：默认值为100，以及auto-aof-rewrite-min-size：64mb 配置，也就是说默认Redis会记录上次重写时的AOF大小，默认配置是当AOF文件大小是上次rewrite后大小的一倍且文件大于64M时触发。</p>
-</blockquote>
-<blockquote>
-<p>这里再提一下，我们知道 Redis 是单线程工作，如果 重写 AOF 需要比较长的时间，那么在重写 AOF 期间，Redis将长时间无法处理其他的命令，这显然是不能忍受的。Redis为了克服这个问题，解决办法是将 AOF 重写程序放到子程序中进行，这样有两个好处  </p>
-</blockquote>
-<blockquote>
-<p>①、子进程进行 AOF 重写期间，服务器进程（父进程）可以继续处理其他命令。</p>
-</blockquote>
-<blockquote>
-<p>②、子进程带有父进程的数据副本，使用子进程而不是线程，可以在避免使用锁的情况下，保证数据的安全性。</p>
-</blockquote>
-<blockquote>
-<p>使用子进程解决了上面的问题，但是新问题也产生了：因为子进程在进行 AOF 重写期间，服务器进程依然在处理其它命令，这新的命令有可能也对数据库进行了修改操作，使得当前数据库状态和重写后的 AOF 文件状态不一致。</p>
-</blockquote>
-<blockquote>
-<p>为了解决这个数据状态不一致的问题，Redis 服务器设置了一个 AOF 重写缓冲区，这个缓冲区是在创建子进程后开始使用，当Redis服务器执行一个写命令之后，就会将这个写命令也发送到 AOF 重写缓冲区。当子进程完成 AOF 重写之后，就会给父进程发送一个信号，父进程接收此信号后，就会调用函数将 AOF 重写缓冲区的内容都写到新的 AOF 文件中。<br>　　这样将 AOF 重写对服务器造成的影响降到了最低。</p>
-</blockquote>
-<p><strong>Redis数据库如何设置密码</strong>  </p>
-<blockquote>
-<p>设置密码命令（默认没密码）<br>127.0.0.1:6379&gt; config set requirepass “xxx”  </p>
-<ul>
-<li>查询密码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">(error) ERR operation not permitted</span><br><span class="line"></span><br><span class="line">密码验证：</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; auth xxx</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">再次查询：</span><br><span class="line"></span><br><span class="line">redis 127.0.0.1:6379&gt; config get requirepass</span><br><span class="line">1) &quot;requirepass&quot;</span><br><span class="line">2) &quot;xxx&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<p><strong>hash表是如何生成的</strong></p>
-<p><strong>MySQL数据库如何使用sql语句插入一条数据</strong>  </p>
-<blockquote>
-<p>insert into table_name ( field1, field2,…fieldN ) values (value1, value2,…valueN );  </p>
-</blockquote>
-<p><strong>MySQL数据库的慢查询有了解过吗</strong><br><a href="https://note.youdao.com/" target="_blank" rel="noopener">link</a></p>
-<p><strong>MySQL数据库如何进行查询优化</strong><br>查看引用文章-<a href="/gollumhome.github.io/2019/03/24/Mysql慢查询/" title="Mysql慢查询">Mysql慢查询</a><br><strong>如何很多请求同时对Redis的同一个键进行访问，如何保证数据安全</strong></p>
-<blockquote>
-<p>利用setnx实现锁  </p>
-</blockquote>
-<p><strong>说说Redis的淘汰机制</strong></p>
-<ul>
-<li>概述：  <blockquote>
-<p>redis 中，允许用户设置最大使用内存大小通过配置redis.conf中的maxmemory这个值来开启内存淘汰功能.  </p>
-</blockquote>
-</li>
-<li>edis 提供 6种数据淘汰策略通过maxmemory-policy设置策略：  <blockquote>
-<ol>
-<li>volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰  </li>
-<li>volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰  </li>
-<li>volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰  </li>
-<li>allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰  </li>
-<li>allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰  </li>
-<li>no-enviction（驱逐）：禁止驱逐数据  </li>
-</ol>
-</blockquote>
-</li>
-</ul>
-<p><strong>MySQL数据库每天晚上12点进行全备份。第二天有员工在9点钟误删除了一个数据库，但在10点钟才被发现。问如何进行恢复被误删除的数据库并同时保留9点到10点钟新增的数据同时不影响业务的正常运行?</strong>   </p>
-<blockquote>
-<p>参考  <a href="http://www.cnblogs.com/kevingrace/p/5904800.html" target="_blank" rel="noopener">http://www.cnblogs.com/kevingrace/p/5904800.html</a><br><strong>当数据越来越多，如何避免hash槽中key出现相同的情况?</strong></p>
-</blockquote>
-<p><strong>MongoDB在哪些场合使用过？</strong></p>
-<blockquote>
-<p>存储非结构性数据</p>
-</blockquote>
-<h2 id="03-项目部署"><a href="#03-项目部署" class="headerlink" title="03. 项目部署"></a>03. 项目部署</h2><p><strong>大家都说Nginx快？快的原因是什么？</strong></p>
-<blockquote>
-<p>Nginx采用epoll模型，异步非阻塞。对于Nginx来说，把一个完整的连接请求处理都划分成了事件，一个一个的事件。比如accept（）， receive（），磁盘I/O，send（）等，每部分都有相应的模块去处理，一个完整的请求可能是由几百个模块去处理。真正核心的就是事件收集和分发模块，这就是管理所有模块的核心。只有核心模块的调度才能让对应的模块占用CPU资源，从而处理请求。拿一个HTTP请求来说，首先在事件收集分发模块注册感兴趣的监听事件，注册好之后不阻塞直接返回，接下来就不需要再管了，等待有连接来了内核会通知你(epoll的轮询会告诉进程)，cpu就可以处理其他事情去了。一旦有请求来，那么对整个请求分配相应的上下文（其实已经预先分配好），这时候再注册新的感兴趣的事件(read函数)，同样客户端数据来了内核会自动通知进程可以去读数据了，读了数据之后就是解析，解析完后去磁盘找资源（I/O），一旦I/O完成会通知进程，进程开始给客户端发回数据send()，这时候也不是阻塞的，调用后就等内核发回通知发送的结果就行。整个下来把一个请求分成了很多个阶段，每个阶段都到很多模块去注册，然后处理，都是异步非阻塞。异步这里指的就是做一个事情，不需要等返回结果，做好了会自动通知你  </p>
-</blockquote>
-<p><strong>对RPC了解吗?</strong></p>
-<ul>
-<li>概念  <blockquote>
-<p>远程过程调用协议，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议,RPC跨越了传输层和应用层。RPC使得开发包括网络分布式多程序在内的应用程序更加容易  </p>
-</blockquote>
-</li>
-<li>组成  </li>
-</ul>
-<ol>
-<li>User</li>
-<li>User-stub<br>3.RPCRuntime</li>
-<li>Server-stub</li>
-<li>Server  </li>
-</ol>
-<ul>
-<li>RPC远程调用过程<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A005.png" alt="image"></li>
-</ul>
-<ol>
-<li><p>首先，要解决通讯的问题，主要是通过在客户端和服务器之间建立TCP连接，远程过程调用的所有交换的数据都在这个连接里传输。连接可以是按需连接，调用结束后就断掉，也可以是长连接，多个远程过程调用共享同一个连接。</p>
-</li>
-<li><p>第二，要解决寻址的问题，也就是说，A服务器上的应用怎么告诉底层的RPC框架，如何连接到B服务器（如主机或IP地址）以及特定的端口，方法的名称名称是什么，这样才能完成调用。比如基于Web服务协议栈的RPC，就要提供一个endpoint<br>URI，或者是从UDDI服务上查找。如果是RMI调用的话，还需要一个RMI Registry来注册服务的地址。</p>
-</li>
-<li><p>第三，当A服务器上的应用发起远程过程调用时，方法的参数需要通过底层的网络协议如TCP传递到B服务器，由于网络协议是基于二进制的，内存中的参数的值要序列化成二进制的形式，也就是序列化（Serialize）或编组（marshal），通过寻址和传输将序列化的二进制发送给B服务器。</p>
-</li>
-<li><p>第四，B服务器收到请求后，需要对参数进行反序列化（序列化的逆操作），恢复为内存中的表达方式，然后找到对应的方法（寻址的一部分）进行本地调用，然后得到返回值。</p>
-</li>
-<li><p>第五，返回值还要发送回服务器A上的应用，也要经过序列化的方式发送，服务器A接到后，再反序列化，恢复为内存中的表达方式，交给A服务器上的应用</p>
-</li>
-</ol>
-<p><strong>如何在服务器上设置业务进程数？</strong>  </p>
-<blockquote>
-<p>Nginx 配置文件 nginx.conf,Nginx 的配置文档 nginx.conf 中可以设置 worker_processes 来更改 Nginx 的进程数量</p>
-</blockquote>
-<p><strong>说说正向代理和反向代理</strong>  </p>
-<ul>
-<li><p>正向代理  </p>
-<blockquote>
-<p>正向代理 是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    resolver 192.168.1.1; #指定DNS服务器IP地址  </span><br><span class="line">    listen 8080;  </span><br><span class="line">    location / &#123;  </span><br><span class="line">        proxy_pass http://$http_host$request_uri; #设定代理服务器的协议和地址  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>反向代理  </p>
-<blockquote>
-<p>以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    location /demo &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8081;</span><br><span class="line">    &#125;</span><br><span class="line">    location /demo1 &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8082;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<h2 id="04-Linux相关"><a href="#04-Linux相关" class="headerlink" title="04. Linux相关"></a>04. Linux相关</h2><p><strong>如何查看剩余内存</strong></p>
-<blockquote>
-<p>top 、free -m  </p>
-</blockquote>
-<p><strong>如何查看端口是否被占用</strong></p>
-<blockquote>
-<ol>
-<li>netstat -tunlp |  |grep   端口号  </li>
-<li>lsof -i:端口号 用于查看某一端口的占用情况   </li>
-<li>ps -ef|grep 16923</li>
-</ol>
-</blockquote>
-<p><strong>如何查看一个程序的PID以及它的所有子进程</strong>  </p>
-<blockquote>
-<p>ps -ef | grep process_name  拿到进程Id<br>pstree -p 进程id  </p>
-</blockquote>
-<p><strong>如何为一个目录下的所有文件添加权限</strong></p>
-<blockquote>
-<p> chmod －R 755 文件夹名   </p>
-</blockquote>
-<p><strong>如果你对一个目录具有写权限，那么你是否具有对这个目录下的所有文件具有删除权限</strong></p>
-<blockquote>
-<p>超级用户无论权限如何，都可以进入目录，进行读写和执行操作，而对于普通用户，进入目录需要执行权限，要显示目录需要读权限，目录下创建文件和删除目录下文件需要对目录拥有写权限<br><strong>对Linux多路复用的理解</strong></p>
-</blockquote>
-<p><strong>修改IP地址的方法</strong>  </p>
-<ul>
-<li>即时生效  <blockquote>
-<p>$ ifconfig eth0 192.168.1.155 netmask 255.255.255.0  </p>
-</blockquote>
-</li>
-<li>重启生效 <blockquote>
-<p>$ vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>$ service network restart</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="05-前端相关"><a href="#05-前端相关" class="headerlink" title="05. 前端相关"></a>05. 前端相关</h2><ol>
-<li>对前端HTML CSS 和 JS了解多少？熟悉吗？<blockquote>
-<p>…  </p>
-</blockquote>
-</li>
-<li>对React和bootstrap了解吗?  <blockquote>
-<p>…  </p>
-</blockquote>
-</li>
-<li>如何进行http优化？(响应头设置Content-Encoding: gzip)  <blockquote>
-<p>…</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="06-网络编程"><a href="#06-网络编程" class="headerlink" title="06. 网络编程"></a>06. 网络编程</h2><p><strong>说一下实现TCP建立连接的过程以及当时进入了什么状态？为什么建立连接只需要3次，断开连接需要4次？为什么断开连接时第二次和第三次要分开，不能合在一起吗？</strong></p>
-<h2 id="07-项目相关"><a href="#07-项目相关" class="headerlink" title="07. 项目相关"></a>07. 项目相关</h2><p><strong>说一下一个请求过来到返回response的过程</strong></p>
-<p><strong>如何实现单点登录</strong></p>
-<p><strong>JWT token是如何进行生成和校验的</strong></p>
-<p><strong>了解过哪些后端框架？Tornado了解吗?</strong></p>
-<p><strong>了解过webapp2吗</strong></p>
-<p><strong>Django如何实现csrf攻击保护</strong></p>
-<p><strong>说说你项目中遇到的困难以及如何解决</strong></p>
-<blockquote>
-<p>…<br>说说你认为自己最有成就感或最深刻的项目<br>…    </p>
-</blockquote>
-<p><strong>对KAFKA了解吗？用过哪些消息队列？使用过RabbitMQ吗?</strong></p>
-<p><strong>08. 版本控制</strong></p>
-<p><strong>如何从远程仓库拉取分支到本地</strong></p>
-<p><strong>如何进行版本回退</strong></p>
-<p> <strong>09. 其他内容</strong></p>
-<p><strong>Celery的原理和应用场景</strong></p>
-<p><strong>Elasticsearch 的原理</strong></p>
-<p><strong>平时是如何学习的?有关注哪些技术?</strong></p>
-<blockquote>
-<p>…</p>
-</blockquote>
-<p><strong>Docker的了解，常用命令，如何暴露端口</strong></p>
-<p><strong>对ERP了解吗？Odoo了解吗?</strong></p>
+</code></pre>
 
           
         
@@ -2446,7 +2422,7 @@ at:平均查询时间
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2457,7 +2433,7 @@ at:平均查询时间
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

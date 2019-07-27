@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="django 缓存参考rul    https://docs.djangoproject.com/en/2.1/topics/cache/https://django-redis-chs.readthedocs.io/zh_CN/latest/  测试版本    django 1.11.5django-redis-4.10.0redis-3.2.0  官网介绍：    项目的setting.py里">
+<meta name="description" content="django 缓存 参考rul  https://docs.djangoproject.com/en/2.1/topics/cache/ https://django-redis-chs.readthedocs.io/zh_CN/latest/  测试版本  django 1.11.5 django-redis-4.10.0 redis-3.2.0  官网介绍：  项目的setting.py里面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django缓存.md">
 <meta property="og:url" content="https://gollumhome.github.io/2019/03/10/django缓存/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="django 缓存参考rul    https://docs.djangoproject.com/en/2.1/topics/cache/https://django-redis-chs.readthedocs.io/zh_CN/latest/  测试版本    django 1.11.5django-redis-4.10.0redis-3.2.0  官网介绍：    项目的setting.py里">
+<meta property="og:description" content="django 缓存 参考rul  https://docs.djangoproject.com/en/2.1/topics/cache/ https://django-redis-chs.readthedocs.io/zh_CN/latest/  测试版本  django 1.11.5 django-redis-4.10.0 redis-3.2.0  官网介绍：  项目的setting.py里面">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-03-10T14:02:45.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django缓存.md">
-<meta name="twitter:description" content="django 缓存参考rul    https://docs.djangoproject.com/en/2.1/topics/cache/https://django-redis-chs.readthedocs.io/zh_CN/latest/  测试版本    django 1.11.5django-redis-4.10.0redis-3.2.0  官网介绍：    项目的setting.py里">
+<meta name="twitter:description" content="django 缓存 参考rul  https://docs.djangoproject.com/en/2.1/topics/cache/ https://django-redis-chs.readthedocs.io/zh_CN/latest/  测试版本  django 1.11.5 django-redis-4.10.0 redis-3.2.0  官网介绍：  项目的setting.py里面">
 
 
 
@@ -341,28 +341,36 @@
       
 
       
-        <h2 id="django-缓存"><a href="#django-缓存" class="headerlink" title="django 缓存"></a>django 缓存</h2><p><strong>参考rul</strong>  </p>
+        <h2 id="django-缓存"><a class="markdownIt-Anchor" href="#django-缓存"></a> django 缓存</h2>
+<p><strong>参考rul</strong></p>
 <blockquote>
-<p><a href="https://docs.djangoproject.com/en/2.1/topics/cache/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.1/topics/cache/</a><br><a href="https://django-redis-chs.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">https://django-redis-chs.readthedocs.io/zh_CN/latest/</a></p>
+<p><a href="https://docs.djangoproject.com/en/2.1/topics/cache/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.1/topics/cache/</a><br>
+<a href="https://django-redis-chs.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">https://django-redis-chs.readthedocs.io/zh_CN/latest/</a></p>
 </blockquote>
-<p><strong>测试版本</strong>  </p>
+<p><strong>测试版本</strong></p>
 <blockquote>
-<p>django 1.11.5<br>django-redis-4.10.0<br>redis-3.2.0</p>
+<p>django 1.11.5<br>
+django-redis-4.10.0<br>
+redis-3.2.0</p>
 </blockquote>
-<p><strong>官网介绍：</strong>  </p>
+<p><strong>官网介绍：</strong></p>
 <blockquote>
-<p>项目的setting.py里面可以通过CACHES配置缓存，django中可用的缓存系统有Memcached、数据库、文件、本地内存等  </p>
+<p>项目的setting.py里面可以通过CACHES配置缓存，django中可用的缓存系统有Memcached、数据库、文件、本地内存等</p>
 </blockquote>
-<p><strong>1.内存数据库Memcached</strong>  </p>
+<p><strong>1.内存数据库Memcached</strong></p>
 <blockquote>
-<p>安装memcached后，还需安装数据库的  </p>
+<p>安装memcached后，还需安装数据库的</p>
 </blockquote>
-<p><strong>2.利用文件系统来缓存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.filebased.FileBasedCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;/var/tmp/django_cache&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>3.数据库来缓存</strong> </p>
+<p><strong>2.利用文件系统来缓存</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.filebased.FileBasedCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;/var/tmp/django_cache&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3.数据库来缓存</strong></p>
 <blockquote>
-<p>首先创建缓存数据库表<br>python manage.py createcachetable<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.db.DatabaseCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;my_cache_table&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先创建缓存数据库表<br>
+python <a href="http://manage.py" target="_blank" rel="noopener">manage.py</a> createcachetable</p>
 </blockquote>
-<p><strong>4. 本地的内存来当缓存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.locmem.LocMemCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;unique-snowflake&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.db.DatabaseCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;my_cache_table&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>4. 本地的内存来当缓存</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CACHES = &#123;</span><br><span class="line">    &apos;default&apos;: &#123;</span><br><span class="line">        &apos;BACKEND&apos;: &apos;django.core.cache.backends.locmem.LocMemCache&apos;,</span><br><span class="line">        &apos;LOCATION&apos;: &apos;unique-snowflake&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -478,7 +486,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -489,7 +497,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -561,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#django-缓存"><span class="nav-number">1.</span> <span class="nav-text">django 缓存</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#django-缓存"><span class="nav-number">1.</span> <span class="nav-text"> django 缓存</span></a></li></ol></div>
             
 
           </div>

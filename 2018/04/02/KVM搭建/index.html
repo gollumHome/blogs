@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="CentOS 7.3 KVM的安装与配置 vm 版本：12.5.7.20721（virbox 不支持） centos 7.3 X641.查看服务器是否支持虚拟化 cat /proc/cpuinfo |grep vmx（出现信息说明支持）2.安装kvm以及需要的依赖包，使用如下命令 yum install -y qemu-kvm qemu-key-tools virt-manager libvirt">
+<meta name="description" content="CentOS 7.3 KVM的安装与配置  vm 版本：12.5.7.20721（virbox 不支持） centos 7.3 X64   1.查看服务器是否支持虚拟化  cat /proc/cpuinfo |grep vmx（出现信息说明支持）   2.安装kvm以及需要的依赖包，使用如下命令  yum install -y qemu-kvm qemu-key-tools virt-manag">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS 7.3 KVM的安装与配置">
 <meta property="og:url" content="https://gollumhome.github.io/2018/04/02/KVM搭建/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="CentOS 7.3 KVM的安装与配置 vm 版本：12.5.7.20721（virbox 不支持） centos 7.3 X641.查看服务器是否支持虚拟化 cat /proc/cpuinfo |grep vmx（出现信息说明支持）2.安装kvm以及需要的依赖包，使用如下命令 yum install -y qemu-kvm qemu-key-tools virt-manager libvirt">
+<meta property="og:description" content="CentOS 7.3 KVM的安装与配置  vm 版本：12.5.7.20721（virbox 不支持） centos 7.3 X64   1.查看服务器是否支持虚拟化  cat /proc/cpuinfo |grep vmx（出现信息说明支持）   2.安装kvm以及需要的依赖包，使用如下命令  yum install -y qemu-kvm qemu-key-tools virt-manag">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="e:kvm1.png">
 <meta property="og:image" content="e:kvm2.png">
@@ -92,7 +92,7 @@
 <meta property="og:updated_time" content="2018-04-06T13:27:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7.3 KVM的安装与配置">
-<meta name="twitter:description" content="CentOS 7.3 KVM的安装与配置 vm 版本：12.5.7.20721（virbox 不支持） centos 7.3 X641.查看服务器是否支持虚拟化 cat /proc/cpuinfo |grep vmx（出现信息说明支持）2.安装kvm以及需要的依赖包，使用如下命令 yum install -y qemu-kvm qemu-key-tools virt-manager libvirt">
+<meta name="twitter:description" content="CentOS 7.3 KVM的安装与配置  vm 版本：12.5.7.20721（virbox 不支持） centos 7.3 X64   1.查看服务器是否支持虚拟化  cat /proc/cpuinfo |grep vmx（出现信息说明支持）   2.安装kvm以及需要的依赖包，使用如下命令  yum install -y qemu-kvm qemu-key-tools virt-manag">
 <meta name="twitter:image" content="e:kvm1.png">
 
 
@@ -345,47 +345,81 @@
       
 
       
-        <h1 id="CentOS-7-3-KVM的安装与配置"><a href="#CentOS-7-3-KVM的安装与配置" class="headerlink" title="CentOS 7.3 KVM的安装与配置"></a>CentOS 7.3 KVM的安装与配置</h1><ul>
+        <h1 id="centos-73-kvm的安装与配置"><a class="markdownIt-Anchor" href="#centos-73-kvm的安装与配置"></a> CentOS 7.3 KVM的安装与配置</h1>
+<ul>
 <li>vm 版本：12.5.7.20721（virbox 不支持）</li>
-<li>centos 7.3 X64<h2 id="1-查看服务器是否支持虚拟化"><a href="#1-查看服务器是否支持虚拟化" class="headerlink" title="1.查看服务器是否支持虚拟化"></a>1.查看服务器是否支持虚拟化</h2></li>
-<li>cat /proc/cpuinfo |grep vmx（出现信息说明支持）<h2 id="2-安装kvm以及需要的依赖包，使用如下命令"><a href="#2-安装kvm以及需要的依赖包，使用如下命令" class="headerlink" title="2.安装kvm以及需要的依赖包，使用如下命令"></a>2.安装kvm以及需要的依赖包，使用如下命令</h2></li>
-<li>yum install -y qemu-kvm qemu-key-tools virt-manager libvirt virt-install   python-virtinst bridge-utils<h2 id="3-证明kvm模块已安装成功"><a href="#3-证明kvm模块已安装成功" class="headerlink" title="3.证明kvm模块已安装成功"></a>3.证明kvm模块已安装成功</h2></li>
+<li>centos 7.3 X64</li>
+</ul>
+<h2 id="1查看服务器是否支持虚拟化"><a class="markdownIt-Anchor" href="#1查看服务器是否支持虚拟化"></a> 1.查看服务器是否支持虚拟化</h2>
+<ul>
+<li>cat /proc/cpuinfo |grep vmx（出现信息说明支持）</li>
+</ul>
+<h2 id="2安装kvm以及需要的依赖包使用如下命令"><a class="markdownIt-Anchor" href="#2安装kvm以及需要的依赖包使用如下命令"></a> 2.安装kvm以及需要的依赖包，使用如下命令</h2>
+<ul>
+<li>yum install -y qemu-kvm qemu-key-tools virt-manager libvirt virt-install   python-virtinst bridge-utils</li>
+</ul>
+<h2 id="3证明kvm模块已安装成功"><a class="markdownIt-Anchor" href="#3证明kvm模块已安装成功"></a> 3.证明kvm模块已安装成功</h2>
+<ul>
 <li>lsmod |grep kvm</li>
 </ul>
 <ol>
-<li>kvm_intel             148081  0 </li>
-<li>kvm                   461126  1 kvm_intel<h2 id="4-加载KVM模块"><a href="#4-加载KVM模块" class="headerlink" title="4.加载KVM模块"></a>4.加载KVM模块</h2></li>
+<li>kvm_intel             148081  0</li>
+<li>kvm                   461126  1 kvm_intel</li>
 </ol>
+<h2 id="4加载kvm模块"><a class="markdownIt-Anchor" href="#4加载kvm模块"></a> 4.加载KVM模块</h2>
 <ul>
 <li>#modprobe kvm</li>
-<li>#modprobe kvm_intel<h2 id="5-开启kvm服务，并且设置其开机自动启动"><a href="#5-开启kvm服务，并且设置其开机自动启动" class="headerlink" title="5.开启kvm服务，并且设置其开机自动启动"></a>5.开启kvm服务，并且设置其开机自动启动</h2></li>
-<li>systemctl start libvirtd<br>systemctl enable libvirtd<h2 id="6-配置桥接网卡"><a href="#6-配置桥接网卡" class="headerlink" title="6.配置桥接网卡"></a>6.配置桥接网卡</h2></li>
+<li>#modprobe kvm_intel</li>
+</ul>
+<h2 id="5开启kvm服务并且设置其开机自动启动"><a class="markdownIt-Anchor" href="#5开启kvm服务并且设置其开机自动启动"></a> 5.开启kvm服务，并且设置其开机自动启动</h2>
+<ul>
+<li>systemctl start libvirtd<br>
+systemctl enable libvirtd</li>
+</ul>
+<h2 id="6配置桥接网卡"><a class="markdownIt-Anchor" href="#6配置桥接网卡"></a> 6.配置桥接网卡</h2>
+<ul>
 <li>cp /etc/sysconfig/network-scripts/ifcfg-ens33 /etc/sysconfig/network-scripts/ifcfg-br0</li>
-<li>修改ifcfg-eth0，只需在最后加上“BRIDGE=br0”，将其桥接到br0,br0文件配置（TYPE=Birdge,BOOTPROTO=static,DEVICE=br0,ip,mask,gateway,dns）<h2 id="7-重启网卡使之生效"><a href="#7-重启网卡使之生效" class="headerlink" title="7.重启网卡使之生效"></a>7.重启网卡使之生效</h2></li>
-<li>systemctl restart network.service<h2 id="8-创建ISO镜像"><a href="#8-创建ISO镜像" class="headerlink" title="8.创建ISO镜像"></a>8.创建ISO镜像</h2></li>
-<li>dd if=/dev/cdrom of=/opt/Centos-7.1.iso(镜像地址)<h2 id="9-创建虚拟机硬盘"><a href="#9-创建虚拟机硬盘" class="headerlink" title="9.创建虚拟机硬盘"></a>9.创建虚拟机硬盘</h2></li>
-<li>qemu-img create -f qcow2 /kvmdir/centos7.1.img 4G(先创建目录与文件)（不能创建.raw格式,否则安装vnc安装镜像时磁盘不识别）<h2 id="10-创建虚拟机（出错概率大）"><a href="#10-创建虚拟机（出错概率大）" class="headerlink" title="10.创建虚拟机（出错概率大）"></a>10.创建虚拟机（出错概率大）</h2></li>
-<li>virt-install –name Centos –virt-type kvm –ram 1024 –cdrom=/opt/CentOS-7.1.iso –disk path=/kvmdir/centos7.1.img –graphics vnc,listen=0.0.0.0,port=5920</li>
+<li>修改ifcfg-eth0，只需在最后加上“BRIDGE=br0”，将其桥接到br0,br0文件配置（TYPE=Birdge,BOOTPROTO=static,DEVICE=br0,ip,mask,gateway,dns）</li>
+</ul>
+<h2 id="7重启网卡使之生效"><a class="markdownIt-Anchor" href="#7重启网卡使之生效"></a> 7.重启网卡使之生效</h2>
+<ul>
+<li>systemctl restart network.service</li>
+</ul>
+<h2 id="8创建iso镜像"><a class="markdownIt-Anchor" href="#8创建iso镜像"></a> 8.创建ISO镜像</h2>
+<ul>
+<li>dd if=/dev/cdrom of=/opt/Centos-7.1.iso(镜像地址)</li>
+</ul>
+<h2 id="9创建虚拟机硬盘"><a class="markdownIt-Anchor" href="#9创建虚拟机硬盘"></a> 9.创建虚拟机硬盘</h2>
+<ul>
+<li>qemu-img create -f qcow2 /kvmdir/centos7.1.img 4G(先创建目录与文件)（不能创建.raw格式,否则安装vnc安装镜像时磁盘不识别）</li>
+</ul>
+<h2 id="10创建虚拟机出错概率大"><a class="markdownIt-Anchor" href="#10创建虚拟机出错概率大"></a> 10.创建虚拟机（出错概率大）</h2>
+<ul>
+<li>virt-install --name Centos --virt-type kvm --ram 1024 --cdrom=/opt/CentOS-7.1.iso --disk path=/kvmdir/centos7.1.img --graphics vnc,listen=0.0.0.0,port=5920</li>
 </ul>
 <ol>
 <li>错误1</li>
 </ol>
 <ul>
 <li><img src="e:kvm1.png" alt="image"></li>
-<li>解决： virsh list –all 查看虚拟机名字 2.virsh destroy vm_name;virsh undefine vm_name 3. 重新安装虚拟机</li>
+<li>解决： virsh list --all 查看虚拟机名字 2.virsh destroy vm_name;virsh undefine vm_name 3. 重新安装虚拟机</li>
 </ul>
 <ol start="2">
 <li>错误</li>
 </ol>
 <ul>
 <li><img src="e:kvm2.png" alt="image"></li>
-<li>解决：port=5920 重新换个端口号<h2 id="11-安装VNC-服务器"><a href="#11-安装VNC-服务器" class="headerlink" title="11.安装VNC 服务器"></a>11.安装VNC 服务器</h2></li>
-<li>yum install tigervnc-server -y<h3 id="配置-VNC"><a href="#配置-VNC" class="headerlink" title="配置 VNC"></a>配置 VNC</h3></li>
+<li>解决：port=5920 重新换个端口号</li>
 </ul>
+<h2 id="11安装vnc-服务器"><a class="markdownIt-Anchor" href="#11安装vnc-服务器"></a> 11.安装VNC 服务器</h2>
+<ul>
+<li>yum install tigervnc-server -y</li>
+</ul>
+<h3 id="配置-vnc"><a class="markdownIt-Anchor" href="#配置-vnc"></a> 配置 VNC</h3>
 <ol>
 <li>在 /etc/systemd/system/ 目录里创建一个配置文件。可以将 /lib/systemd/sytem/vncserver@.service 拷贝一份配置文件范例过来</li>
 <li>cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service</li>
-<li>打开 /etc/systemd/system/vncserver@:1.service ，找到下面这几行，用自己的用户名替换掉 </li>
+<li>打开 /etc/systemd/system/vncserver@:1.service ，找到下面这几行，用自己的用户名替换掉</li>
 </ol>
 <ul>
 <li>ExecStart=/sbin/runuser -l <user>-c “/usr/bin/vncserver %i”</user></li>
@@ -396,18 +430,28 @@
 </ul>
 <ol>
 <li>ExecStart=/sbin/runuser -l root -c “/usr/bin/vncserver %i”</li>
-<li>PIDFile=/root/.vnc/%H%i.pid<br>###　重启 systemd </li>
+<li>PIDFile=/root/.vnc/%H%i.pid<br>
+###　重启 systemd</li>
 <li>systemctl daemon-reload</li>
 </ol>
 <ul>
 <li>设置一下用户的 VNC 密码</li>
 </ul>
 <ol>
-<li>vncpasswd<h3 id="开启VNC服务"><a href="#开启VNC服务" class="headerlink" title="开启VNC服务"></a>开启VNC服务</h3></li>
+<li>vncpasswd</li>
+</ol>
+<h3 id="开启vnc服务"><a class="markdownIt-Anchor" href="#开启vnc服务"></a> 开启VNC服务</h3>
+<ol>
 <li>systemctl enable vncserver@:1.service</li>
-<li>systemctl start vncserver@:1.service<h3 id="打开防火墙上的5920端口-或关闭防火墙"><a href="#打开防火墙上的5920端口-或关闭防火墙" class="headerlink" title="打开防火墙上的5920端口(或关闭防火墙)"></a>打开防火墙上的5920端口(或关闭防火墙)</h3></li>
+<li>systemctl start vncserver@:1.service</li>
+</ol>
+<h3 id="打开防火墙上的5920端口或关闭防火墙"><a class="markdownIt-Anchor" href="#打开防火墙上的5920端口或关闭防火墙"></a> 打开防火墙上的5920端口(或关闭防火墙)</h3>
+<ol>
 <li>systemctl stop firewalld.service</li>
-<li>systemctl disable firewalld.service<h2 id="安装gnome图形界面程序-VNC需要-官网下载"><a href="#安装gnome图形界面程序-VNC需要-官网下载" class="headerlink" title="安装gnome图形界面程序(VNC需要-官网下载)"></a>安装gnome图形界面程序(VNC需要-官网下载)</h2></li>
+<li>systemctl disable firewalld.service</li>
+</ol>
+<h2 id="安装gnome图形界面程序vnc需要-官网下载"><a class="markdownIt-Anchor" href="#安装gnome图形界面程序vnc需要-官网下载"></a> 安装gnome图形界面程序(VNC需要-官网下载)</h2>
+<ol>
 <li>yum groupinstall “GNOME Desktop” “Graphical Administration Tools”</li>
 </ol>
 <ul>
@@ -541,7 +585,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,7 +596,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -624,7 +668,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS-7-3-KVM的安装与配置"><span class="nav-number">1.</span> <span class="nav-text">CentOS 7.3 KVM的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-查看服务器是否支持虚拟化"><span class="nav-number">1.1.</span> <span class="nav-text">1.查看服务器是否支持虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装kvm以及需要的依赖包，使用如下命令"><span class="nav-number">1.2.</span> <span class="nav-text">2.安装kvm以及需要的依赖包，使用如下命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-证明kvm模块已安装成功"><span class="nav-number">1.3.</span> <span class="nav-text">3.证明kvm模块已安装成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-加载KVM模块"><span class="nav-number">1.4.</span> <span class="nav-text">4.加载KVM模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-开启kvm服务，并且设置其开机自动启动"><span class="nav-number">1.5.</span> <span class="nav-text">5.开启kvm服务，并且设置其开机自动启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-配置桥接网卡"><span class="nav-number">1.6.</span> <span class="nav-text">6.配置桥接网卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-重启网卡使之生效"><span class="nav-number">1.7.</span> <span class="nav-text">7.重启网卡使之生效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-创建ISO镜像"><span class="nav-number">1.8.</span> <span class="nav-text">8.创建ISO镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-创建虚拟机硬盘"><span class="nav-number">1.9.</span> <span class="nav-text">9.创建虚拟机硬盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-创建虚拟机（出错概率大）"><span class="nav-number">1.10.</span> <span class="nav-text">10.创建虚拟机（出错概率大）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-安装VNC-服务器"><span class="nav-number">1.11.</span> <span class="nav-text">11.安装VNC 服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-VNC"><span class="nav-number">1.11.1.</span> <span class="nav-text">配置 VNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启VNC服务"><span class="nav-number">1.11.2.</span> <span class="nav-text">开启VNC服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开防火墙上的5920端口-或关闭防火墙"><span class="nav-number">1.11.3.</span> <span class="nav-text">打开防火墙上的5920端口(或关闭防火墙)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装gnome图形界面程序-VNC需要-官网下载"><span class="nav-number">1.12.</span> <span class="nav-text">安装gnome图形界面程序(VNC需要-官网下载)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#centos-73-kvm的安装与配置"><span class="nav-number">1.</span> <span class="nav-text"> CentOS 7.3 KVM的安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1查看服务器是否支持虚拟化"><span class="nav-number">1.1.</span> <span class="nav-text"> 1.查看服务器是否支持虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2安装kvm以及需要的依赖包使用如下命令"><span class="nav-number">1.2.</span> <span class="nav-text"> 2.安装kvm以及需要的依赖包，使用如下命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3证明kvm模块已安装成功"><span class="nav-number">1.3.</span> <span class="nav-text"> 3.证明kvm模块已安装成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4加载kvm模块"><span class="nav-number">1.4.</span> <span class="nav-text"> 4.加载KVM模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5开启kvm服务并且设置其开机自动启动"><span class="nav-number">1.5.</span> <span class="nav-text"> 5.开启kvm服务，并且设置其开机自动启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6配置桥接网卡"><span class="nav-number">1.6.</span> <span class="nav-text"> 6.配置桥接网卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7重启网卡使之生效"><span class="nav-number">1.7.</span> <span class="nav-text"> 7.重启网卡使之生效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8创建iso镜像"><span class="nav-number">1.8.</span> <span class="nav-text"> 8.创建ISO镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9创建虚拟机硬盘"><span class="nav-number">1.9.</span> <span class="nav-text"> 9.创建虚拟机硬盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10创建虚拟机出错概率大"><span class="nav-number">1.10.</span> <span class="nav-text"> 10.创建虚拟机（出错概率大）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11安装vnc-服务器"><span class="nav-number">1.11.</span> <span class="nav-text"> 11.安装VNC 服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-vnc"><span class="nav-number">1.11.1.</span> <span class="nav-text"> 配置 VNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启vnc服务"><span class="nav-number">1.11.2.</span> <span class="nav-text"> 开启VNC服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开防火墙上的5920端口或关闭防火墙"><span class="nav-number">1.11.3.</span> <span class="nav-text"> 打开防火墙上的5920端口(或关闭防火墙)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装gnome图形界面程序vnc需要-官网下载"><span class="nav-number">1.12.</span> <span class="nav-text"> 安装gnome图形界面程序(VNC需要-官网下载)</span></a></li></ol></li></ol></div>
             
 
           </div>

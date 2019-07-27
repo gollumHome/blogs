@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="DVR 分布式虚拟路由（Neutron Distributed Virtual Routing）    Juno版本的trunk中已经合入了DVR相关的代码     未使用DVR    东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈      启用DVR    对于东西向的流量， 流量会直接在计算节点之间传递。对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果">
+<meta name="description" content="DVR 分布式虚拟路由（Neutron Distributed Virtual Routing）  Juno版本的trunk中已经合入了DVR相关的代码  未使用DVR  东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈   启用DVR  对于东西向的流量， 流量会直接在计算节点之间传递。 对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果没有floating">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neutron_DVR">
 <meta property="og:url" content="https://gollumhome.github.io/2019/05/03/Neutron-DVR/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="DVR 分布式虚拟路由（Neutron Distributed Virtual Routing）    Juno版本的trunk中已经合入了DVR相关的代码     未使用DVR    东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈      启用DVR    对于东西向的流量， 流量会直接在计算节点之间传递。对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果">
+<meta property="og:description" content="DVR 分布式虚拟路由（Neutron Distributed Virtual Routing）  Juno版本的trunk中已经合入了DVR相关的代码  未使用DVR  东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈   启用DVR  对于东西向的流量， 流量会直接在计算节点之间传递。 对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果没有floating">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr1.png">
 <meta property="og:image" content="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr2.png">
 <meta property="og:updated_time" content="2019-05-03T14:42:04.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Neutron_DVR">
-<meta name="twitter:description" content="DVR 分布式虚拟路由（Neutron Distributed Virtual Routing）    Juno版本的trunk中已经合入了DVR相关的代码     未使用DVR    东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈      启用DVR    对于东西向的流量， 流量会直接在计算节点之间传递。对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果">
+<meta name="twitter:description" content="DVR 分布式虚拟路由（Neutron Distributed Virtual Routing）  Juno版本的trunk中已经合入了DVR相关的代码  未使用DVR  东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈   启用DVR  对于东西向的流量， 流量会直接在计算节点之间传递。 对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果没有floating">
 <meta name="twitter:image" content="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr1.png">
 
 
@@ -344,17 +344,20 @@
       
 
       
-        <h2 id="DVR"><a href="#DVR" class="headerlink" title="DVR"></a>DVR</h2><p> 分布式虚拟路由（Neutron Distributed Virtual Routing）  </p>
+        <h2 id="dvr"><a class="markdownIt-Anchor" href="#dvr"></a> DVR</h2>
+<p>分布式虚拟路由（Neutron Distributed Virtual Routing）</p>
 <blockquote>
-<p>Juno版本的trunk中已经合入了DVR相关的代码  </p>
+<p>Juno版本的trunk中已经合入了DVR相关的代码</p>
 </blockquote>
-<p> <em>未使用DVR</em>  </p>
+<p><em>未使用DVR</em></p>
 <blockquote>
-<p>东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈  </p>
+<p>东西向和南北向的流量会集中到网络节点，这会使网络节点成为瓶颈</p>
 </blockquote>
-<p> <img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr1.png" alt="image"><br> <em>启用DVR</em>  </p>
+<p><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr1.png" alt="image"><br>
+<em>启用DVR</em></p>
 <blockquote>
-<p>对于东西向的流量， 流量会直接在计算节点之间传递。<br>对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果没有floating ip，则会走网络节点   </p>
+<p>对于东西向的流量， 流量会直接在计算节点之间传递。<br>
+对于南北向的流量，如果有floating ip，流量就直接走计算节点。如果没有floating ip，则会走网络节点</p>
 </blockquote>
 <p><img src="https://9527-1256660358.cos.ap-shanghai.myqcloud.com/neutron/dvr2.png" alt="image"></p>
 
@@ -390,6 +393,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/gollumhome.github.io/2019/07/24/xss-refelected-md/" rel="prev" title="xss_refelected.md">
+                xss_refelected.md <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -468,7 +475,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -479,7 +486,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -551,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DVR"><span class="nav-number">1.</span> <span class="nav-text">DVR</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dvr"><span class="nav-number">1.</span> <span class="nav-text"> DVR</span></a></li></ol></div>
             
 
           </div>

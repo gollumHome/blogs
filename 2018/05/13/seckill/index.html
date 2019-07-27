@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="京东自动登录注：本文所做操作皆以京东web为例 包含：xpath,splinter,ocr 遇到的坑：    登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行 12browser.fill(&amp;quot;loginname&amp;quot;, name)  # 填写账户密码browser.fill(&amp;quot;nloginpwd&amp;quot;, passwd) 报错信息 1selenium.co">
+<meta name="description" content="京东自动登录 注：本文所做操作皆以京东web为例 包含：xpath,splinter,ocr 遇到的坑：   登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行 12browser.fill(&amp;quot;loginname&amp;quot;, name)  # 填写账户密码browser.fill(&amp;quot;nloginpwd&amp;quot;, passwd) 报错信息 1selenium.c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="seckill">
 <meta property="og:url" content="https://gollumhome.github.io/2018/05/13/seckill/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="京东自动登录注：本文所做操作皆以京东web为例 包含：xpath,splinter,ocr 遇到的坑：    登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行 12browser.fill(&amp;quot;loginname&amp;quot;, name)  # 填写账户密码browser.fill(&amp;quot;nloginpwd&amp;quot;, passwd) 报错信息 1selenium.co">
+<meta property="og:description" content="京东自动登录 注：本文所做操作皆以京东web为例 包含：xpath,splinter,ocr 遇到的坑：   登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行 12browser.fill(&amp;quot;loginname&amp;quot;, name)  # 填写账户密码browser.fill(&amp;quot;nloginpwd&amp;quot;, passwd) 报错信息 1selenium.c">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-13T13:44:44.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="seckill">
-<meta name="twitter:description" content="京东自动登录注：本文所做操作皆以京东web为例 包含：xpath,splinter,ocr 遇到的坑：    登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行 12browser.fill(&amp;quot;loginname&amp;quot;, name)  # 填写账户密码browser.fill(&amp;quot;nloginpwd&amp;quot;, passwd) 报错信息 1selenium.co">
+<meta name="twitter:description" content="京东自动登录 注：本文所做操作皆以京东web为例 包含：xpath,splinter,ocr 遇到的坑：   登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行 12browser.fill(&amp;quot;loginname&amp;quot;, name)  # 填写账户密码browser.fill(&amp;quot;nloginpwd&amp;quot;, passwd) 报错信息 1selenium.c">
 
 
 
@@ -341,11 +341,13 @@
       
 
       
-        <h2 id="京东自动登录"><a href="#京东自动登录" class="headerlink" title="京东自动登录"></a>京东自动登录</h2><p>注：本文所做操作皆以京东web为例</p>
+        <h2 id="京东自动登录"><a class="markdownIt-Anchor" href="#京东自动登录"></a> 京东自动登录</h2>
+<p>注：本文所做操作皆以京东web为例</p>
 <p>包含：xpath,splinter,ocr</p>
-<p>遇到的坑：  </p>
+<p>遇到的坑：</p>
 <ol>
-<li><p>登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行</p>
+<li>
+<p>登录页面通过查看网页元素，能看到账户，密码唯一id，但是执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">browser.fill(&quot;loginname&quot;, name)  # 填写账户密码</span><br><span class="line">browser.fill(&quot;nloginpwd&quot;, passwd)</span><br></pre></td></tr></table></figure>
 <p>报错信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">selenium.common.exceptions.InvalidElementStateException: Message: invalid element state: Element is not currently interactable and may not be manipulated</span><br></pre></td></tr></table></figure>
@@ -356,9 +358,9 @@
 <p>2.京东验证吗</p>
 <p>注：京东验证码阻塞了俩天，通过搜索知道京东验证码由三部分组成；</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acid，uid，yys三部分拼装而成，acid，uid为固定值，可以从页面直接抓取，yys为随机生成的13为字符串，拼装而成的验证码例如url=https://authcode.jd.com/verify/image?a=1&amp;acid=b6ff1eca-e3e5-4692-904b-be35da5f0752&amp;uid=b6ff1eca-e3e5-4692-904b-be35da5f0752&amp;yys=5436761901589</span><br></pre></td></tr></table></figure>
-<p> 过程1. requests 请求url获取一直ok,通过requests返回值result, 查看result.text发现返回的为京东首页的html网页内容，显然有误，查看返回302代码，重定向。定位问题，应该是访问url,ok.requests headers 有误。然后添加了cookie，返回200</p>
-<p> 过程2.  返回200，查看返回数据，发现一堆乱码，以为是编码问题，打印result.encoding,返回None,应该不是编码问题。经搜索，返回如果是图片，应该是二进制数据，所以乱码。尝试保存数据到硬盘，发现验证码图片保存成功。</p>
-<p> 过程3. 调用百度ocr接口，实现验证码识别，准确度不高，有待提高</p>
+<p>过程1. requests 请求url获取一直ok,通过requests返回值result, 查看result.text发现返回的为京东首页的html网页内容，显然有误，查看返回302代码，重定向。定位问题，应该是访问url,ok.requests headers 有误。然后添加了cookie，返回200</p>
+<p>过程2.  返回200，查看返回数据，发现一堆乱码，以为是编码问题，打印result.encoding,返回None,应该不是编码问题。经搜索，返回如果是图片，应该是二进制数据，所以乱码。尝试保存数据到硬盘，发现验证码图片保存成功。</p>
+<p>过程3. 调用百度ocr接口，实现验证码识别，准确度不高，有待提高</p>
 </li>
 </ol>
 <p>代码地址:</p>
@@ -478,7 +480,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -489,7 +491,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -561,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#京东自动登录"><span class="nav-number">1.</span> <span class="nav-text">京东自动登录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#京东自动登录"><span class="nav-number">1.</span> <span class="nav-text"> 京东自动登录</span></a></li></ol></div>
             
 
           </div>

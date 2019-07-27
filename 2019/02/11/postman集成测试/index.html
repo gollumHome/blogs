@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="postman 集成测试变量可以分为全局变量、环境变量、集合变量    collection variable 集合变量，只在所属集合下生效   environment variable 环境变量，只在变量所属环境下生效   global variable 全局变量，在所有环境下都生效(即使环境为No Environment)    Pre-Request-Script &amp;amp; Tests-S">
+<meta name="description" content="postman 集成测试 变量可以分为全局变量、环境变量、集合变量  collection variable 集合变量，只在所属集合下生效 environment variable 环境变量，只在变量所属环境下生效 global variable 全局变量，在所有环境下都生效(即使环境为No Environment)   Pre-Request-Script &amp;amp; Tests-Script">
 <meta property="og:type" content="article">
 <meta property="og:title" content="postman集成测试">
 <meta property="og:url" content="https://gollumhome.github.io/2019/02/11/postman集成测试/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="postman 集成测试变量可以分为全局变量、环境变量、集合变量    collection variable 集合变量，只在所属集合下生效   environment variable 环境变量，只在变量所属环境下生效   global variable 全局变量，在所有环境下都生效(即使环境为No Environment)    Pre-Request-Script &amp;amp; Tests-S">
+<meta property="og:description" content="postman 集成测试 变量可以分为全局变量、环境变量、集合变量  collection variable 集合变量，只在所属集合下生效 environment variable 环境变量，只在变量所属环境下生效 global variable 全局变量，在所有环境下都生效(即使环境为No Environment)   Pre-Request-Script &amp;amp; Tests-Script">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman4.png">
 <meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman1.png">
@@ -95,7 +95,7 @@
 <meta property="og:updated_time" content="2019-02-27T14:06:50.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="postman集成测试">
-<meta name="twitter:description" content="postman 集成测试变量可以分为全局变量、环境变量、集合变量    collection variable 集合变量，只在所属集合下生效   environment variable 环境变量，只在变量所属环境下生效   global variable 全局变量，在所有环境下都生效(即使环境为No Environment)    Pre-Request-Script &amp;amp; Tests-S">
+<meta name="twitter:description" content="postman 集成测试 变量可以分为全局变量、环境变量、集合变量  collection variable 集合变量，只在所属集合下生效 environment variable 环境变量，只在变量所属环境下生效 global variable 全局变量，在所有环境下都生效(即使环境为No Environment)   Pre-Request-Script &amp;amp; Tests-Script">
 <meta name="twitter:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman4.png">
 
 
@@ -348,22 +348,32 @@
       
 
       
-        <h2 id="postman-集成测试"><a href="#postman-集成测试" class="headerlink" title="postman 集成测试"></a>postman 集成测试</h2><p>变量可以分为全局变量、环境变量、集合变量  </p>
+        <h2 id="postman-集成测试"><a class="markdownIt-Anchor" href="#postman-集成测试"></a> postman 集成测试</h2>
+<p>变量可以分为全局变量、环境变量、集合变量</p>
 <ol>
-<li>collection variable 集合变量，只在所属集合下生效  </li>
-<li>environment variable 环境变量，只在变量所属环境下生效  </li>
-<li>global variable 全局变量，在所有环境下都生效(即使环境为No Environment)  </li>
+<li>collection variable 集合变量，只在所属集合下生效</li>
+<li>environment variable 环境变量，只在变量所属环境下生效</li>
+<li>global variable 全局变量，在所有环境下都生效(即使环境为No Environment)</li>
 </ol>
-<h3 id="Pre-Request-Script-amp-Tests-Script"><a href="#Pre-Request-Script-amp-Tests-Script" class="headerlink" title="Pre-Request-Script &amp; Tests-Script"></a>Pre-Request-Script &amp; Tests-Script</h3><ol>
+<h3 id="pre-request-script-tests-script"><a class="markdownIt-Anchor" href="#pre-request-script-tests-script"></a> Pre-Request-Script &amp; Tests-Script</h3>
+<ol>
 <li>在发送请求之前，编写Pre-Request-Script，为请求参数进行加密处理、参数化等处理</li>
-<li>接收到请求响应后，编写Tests-Script，制定响应断言、处理返回的数据  </li>
+<li>接收到请求响应后，编写Tests-Script，制定响应断言、处理返回的数据</li>
 </ol>
 <p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman4.png" alt="image"></p>
 <ul>
-<li>设置环境变量<br>分为当前环境、全局环境，当前环境局部有效，全局环境全局有效<br>环境配置，右上角点击眼睛<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman1.png" alt="image"><br>配置环境变量<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman2.png" alt="image"></li>
-<li>配置cooKie<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman3.png" alt="image">    </li>
-<li>引用环境变量host,预设置参数值-初始化<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman5.png" alt="image"></li>
-<li>返回数据处理，断言或者关联变量设置<br><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman7.png" alt="image"></li>
+<li>设置环境变量<br>
+分为当前环境、全局环境，当前环境局部有效，全局环境全局有效<br>
+环境配置，右上角点击眼睛<br>
+<img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman1.png" alt="image"><br>
+配置环境变量<br>
+<img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman2.png" alt="image"></li>
+<li>配置cooKie<br>
+<img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman3.png" alt="image"></li>
+<li>引用环境变量host,预设置参数值-初始化<br>
+<img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman5.png" alt="image"></li>
+<li>返回数据处理，断言或者关联变量设置<br>
+<img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/postman/postman7.png" alt="image"></li>
 </ul>
 
       
@@ -480,7 +490,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -491,7 +501,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -563,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#postman-集成测试"><span class="nav-number">1.</span> <span class="nav-text">postman 集成测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pre-Request-Script-amp-Tests-Script"><span class="nav-number">1.1.</span> <span class="nav-text">Pre-Request-Script &amp; Tests-Script</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#postman-集成测试"><span class="nav-number">1.</span> <span class="nav-text"> postman 集成测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pre-request-script-tests-script"><span class="nav-number">1.1.</span> <span class="nav-text"> Pre-Request-Script &amp; Tests-Script</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="redis基础篇1. 安装目录结构     ①、redis-server：Redis服务器   　　②、redis-cli：Redis命令行客户端   　　③、redis-benchmark：Redis性能测试工具   　　④、redis-check-aof：AOF文件修复工具   　　⑤、redis-check-rdb：RDB文件检查工具    2.启动redis  默认配置启动 $ cd sr">
+<meta name="description" content="redis基础篇 1. 安装目录结构   ①、redis-server：Redis服务器   ②、redis-cli：Redis命令行客户端   ③、redis-benchmark：Redis性能测试工具   ④、redis-check-aof：AOF文件修复工具   ⑤、redis-check-rdb：RDB文件检查工具  2.启动redis  默认配置启动   $ cd src $ ./re">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis基础篇">
 <meta property="og:url" content="https://gollumhome.github.io/2019/03/16/redis基础篇/index.html">
 <meta property="og:site_name" content="openstack">
-<meta property="og:description" content="redis基础篇1. 安装目录结构     ①、redis-server：Redis服务器   　　②、redis-cli：Redis命令行客户端   　　③、redis-benchmark：Redis性能测试工具   　　④、redis-check-aof：AOF文件修复工具   　　⑤、redis-check-rdb：RDB文件检查工具    2.启动redis  默认配置启动 $ cd sr">
+<meta property="og:description" content="redis基础篇 1. 安装目录结构   ①、redis-server：Redis服务器   ②、redis-cli：Redis命令行客户端   ③、redis-benchmark：Redis性能测试工具   ④、redis-check-aof：AOF文件修复工具   ⑤、redis-check-rdb：RDB文件检查工具  2.启动redis  默认配置启动   $ cd src $ ./re">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A002.png">
 <meta property="og:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A003.png">
@@ -92,7 +92,7 @@
 <meta property="og:updated_time" content="2019-03-16T14:59:57.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis基础篇">
-<meta name="twitter:description" content="redis基础篇1. 安装目录结构     ①、redis-server：Redis服务器   　　②、redis-cli：Redis命令行客户端   　　③、redis-benchmark：Redis性能测试工具   　　④、redis-check-aof：AOF文件修复工具   　　⑤、redis-check-rdb：RDB文件检查工具    2.启动redis  默认配置启动 $ cd sr">
+<meta name="twitter:description" content="redis基础篇 1. 安装目录结构   ①、redis-server：Redis服务器   ②、redis-cli：Redis命令行客户端   ③、redis-benchmark：Redis性能测试工具   ④、redis-check-aof：AOF文件修复工具   ⑤、redis-check-rdb：RDB文件检查工具  2.启动redis  默认配置启动   $ cd src $ ./re">
 <meta name="twitter:image" content="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A002.png">
 
 
@@ -345,46 +345,51 @@
       
 
       
-        <h2 id="redis基础篇"><a href="#redis基础篇" class="headerlink" title="redis基础篇"></a>redis基础篇</h2><p><strong>1. 安装目录结构</strong>  </p>
+        <h2 id="redis基础篇"><a class="markdownIt-Anchor" href="#redis基础篇"></a> redis基础篇</h2>
+<p><strong>1. 安装目录结构</strong></p>
 <p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A002.png" alt="image"></p>
 <blockquote>
 <p>①、redis-server：Redis服务器</p>
 </blockquote>
 <blockquote>
-<p>　　②、redis-cli：Redis命令行客户端</p>
+<p>②、redis-cli：Redis命令行客户端</p>
 </blockquote>
 <blockquote>
-<p>　　③、redis-benchmark：Redis性能测试工具</p>
+<p>③、redis-benchmark：Redis性能测试工具</p>
 </blockquote>
 <blockquote>
-<p>　　④、redis-check-aof：AOF文件修复工具</p>
+<p>④、redis-check-aof：AOF文件修复工具</p>
 </blockquote>
 <blockquote>
-<p>　　⑤、redis-check-rdb：RDB文件检查工具  </p>
+<p>⑤、redis-check-rdb：RDB文件检查工具</p>
 </blockquote>
 <p><strong>2.启动redis</strong></p>
 <ul>
-<li>默认配置启动<blockquote>
-<p>$ cd src<br>$ ./redis-server</p>
-</blockquote>
-</li>
-<li><p>定配置文件启动</p>
+<li>默认配置启动</li>
+</ul>
 <blockquote>
-<p>$ cd src<br>$ ./redis-server  ../redis.conf  </p>
+<p>$ cd src<br>
+$ ./redis-server</p>
 </blockquote>
-</li>
-<li><p>启动成功页面  </p>
-</li>
+<ul>
+<li>定配置文件启动</li>
+</ul>
+<blockquote>
+<p>$ cd src<br>
+$ ./redis-server  …/redis.conf</p>
+</blockquote>
+<ul>
+<li>启动成功页面</li>
 </ul>
 <p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A003.png" alt="image"></p>
 <blockquote>
-<p>　注意：此种方式启动 Redis，当关闭命令窗口时，则 redis-server 程序也结束了，这显然是不友好的，我们需要将Redis设置为以守护进程的方式进行启动  </p>
+<p>注意：此种方式启动 Redis，当关闭命令窗口时，则 redis-server 程序也结束了，这显然是不友好的，我们需要将Redis设置为以守护进程的方式进行启动</p>
 </blockquote>
 <p><img src="https://9526-1256660358.cos.ap-chengdu.myqcloud.com/Q%26A/Q%26A004.png" alt="image"></p>
 <blockquote>
-<p>在 redis.conf 文件中，找到daemonize，将其设置为yes即可：重新启动redis即可  </p>
+<p>在 redis.conf 文件中，找到daemonize，将其设置为yes即可：重新启动redis即可</p>
 </blockquote>
-<p><strong>3.关闭redis</strong>  </p>
+<p><strong>3.关闭redis</strong></p>
 <blockquote>
 <p>①、redis-cli shutdown：安全关闭，但是只适用于没有配置密码的场景（一般情况下不会给Redis设置密码）。</p>
 </blockquote>
@@ -506,7 +511,7 @@
               
                 <a href="/gollumhome.github.io/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -517,7 +522,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/gollumhome.github.io/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -589,7 +594,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis基础篇"><span class="nav-number">1.</span> <span class="nav-text">redis基础篇</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis基础篇"><span class="nav-number">1.</span> <span class="nav-text"> redis基础篇</span></a></li></ol></div>
             
 
           </div>
